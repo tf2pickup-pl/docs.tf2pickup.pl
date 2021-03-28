@@ -5,6 +5,7 @@ module.exports = {
       label: 'About tf2pickup.pl',
       items: [
         'about',
+        'faq',
         'create-a-page',
         'create-a-document',
         'create-a-blog-post',
