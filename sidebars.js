@@ -6,11 +6,6 @@ module.exports = {
       items: [
         'about',
         'faq',
-        'create-a-page',
-        'create-a-document',
-        'create-a-blog-post',
-        'markdown-features',
-        'thank-you',
       ],
     },
     {
