@@ -1,7 +1,7 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'tf2pickup.pl',
-  tagline: 'A Team Fortress 2 pick-up games',
+  tagline: 'Team Fortress 2 pick-up games',
   url: 'https://docs.tf2pickup.pl',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -14,7 +14,7 @@ module.exports = {
       title: 'tf2pickup.pl',
       logo: {
         alt: 'tf2pickup.pl logo',
-        src: 'img/logo.svg',
+        src: 'img/logo.png',
       },
       items: [
         {
@@ -25,7 +25,7 @@ module.exports = {
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/tf2pickup-pl',
           label: 'GitHub',
           position: 'right',
         },
@@ -38,26 +38,26 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'Getting Started',
-              to: 'docs/',
+              label: 'About tf2pickup.pl',
+              to: 'docs/about',
             },
+            {
+              label: 'For pickup admins',
+              to: 'docs/responsibilities-and-powers'
+            },
+            {
+              label: 'For server admins',
+              to: 'docs/components'
+            }
           ],
         },
         {
           title: 'Community',
           items: [
             {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
               label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
+              href: 'https://discord.gg/5w6WF7xFZp',
+            }
           ],
         },
         {
@@ -69,7 +69,7 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/tf2pickup-pl',
             },
           ],
         },
@@ -83,13 +83,11 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl:
             'https://github.com/tf2pickup-pl/docs.tf2pickup.pl/edit/master/website/',
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
           editUrl:
             'https://github.com/tf2pickup-pl/docs.tf2pickup.pl/edit/master/website/blog/',
         },
