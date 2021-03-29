@@ -21,15 +21,11 @@ players and put them in two teams that face each other.
 
 ---
 
-#### Is that a replacement of tf2center.com/pugchamp.gg/hlpugs.tf? What is the difference between you and them?
+#### Is that a replacement of TF2Center/PugChamp/HLPugs.tf? What is the difference between you and them?
 
-tf2pickup.pl by no means tries to replace other 
-
----
-
-#### How does the balancing work?
-
-When all the players 
+Rather than a replacement, we would like to see tf2pickup.pl as supplement to what is already established.
+For quite some time now there has been lack of service allowing less-experienced but still willing to learn players to play
+at least somewhat serious matches. tf2pickup.pl aims exactly at filling that niche.
 
 ---
 
@@ -73,11 +69,5 @@ Yes, but there is no automatic reservation system implemented yet, so you would 
 
 #### Will there ever be a website for international/regional pickups (wider than national)? If yes, when?
 
-We have a glimpse of a plan to launch European pickups, but there are quite some things that need to be sorted out first.
+We have a glimpse of a plan to launch European pickups, but there are quite a lot of things that need to be sorted out first.
 We do not plan on running any other pickup service on our own.
-
----
-
-#### Is tf2pickup.pl supposed to be for everyone?
-
-
