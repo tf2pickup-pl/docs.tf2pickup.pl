@@ -4,7 +4,7 @@ title: About
 
 ## The goal
 
-tf2pickup.pl is a place where any competitive Team Fortress 2 player can play a well-balanced match, ...
+tf2pickup.org is a service for every Team Fortress 2 competitive player to find their place.
 
 It is a place for the beginners to play with more experienced players and learn from them, as well as for those
 who have been playing competitive Team Fortress 2 for quite some time now and want to relax with their favorite game.
