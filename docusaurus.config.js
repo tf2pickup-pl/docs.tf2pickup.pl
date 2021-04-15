@@ -74,7 +74,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © 2021 tf2pickup.pl, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © 2021 tf2pickup.org, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -84,12 +84,12 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/tf2pickup-org/docs.tf2pickup.pl/edit/master',
+            'https://github.com/tf2pickup-org/docs.tf2pickup.org/edit/master',
         },
         blog: {
           showReadingTime: true,
           editUrl:
-            'https://github.com/tf2pickup-org/docs.tf2pickup.pl/edit/master/blog/',
+            'https://github.com/tf2pickup-org/docs.tf2pickup.org/edit/master/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
