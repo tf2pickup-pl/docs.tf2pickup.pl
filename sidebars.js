@@ -20,6 +20,7 @@ module.exports = {
       label: 'For server admins',
       items: [
         'components',
+        'reverse-proxy-deployment',
       ],
     },
   ],
