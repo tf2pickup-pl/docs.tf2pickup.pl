@@ -2,18 +2,18 @@
 module.exports = {
   title: 'tf2pickup.pl',
   tagline: 'Team Fortress 2 pick-up games',
-  url: 'https://docs.tf2pickup.pl',
+  url: 'https://docs.tf2pickup.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'tf2pickup.pl',
-  projectName: 'docs.tf2pickup.pl',
+  organizationName: 'tf2pickup.org',
+  projectName: 'docs.tf2pickup.org',
   themeConfig: {
     navbar: {
-      title: 'tf2pickup.pl',
+      title: 'tf2pickup.org',
       logo: {
-        alt: 'tf2pickup.pl logo',
+        alt: 'tf2pickup.com logo',
         src: 'img/logo.png',
       },
       items: [
@@ -38,7 +38,7 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'About tf2pickup.pl',
+              label: 'About tf2pickup.org',
               to: 'docs/about',
             },
             {
