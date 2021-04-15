@@ -26,7 +26,7 @@ and welcoming environment where everyone interested in 6v6 format could find the
 At first it was only the Polish service for 6v6 game mode, but soon enough we learned there is a demand for more game modes in more
 countries. After [tf2pickup.pl](https://tf2pickup.pl/) initial success, we launched [hl.tf2pickup.pl](https://hl.tf2pickup.pl/),
 Polish 9v9 and [tf2pickup.es](https://tf2pickup.es/), Spanish 6v6 pickups. Currently, we have also founded
-[French](https://tf2pickup.fr/), [Czech](https://tf2pickup.cz/) and [German](https://tf2pickup.de/) 6v6 pickups and we are looking
+[French](https://tf2pickup.fr/), [Czech/Slovak](https://tf2pickup.cz/), [German](https://tf2pickup.de/), [Post-Yugoslavian](https://yu.tf2pickup.eu) and [Finnish](https://tf2pickup.fi) 6v6 pickups and we are looking
 forward to seeing many more.
 
 ## What tf2pickup.pl is
