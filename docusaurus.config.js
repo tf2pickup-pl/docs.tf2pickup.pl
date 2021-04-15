@@ -18,14 +18,14 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
+          to: 'docs/about',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/tf2pickup-pl',
+          href: 'https://github.com/tf2pickup-org',
           label: 'GitHub',
           position: 'right',
         },
@@ -69,7 +69,7 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/tf2pickup-pl',
+              href: 'https://github.com/tf2pickup-org',
             },
           ],
         },
@@ -84,12 +84,12 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/tf2pickup-pl/docs.tf2pickup.pl/edit/master/website/',
+            'https://github.com/tf2pickup-org/docs.tf2pickup.pl/edit/master/website/',
         },
         blog: {
           showReadingTime: true,
           editUrl:
-            'https://github.com/tf2pickup-pl/docs.tf2pickup.pl/edit/master/website/blog/',
+            'https://github.com/tf2pickup-org/docs.tf2pickup.pl/edit/master/website/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
