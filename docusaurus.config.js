@@ -84,12 +84,20 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
+<<<<<<< HEAD
             'https://github.com/tf2pickup-org/docs.tf2pickup.org/edit/master',
+=======
+            'https://github.com/tf2pickup-org/docs.tf2pickup.pl/edit/master',
+>>>>>>> c9a93da (refactor: edit edit links to the repository on website)
         },
         blog: {
           showReadingTime: true,
           editUrl:
+<<<<<<< HEAD
             'https://github.com/tf2pickup-org/docs.tf2pickup.org/edit/master/blog/',
+=======
+            'https://github.com/tf2pickup-org/docs.tf2pickup.pl/edit/master/blog/',
+>>>>>>> c9a93da (refactor: edit edit links to the repository on website)
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
