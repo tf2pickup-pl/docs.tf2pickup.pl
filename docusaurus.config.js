@@ -1,6 +1,6 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: 'tf2pickup.pl',
+  title: 'tf2pickup.org',
   tagline: 'Team Fortress 2 pick-up games',
   url: 'https://docs.tf2pickup.org',
   baseUrl: '/',

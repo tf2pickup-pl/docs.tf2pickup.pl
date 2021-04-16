@@ -2,7 +2,7 @@ module.exports = {
   docs: [
     {
       type: 'category',
-      label: 'About tf2pickup.pl',
+      label: 'About tf2pickup.org',
       items: [
         'about',
         'faq',
