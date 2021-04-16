@@ -78,7 +78,7 @@ certbot 1.14.0
 
 The certificate obtaining process is going to be based on the DNS-01 method with Cloudflare API use.
 
-In order to install the Cerbot with Cloudflare DNS API plugin, you should execut the following commands:
+In order to install the Cerbot with Cloudflare DNS API plugin, you should execute the following commands:
 
 ```sh
 # apt install snapd
@@ -199,7 +199,7 @@ map $http_upgrade $connection_upgrade {
 }
 server {
         listen 80;
-        listen [::]:80;
+        #listen [::]:80; #IPv6 specific entry
         server_name yu.tf2pickup.de;
         return 302 https://tf2pickup.de$request_uri;
 }
@@ -207,7 +207,7 @@ server {
         access_log /var/log/nginx/tf2pickup.de-access.log;
         error_log /var/log/nginx/tf2pickup.de-error.log;
         listen 443 ssl http2;
-        listen [::]:443 ssl http2;
+        #listen [::]:443 ssl http2; #IPv6 specific entry
         server_name tf2pickup.de;
         ssl_certificate /etc/letsencrypt/live/tf2pickup.de/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/tf2pickup.de/privkey.pem;
@@ -236,7 +236,7 @@ map $http_upgrade $connection_upgrade {
 }
 server {
         listen 80;
-        listen [::]:80;
+        #listen [::]:80; #IPv6 specific entry
         server_name api.tf2pickup.de;
         return 302 https://api.tf2pickup.de$request_uri;
 }
@@ -244,7 +244,7 @@ server {
         access_log /var/log/nginx/api.tf2pickup.de-access.log;
         error_log /var/log/nginx/api.tf2pickup.de-error.log;
         listen 443 ssl http2;
-        listen [::]:443 ssl http2;
+        #listen [::]:443 ssl http2; #IPv6 specific entry
         server_name api.tf2pickup.de;
         ssl_certificate /etc/letsencrypt/live/tf2pickup.de/fullchain.pem;
         ssl_certificate_key /etc/letsencrypt/live/tf2pickup.de/privkey.pem;
@@ -280,3 +280,8 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 Otherwise, you should get a list of errors listed with file names and line numbers of the files containing the errors. Fix them and when you manage to get the test to be successful, restart the service by executing `systemctl restart nginx.service` and make sure the Nginx is started after every boot by executing `systemctl enable nginx.service`.
+
+## HSTS Preload
+
+In order to get the highest score in the site configuration tests, HSTS Preload should be configured for the domain. The Nginx configuration files meet the requirements for it and most of the browsers add the domains to their preload list automatically, but this is not a case for Chromium-based browsers, such as Google Chrome. For them, you are supposed to [register the site](https://hstspreload.org). The process is straightforward - you just have to enter the domain name, check boxes approving your domain ownership and accepting the service terms. After doing so, the website will check if your domain is eligible for the submission on the list and if yes, your domain will be added in a matter of a few days.
+![hsts preload example](/img/content/hsts-preload.png)
