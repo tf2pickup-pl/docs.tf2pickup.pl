@@ -13,7 +13,7 @@ module.exports = {
     navbar: {
       title: 'tf2pickup.org',
       logo: {
-        alt: 'tf2pickup.com logo',
+        alt: 'tf2pickup.org logo',
         src: 'img/logo.png',
       },
       items: [
