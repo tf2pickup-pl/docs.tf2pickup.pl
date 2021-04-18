@@ -14,13 +14,13 @@ The following guide should be taken as an example, which is based on:
 - Nginx as a reverse proxy,
 - tf2pickup.org client and server hosted as containers on ports TCP 3000 for the server and TCP 4000 for the client.
 
-Following to these instructions should lead to a configuration assessed as [A+ in Qualsys SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=tf2pickup.de) and [A+ in Mozilla Observatory](https://observatory.mozilla.org/analyze/tf2pickup.de) tests. Most of the configuration examples given are based on configuration from the [tf2pickup.de](https://tf2pickup.de) website.
+Following these instructions should lead to configuration assessed as [A+ in Qualsys SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=tf2pickup.de) and [A+ in Mozilla Observatory](https://observatory.mozilla.org/analyze/tf2pickup.de) tests. Most of the configuration examples given are based on configuration from the [tf2pickup.de](https://tf2pickup.de) website.
 
 ## Domain name setup
 
-We encourage for purchasing domains in [OVH](https://www.ovh.com/world/domains/dotdomains.xml) since they provide an API allowing for dynamic DNS zone updates (also, since we have experience with it, we can provide help with it at some point). If a pickup domain was not purchased on OVH nor any [domain registrar for which certbot DNS API plugin was made](https://certbot.eff.org/docs/using.html?highlight=dns#dns-plugins), we encourage you for parking the DNS domain zone in Cloudflare, since they provide their domain zone management services for free and their API is pretty easy to use.
+We encourage you to purchase domains in [OVH](https://www.ovh.com/world/domains/dotdomains.xml) since they provide an API allowing for dynamic DNS zone updates (also, since we have experience with it, we can provide help with it at some point). If a pickup domain was not purchased on OVH nor any [domain registrar for which certbot DNS API plugin was made](https://certbot.eff.org/docs/using.html?highlight=dns#dns-plugins), we encourage you for parking the DNS domain zone in Cloudflare, since they provide their domain zone management services for free and their API is pretty easy to use.
 
-In order to move a domain zone from a current site to Cloudflare, you are supposed to create an account on Cloudflare and add a domain you own. After that, you will be asked for changing the nameserver (NS) entries for servers given by the Cloudflare. There are always two entries given and they should replace current entries in the domain zone.
+In order to move a domain zone from the current site to Cloudflare, you are supposed to create an account on Cloudflare and add a domain you own. After that, you will be asked for change the nameserver (NS) entries for servers given by the Cloudflare. There are always two entries given and they should replace current entries in the domain zone.
 
 In this specific case there were 4 NS entries and the domain owner had to change them to 2 NS entries, which are `annabel.ns.cloudflare.com` and `bradley.ns.cloudflare.com`:
 ![DNS nameservers list in OVH settings](/img/content/change-dns-nameservers.png).
@@ -39,7 +39,7 @@ A pickup domain should contain at least two `A` entries, but this configuration 
 |   `AAAA`   | `api.tf2pickup.fi` |       host IPv6 address       |    n/d   |
 |    `CAA`   | `api.tf2pickup.fi` | `0 issuewild letsencrypt.org` |    n/d   |
 
-Usage of AAAA entries is optional. If you do not want to handle IPv6 on Docker, feel free to actually not use these. We encourage to use [CAA entry](https://support.dnsimple.com/articles/caa-record/) alongside Let's Encrypt certificates. Since most of the sites host the tf2pickup.org client, server with Mumble and the TF2 gameserver, we suggest to not use DNS proxying since at some point it is meaningless, since it is for hiding the real host IP where we cannot do it for the gameservers as most likely proxying gameserver traffic would notably increase latency between players and the gameserver.
+Usage of AAAA entries is optional. If you do not want to handle IPv6 on Docker, feel free to actually not use these. We encourage to use [CAA entry](https://support.dnsimple.com/articles/caa-record/) alongside Let's Encrypt certificates. Since most of the sites host the tf2pickup.org client, server with Mumble and the TF2 gameserver, we suggest not to use DNS proxying since at some point it is meaningless, since it is for hiding the real host IP where we cannot do it for the gameservers as most likely proxying gameserver traffic would notably increase latency between players and the gameserver.
 
 We suggest to change the following settings in Cloudflare:
 
@@ -89,9 +89,9 @@ In order to install the Cerbot with Cloudflare DNS API plugin, you should execut
 # snap install certbot-dns-cloudflare
 ```
 
-Before getting certificates, a Cloudflare API token must be prepared for that based on the instructions given in a [certbot-dns-cloudflare guide](https://certbot-dns-cloudflare.readthedocs.io/en/stable/), with usage of the *restricted API token*. The next commands expect the token to be saved in a file `/root/.secrets/cloudflare` with file permissions of `600`.
+Before getting certificates, a Cloudflare API token must be prepared for that based on the instructions given in a [certbot-dns-cloudflare guide](https://certbot-dns-cloudflare.readthedocs.io/en/stable/), with usage of the *restricted API token*. The next commands expect the token to be saved in the `/root/.secrets/cloudflare` file with file permissions of `600`.
 
-After that, certificate should be able to generate by the command (the `--agree-tos` and `-email` parameters must be given on a first certificate):
+After that, certificate should be able to be created by using the command (the `--agree-tos` and `-email` parameters must be given on a first certificate):
 
 ```sh
 certbot certonly --non-interactive -d 'tf2pickup.de' -d '*.tf2pickup.de' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple --agree-tos --email your-mailbox@you-are-really-using.com
@@ -103,9 +103,9 @@ In case of failure most likely you:
 - have Global API key with a user account email instead of the restricted API key,
 - invalid file syntax,
 - invalid token file permissions (not 600),
-- does not have a DNS server connection working.
+- do not have a DNS server connection working.
 
-When certificate is obtained, we suggest you to leave this two commands in a root crontab file (opened by a command `crontab -e` as root):
+When certificate is obtained, we suggest you to leave these two commands in the root crontab file (opened by a command `crontab -e` as root):
 
 ```crontab
 0  1   20 * *   certbot certonly --non-interactive -d 'tf2pickup.de' -d '*.tf2pickup.de' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple
@@ -114,7 +114,7 @@ When certificate is obtained, we suggest you to leave this two commands in a roo
 
 ## Nginx setup
 
-Nginx should be installed by a command:
+Nginx should be installed by the following command:
 
 ```sh
 # apt install nginx
@@ -126,7 +126,7 @@ After the installation, delete all files existing in `/etc/nginx/sites-available
 # openssl dhparam -out /etc/letsencrypt/ssl-dhparams.pem 4096
 ```
 
-After that, (re)place the following files on their respective location. Make sure you will change the domain names/SSL certificate folder names in the configuration files:
+After that, (re)place the following files in their respective locations. Make sure you will change the domain names/SSL certificate folder names in the configuration files:
 
 `/etc/nginx/nginx.conf`:
 
@@ -271,7 +271,7 @@ After placing those files, make sure to create symlinks to them in the `/etc/ngi
 # ln -s /etc/nginx/sites-available/tf2pickup.de /etc/nginx/sites-enabled/tf2pickup.de
 ```
 
-When that is done, nginx should use these configs. Execute `nginx -t` in order to check if all configuration files are valid. You should expect that output:
+When that is done, nginx should use these configs. Execute `nginx -t` in order to check if all configuration files are valid. You should expect the following output:
 
 ```sh
 # nginx -t
@@ -283,5 +283,5 @@ Otherwise, you should get a list of errors listed with file names and line numbe
 
 ## HSTS Preload
 
-In order to get the highest score in the site configuration tests, HSTS Preload should be configured for the domain. The Nginx configuration files meet the requirements for it and most of the browsers add the domains to their preload list automatically, but this is not a case for Chromium-based browsers, such as Google Chrome. For them, you are supposed to [register the site](https://hstspreload.org). The process is straightforward - you just have to enter the domain name, check boxes approving your domain ownership and accepting the service terms. After doing so, the website will check if your domain is eligible for the submission on the list and if yes, your domain will be added in a matter of a few days.
+In order to get the highest score in the site configuration tests, HSTS Preload should be configured for the domain. The Nginx configuration files meet the requirements for it and most of the browsers add the domains to their preload list automatically, but this is not the case for Chromium-based browsers, such as Google Chrome. For them, you are supposed to [register the site](https://hstspreload.org). The process is straightforward - you just have to enter the domain name, check boxes approving your domain ownership and accepting the service terms. After doing so, the website will check if your domain is eligible for the submission on the list and if yes, your domain will be added in a matter of a few days.
 ![hsts preload example](/img/content/hsts-preload.png)
