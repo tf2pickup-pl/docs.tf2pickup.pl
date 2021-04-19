@@ -2,7 +2,7 @@ module.exports = {
   docs: [
     {
       type: 'category',
-      label: 'About tf2pickup.pl',
+      label: 'About tf2pickup.org',
       items: [
         'about',
         'faq',
@@ -20,6 +20,7 @@ module.exports = {
       label: 'For server admins',
       items: [
         'components',
+        'reverse-proxy-deployment',
       ],
     },
   ],

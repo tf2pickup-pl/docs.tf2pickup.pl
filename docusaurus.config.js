@@ -1,31 +1,31 @@
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: 'tf2pickup.pl',
+  title: 'tf2pickup.org',
   tagline: 'Team Fortress 2 pick-up games',
-  url: 'https://docs.tf2pickup.pl',
+  url: 'https://docs.tf2pickup.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'tf2pickup.pl',
-  projectName: 'docs.tf2pickup.pl',
+  organizationName: 'tf2pickup.org',
+  projectName: 'docs.tf2pickup.org',
   themeConfig: {
     navbar: {
-      title: 'tf2pickup.pl',
+      title: 'tf2pickup.org',
       logo: {
-        alt: 'tf2pickup.pl logo',
+        alt: 'tf2pickup.org logo',
         src: 'img/logo.png',
       },
       items: [
         {
-          to: 'docs/',
+          to: 'docs/about',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/tf2pickup-pl',
+          href: 'https://github.com/tf2pickup-org',
           label: 'GitHub',
           position: 'right',
         },
@@ -38,7 +38,7 @@ module.exports = {
           title: 'Docs',
           items: [
             {
-              label: 'About tf2pickup.pl',
+              label: 'About tf2pickup.org',
               to: 'docs/about',
             },
             {
@@ -69,12 +69,12 @@ module.exports = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/tf2pickup-pl',
+              href: 'https://github.com/tf2pickup-org',
             },
           ],
         },
       ],
-      copyright: `Copyright © 2021 tf2pickup.pl, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © 2021 tf2pickup.org, Inc. Built with Docusaurus.`,
     },
   },
   presets: [
@@ -84,12 +84,12 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/tf2pickup-pl/docs.tf2pickup.pl/edit/master/website/',
+            'https://github.com/tf2pickup-org/docs.tf2pickup.org/edit/master',
         },
         blog: {
           showReadingTime: true,
           editUrl:
-            'https://github.com/tf2pickup-pl/docs.tf2pickup.pl/edit/master/website/blog/',
+            'https://github.com/tf2pickup-org/docs.tf2pickup.org/edit/master/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
