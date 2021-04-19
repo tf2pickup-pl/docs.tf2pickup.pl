@@ -227,7 +227,7 @@ server {
 }
 ```
 
-``/etc/nginx/nginx/sites-available/api.tf2pickup.pl``:
+``/etc/nginx/nginx/sites-available/api.tf2pickup.de``:
 
 ```nginx
 map $http_upgrade $connection_upgrade {
