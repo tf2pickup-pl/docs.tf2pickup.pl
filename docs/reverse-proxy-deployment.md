@@ -20,7 +20,7 @@ Following these instructions should lead to configuration assessed as [A+ in Qua
 
 We encourage you to purchase domains in [OVH](https://www.ovh.com/world/domains/dotdomains.xml) since they provide an API allowing for dynamic DNS zone updates (also, since we have experience with it, we can provide help with it at some point). If a pickup domain was not purchased on OVH nor any [domain registrar for which certbot DNS API plugin was made](https://certbot.eff.org/docs/using.html?highlight=dns#dns-plugins), we encourage you for parking the DNS domain zone in Cloudflare, since they provide their domain zone management services for free and their API is pretty easy to use.
 
-In order to move a domain zone from the current site to Cloudflare, you are supposed to create an account on Cloudflare and add a domain you own. After that, you will be asked for change the nameserver (NS) entries for servers given by the Cloudflare. There are always two entries given and they should replace current entries in the domain zone.
+In order to move a domain zone from the current site to Cloudflare, you are supposed to create an account on Cloudflare and add a domain you own. After that, you will be asked to change the nameserver (NS) entries for servers given by the Cloudflare. There are always two entries given and they should replace current entries in the domain zone.
 
 In this specific case there were 4 NS entries and the domain owner had to change them to 2 NS entries, which are `annabel.ns.cloudflare.com` and `bradley.ns.cloudflare.com`:
 ![DNS nameservers list in OVH settings](/img/content/change-dns-nameservers.png).
