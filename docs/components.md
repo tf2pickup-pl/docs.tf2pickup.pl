@@ -2,7 +2,7 @@
 title: Components
 ---
 
-In order to run a fully fledged tf2pickup.pl instance, you are going to set up and configure a couple of components.
+In order to run a fully fledged tf2pickup.org instance, you are going to set up and configure a couple of components.
 
 ## The server
 
@@ -17,7 +17,7 @@ Here you will find the documentation on how to prepare your own branding, how to
 
 ## The voice server
 
-Currently, tf2pickup.pl supports only [Mumble](https://www.mumble.info/), but there are plans to support Discord voice
+Currently, tf2pickup.org supports only [Mumble](https://www.mumble.info/), but there are plans to support Discord voice
 channels as well.
 
 ## The game server
