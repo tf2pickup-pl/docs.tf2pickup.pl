@@ -14,7 +14,7 @@ The following guide should be taken as an example, which is based on:
 - Nginx as a reverse proxy,
 - tf2pickup.org client and server hosted as containers on ports TCP 3000 for the server and TCP 4000 for the client.
 
-Following these instructions should lead to configuration assessed as [A+ in Qualsys SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=tf2pickup.de) and [A+ in Mozilla Observatory](https://observatory.mozilla.org/analyze/tf2pickup.de) tests. Most of the configuration examples given are based on configuration from the [tf2pickup.de](https://tf2pickup.de) website.
+Following these instructions should lead to configuration assessed as [A+ in Qualsys SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=tf2pickup.fi) and [A+ in Mozilla Observatory](https://observatory.mozilla.org/analyze/tf2pickup.fi) tests. Most of the configuration examples given are based on configuration from the [tf2pickup.fi](https://tf2pickup.fi) website.
 
 ## Domain name setup
 
@@ -94,7 +94,7 @@ Before getting certificates, a Cloudflare API token must be prepared for that ba
 After that, certificate should be able to be created by using the command (the `--agree-tos` and `-email` parameters must be given on a first certificate):
 
 ```sh
-certbot certonly --non-interactive -d 'tf2pickup.de' -d '*.tf2pickup.de' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple --agree-tos --email your-mailbox@you-are-really-using.com
+certbot certonly --non-interactive -d 'tf2pickup.fi' -d '*.tf2pickup.fi' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple --agree-tos --email your-mailbox@you-are-really-using.com
 ```
 
 In case of failure most likely you:
@@ -108,7 +108,7 @@ In case of failure most likely you:
 When certificate is obtained, we suggest you to leave these two commands in the root crontab file (opened by a command `crontab -e` as root):
 
 ```crontab
-0  1   20 * *   certbot certonly --non-interactive -d 'tf2pickup.de' -d '*.tf2pickup.de' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple
+0  1   20 * *   certbot certonly --non-interactive -d 'tf2pickup.fi' -d '*.tf2pickup.fi' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple
 5  1   20 * *   systemctl restart nginx
 ```
 
@@ -190,7 +190,7 @@ http {
 }
 ```
 
-``/etc/nginx/nginx/sites-available/tf2pickup.de``:
+``/etc/nginx/nginx/sites-available/tf2pickup.fi``:
 
 ```nginx
 map $http_upgrade $connection_upgrade {
@@ -200,22 +200,22 @@ map $http_upgrade $connection_upgrade {
 server {
         listen 80;
         #listen [::]:80; #IPv6 specific entry
-        server_name yu.tf2pickup.de;
-        return 302 https://tf2pickup.de$request_uri;
+        server_name yu.tf2pickup.fi;
+        return 302 https://tf2pickup.fi$request_uri;
 }
 server {
-        access_log /var/log/nginx/tf2pickup.de-access.log;
-        error_log /var/log/nginx/tf2pickup.de-error.log;
+        access_log /var/log/nginx/tf2pickup.fi-access.log;
+        error_log /var/log/nginx/tf2pickup.fi-error.log;
         listen 443 ssl http2;
         #listen [::]:443 ssl http2; #IPv6 specific entry
-        server_name tf2pickup.de;
-        ssl_certificate /etc/letsencrypt/live/tf2pickup.de/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/tf2pickup.de/privkey.pem;
+        server_name tf2pickup.fi;
+        ssl_certificate /etc/letsencrypt/live/tf2pickup.fi/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/tf2pickup.fi/privkey.pem;
         ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
         ssl_stapling on;
         ssl_stapling_verify on;
         ssl_session_cache shared:ssl_session_cache:10m;
-        ssl_trusted_certificate /etc/letsencrypt/live/tf2pickup.de/chain.pem;
+        ssl_trusted_certificate /etc/letsencrypt/live/tf2pickup.fi/chain.pem;
         location / {
                 proxy_pass http://127.0.0.1:4000;
                 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
@@ -227,7 +227,7 @@ server {
 }
 ```
 
-``/etc/nginx/nginx/sites-available/api.tf2pickup.de``:
+``/etc/nginx/nginx/sites-available/api.tf2pickup.fi``:
 
 ```nginx
 map $http_upgrade $connection_upgrade {
@@ -237,22 +237,22 @@ map $http_upgrade $connection_upgrade {
 server {
         listen 80;
         #listen [::]:80; #IPv6 specific entry
-        server_name api.tf2pickup.de;
-        return 302 https://api.tf2pickup.de$request_uri;
+        server_name api.tf2pickup.fi;
+        return 302 https://api.tf2pickup.fi$request_uri;
 }
 server {
-        access_log /var/log/nginx/api.tf2pickup.de-access.log;
-        error_log /var/log/nginx/api.tf2pickup.de-error.log;
+        access_log /var/log/nginx/api.tf2pickup.fi-access.log;
+        error_log /var/log/nginx/api.tf2pickup.fi-error.log;
         listen 443 ssl http2;
         #listen [::]:443 ssl http2; #IPv6 specific entry
-        server_name api.tf2pickup.de;
-        ssl_certificate /etc/letsencrypt/live/tf2pickup.de/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/tf2pickup.de/privkey.pem;
+        server_name api.tf2pickup.fi;
+        ssl_certificate /etc/letsencrypt/live/tf2pickup.fi/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/tf2pickup.fi/privkey.pem;
         ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
         ssl_stapling on;
         ssl_stapling_verify on;
         ssl_session_cache shared:ssl_session_cache:10m;
-        ssl_trusted_certificate /etc/letsencrypt/live/tf2pickup.pl/chain.pem;
+        ssl_trusted_certificate /etc/letsencrypt/live/tf2pickup.fi/chain.pem;
         location / {
                 proxy_pass http://127.0.0.1:3000;
                 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
@@ -267,8 +267,8 @@ server {
 After placing those files, make sure to create symlinks to them in the `/etc/nginx/sites-enabled`:
 
 ```sh
-# ln -s /etc/nginx/sites-available/api.tf2pickup.de /etc/nginx/sites-enabled/api.tf2pickup.de
-# ln -s /etc/nginx/sites-available/tf2pickup.de /etc/nginx/sites-enabled/tf2pickup.de
+# ln -s /etc/nginx/sites-available/api.tf2pickup.fi /etc/nginx/sites-enabled/api.tf2pickup.fi
+# ln -s /etc/nginx/sites-available/tf2pickup.fi /etc/nginx/sites-enabled/tf2pickup.fi
 ```
 
 When that is done, nginx should use these configs. Execute `nginx -t` in order to check if all configuration files are valid. You should expect the following output:
