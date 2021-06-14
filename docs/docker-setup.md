@@ -4,7 +4,7 @@ title: Docker setup
 
 In order to allow for a quick site setup, we make use of Docker containers. That let us set up the website (client and server with its database), gameservers and optionally a Mumble server. In order to start the site, you have to have all files specified below. Examples are based on [tf2pickup.fi](https://tf2pickup.fi) website, domain and their Discord server.
 
-Prerequisites:
+## Prerequisites
 
 - have modern Docker and docker-compose version installed in your system, for docker-compose [use this guide](https://docs.docker.com/compose/install/) and for Docker feel free to use guides for:
   - [Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04),
@@ -63,7 +63,7 @@ drwxrwxr-x 4 tf2pickup tf2pickup      4096 Jun  9 21:09 ..
 
 Then, these are templates for the aforementioned files:
 
-- `.env`:
+### `.env`
 
 ```env
 ### Configuration for the Server
@@ -135,7 +135,7 @@ MUMBLE_TZ=Europe/Helsinki
 MUMBLE_SUPERUSER_PASSWORD=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
 
-- `gameserver_1.env`:
+### `gameserver_1.env`
 
 ```env
 # TF2 Gameserver Configuration
@@ -157,7 +157,7 @@ LOGS_TF_PREFIX=tf2pickup.fi
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
 
-- `gameserver_2.env`:
+### `gameserver_2.env`
 
 ```env
 # TF2 Gameserver Configuration
@@ -179,7 +179,7 @@ LOGS_TF_PREFIX=tf2pickup.fi
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
 
-- `docker-compose.yml`:
+### `docker-compose.yml`
 
 ```docker
 version: '2.4'
@@ -282,7 +282,7 @@ networks:
               - subnet: fc00::/64
 ```
 
-- `data/murmur.ini`:
+### `data/murmur.ini`
 
 ```ini
 # Murmur configuration file.
