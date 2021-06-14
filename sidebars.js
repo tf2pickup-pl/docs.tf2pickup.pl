@@ -13,6 +13,7 @@ module.exports = {
       label: 'For pickup admins',
       items: [
         'responsibilities-and-powers',
+        'website-settings',
       ],
     },
     {
@@ -22,6 +23,8 @@ module.exports = {
         'components',
         'reverse-proxy-deployment',
         'docker-setup',
+        'pickup-backups',
+        'final-touches',
       ],
     },
   ],
