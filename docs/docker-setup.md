@@ -6,6 +6,7 @@ In order to allow for a quick site setup, we make use of Docker containers. That
 
 ## Prerequisites
 
+- have everything mentioned in the [reverse proxy deployment](/docs/reverse-proxy-deployment) set up,
 - have modern Docker and docker-compose version installed in your system, for docker-compose [use this guide](https://docs.docker.com/compose/install/) and for Docker feel free to use guides for:
   - [Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04),
   - [Debian 10](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-debian-10),
@@ -63,7 +64,7 @@ drwxrwxr-x 4 tf2pickup tf2pickup      4096 Jun  9 21:09 ..
 
 Then, these are templates for the aforementioned files:
 
-### `.env`
+## `.env`
 
 ```env
 ### Configuration for the Server
@@ -101,10 +102,22 @@ SUPER_USER=76561198011558250
 # Which gamemode to run; see src/configs/queue for different gamemodes, possible values: 6v6, 9v9
 QUEUE_CONFIG=6v6
 
-# Mumble configuration
+# Mumble channel configuration
 # TODO Configure this via website
 MUMBLE_SERVER_URL=tf2pickup.fi
 MUMBLE_CHANNEL_NAME=tf2pickup
+# This variable is used for passing a root tree channel name in which the pickup backend can
+# generate links to the channel for the games, this setup allows for 3 games running in the same time.
+# tf2pickup
+# ├───1
+# │   ├───BLU
+# │   └───RED
+# ├───2
+# │   ├───BLU
+# │   └───RED
+# └───3
+#     ├───BLU
+#     └───RED
 
 # Log relay
 # The log relay uses one UDP port to receive logs from the TF2 game servers. These are used
@@ -135,7 +148,28 @@ MUMBLE_TZ=Europe/Helsinki
 MUMBLE_SUPERUSER_PASSWORD=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
 
-### `gameserver_1.env`
+### Setting up Steam API key
+
+TODO: add steam api key setup
+
+### Setting up Discord bot (optional)
+
+TODO: add Discord bot setup
+
+### Setting up Discord channels (optional)
+
+TODO: add Discord channels setup
+
+### Setting up Twitch stream integration (optional)
+
+TODO: add Twitch stream integration
+
+### Mumble channel setup example
+
+Here you can find one more example of how the Mumble channels should be set up in practice:
+![mumble-channel-scheme](/img/content/mumble-channel-scheme.png)
+
+## `gameserver_1.env`
 
 ```env
 # TF2 Gameserver Configuration
@@ -151,13 +185,14 @@ SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
 
+# Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 LOGS_TF_PREFIX=tf2pickup.fi
-
+# Get your demos.tf API key from https://demos.tf/upload
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
 
-### `gameserver_2.env`
+## `gameserver_2.env`
 
 ```env
 # TF2 Gameserver Configuration
@@ -172,14 +207,14 @@ SERVER_HOSTNAME=tf2pickup.fi #2
 SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
-
+# Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 LOGS_TF_PREFIX=tf2pickup.fi
-
+# Get your demos.tf API key from https://demos.tf/upload
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
 
-### `docker-compose.yml`
+## `docker-compose.yml`
 
 ```docker
 version: '2.4'
@@ -200,6 +235,7 @@ services:
     - './.migrate:/tf2pickup.pl/.migrate'
     # links:
     #  - mongodb
+## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
   mumble-server:
     image: phlak/mumble
     ports:
@@ -214,6 +250,7 @@ services:
     environment:
     #  - SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
       - TZ=${MUMBLE_TZ}
+## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
   mongodb:
     image: mongo:4.0
     restart: unless-stopped
@@ -225,6 +262,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
       - MONGO_INITDB_DATABASE=${MONGODB_DB}
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 1ST GAMESERVER ##
   gameserver1:
     image: tf2pickuppl/tf2-gameserver
     network_mode: host
@@ -235,6 +273,9 @@ services:
     - ./maps:/home/tf2/server/tf/maps:ro
     env_file:
     - ./gameserver_1.env
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 1ST GAMESERVER ##
+
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 2ND GAMESERVER ##
   gameserver2:
     image: tf2pickuppl/tf2-gameserver
     network_mode: host
@@ -245,6 +286,9 @@ services:
     - ./maps:/home/tf2/server/tf/maps:ro
     env_file:
     - ./gameserver_2.env
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 2ND GAMESERVER ##
+
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAMESERVER ##
   #gameserver3:
   #  image: tf2pickuppl/tf2-gameserver
   #  network_mode: host
@@ -255,6 +299,7 @@ services:
   #  - ./maps:/home/tf2/server/tf/maps:ro
   #  env_file:
   #  - ./gameserver_3.env
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAMESERVER ##
   client:
     image: tf2pickuppl/tf2pickup.fi
     restart: always
@@ -263,7 +308,9 @@ services:
     volumes:
     - staticwebsite:/usr/share/nginx/html
 volumes:
+## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
   mumble-data:
+## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
   database-data:
   staticwebsite:
     driver: local 
@@ -282,7 +329,7 @@ networks:
               - subnet: fc00::/64
 ```
 
-### `data/murmur.ini`
+## `data/murmur.ini`
 
 ```ini
 # Murmur configuration file.
@@ -321,7 +368,7 @@ logfile=/etc/mumble/mumble-server.log
 # configure it here than through D-Bus or Ice.
 #
 # Welcome message sent to clients when they connect.
-welcometext="Willkommen auf <b><a href='https://tf2pickup.de'>TF2Pickup.de</a></b>.<br/>Viel Spaß!"
+welcometext="Tervetuloa <A href=\"https://tf2pickup.fi/\">tf2pickup.fi</A> mumbleen.<br>Suomi TF2 discord: <A href=\"https://discord.gg/T6PfVC3bqQ\">linkki</A><br>"
 # Port to bind TCP and UDP sockets to.
 port=64738
 # Specific IP or hostname to bind to.
@@ -352,9 +399,13 @@ Ice.Warn.UnknownProperties=1
 Ice.MessageSizeMax=65536
 ```
 
+## `docker-compose up -d`
+
+In order to create and start all containers needed for letting site working, you just have to enter the `tf2pickup.fi` folder with all files prepared for a launch and execute `docker-compose up -d`. Each time you would like to stop the application stack, you are supposed to execute command `docker-compose stop` and `docker-compose start -d` when you start the stack. Containers have a `restart always` policy meaning the containers will always restart on fail, so it will also always start on a system boot as long as `docker.service` service is also starting on system boot.
+
 ## Using Mumble outside Docker stack
 
-When doing it, you may end up with non starting Mumble server, since it won't have needed permissions and files ownership for the `mumble-server` service user to let it read the certificate contents. We suggest you to use this in order to change them. You can save it as `mumble-certs.sh`, give it execution rights, run it manually and then leave it in crontab in the same way like you renew the certificates through `certbot`, so every time you get a certificate, the Mumble server will refresh the file permissions/ownership and refresh the Mumble server without restarting it.
+When doing it, you may end up with Mumble server service crashing, since it won't have needed permissions and files ownership for the `mumble-server` service user to let it read the certificate contents. We suggest you to use this in order to change them. You can save it as `mumble-certs.sh`, give it execution rights, run it manually and then leave it in crontab in the same way like you renew the certificates through `certbot`, so every time you get a certificate, the Mumble server will refresh the file permissions/ownership and refresh the Mumble server without restarting it.
 
 - `mumble-certs.sh`:
 
@@ -373,4 +424,18 @@ You can find an example how to set up the crontab jobs (in order to edit it, use
 0  1   20 * *   certbot certonly --non-interactive -d tf2pickup.fi -d '*.tf2pickup.fi' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple
 0  1   25 * *   systemctl restart nginx
 0  1   25 * *   sh /etc/mumble-certs.sh
+```
+
+Moreover, `/etc/mumble-server.ini` should have values for the `sslCert` and `sslKey` changed from:
+
+```sh
+sslCert=/cert/live/tf2pickup.fi/fullchain.pem
+sslKey=/cert/live/tf2pickup.fi/privkey.pem
+```
+
+to:
+
+```sh
+sslCert=/etc/letsencrypt/live/tf2pickup.fi/fullchain.pem
+sslKey=/etc/letsencrypt/live/tf2pickup.fi/privkey.pem
 ```
