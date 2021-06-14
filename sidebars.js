@@ -21,6 +21,7 @@ module.exports = {
       items: [
         'components',
         'reverse-proxy-deployment',
+        'docker-setup',
       ],
     },
   ],
