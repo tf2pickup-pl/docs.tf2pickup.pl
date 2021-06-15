@@ -48,17 +48,74 @@ Watchtower will pull images and replace container images automatically. It also 
 
 The best backup policy would be to:
 
-- make full host backups (especially easy if you own a VPS, since your VPS provider can provide backups (even on automatic basis!), like OVH or Hetzner do), weekly basis is really fine already,
-- store configuration files copy somewhere in case of armageddon,
+- make full host backups (especially easy if you own a VPS, since your VPS provider can provide backups (even on automatic basis!), like OVH or Hetzner do), weekly basis are really fine already,
+- store configuration files copy somewhere outside the server in case of armageddon,
 - execute daily MongoDB backups and copy those on external storage, so if your server dies, you will be able to access those database dumps somehow.
 
 Here's a backup script you can use for the backups:
 
-TODO: add backup scripts used for mongodb backups
+```bash
+#!/bin/bash
+export PATH=/bin:/usr/bin:/usr/local/bin
+TODAY=`date +"%d%b%Y"`
+################################################################
+################## Update below values  ########################
+
+export LC_ALL=C
+DB_BACKUP_PATH='/home/tf2pickup/tf2pickup.fi/backup' ## Make sure you create this folder before script execution
+MONGODB_CONTAINER_NAME='tf2pickupfi_mongodb_1' # MongoDB container name in the tf2pickup stack
+MONGODB_USERNAME='tf2pickup' # MongoDB username passed in the .env file
+MONGODB_PASSWORD='yoursuperfunnypassword' # MongoDB password passed in the .env file
+BACKUP_RETAIN_DAYS=7   ## Number of days to keep local backup copy
+
+#################################################################
+
+mkdir -p ${DB_BACKUP_PATH}/${TODAY}
+
+/usr/bin/docker exec -i ${MONGODB_CONTAINER_NAME} '/bin/bash' \
+     -c "mongodump --quiet --archive -u ${MONGODB_USERNAME} -p ${MONGODB_PASSWORD}" \
+     | gzip > ${DB_BACKUP_PATH}/${TODAY}/tf2pickup-${TODAY}.dump.gz
+
+if [ $? -eq 0 ]; then
+  echo "tf2pickup Database backup successfully completed"
+else
+  echo "Error found during tf2pickup backup"
+  exit 1
+fi
+
+##### Remove backups older than {BACKUP_RETAIN_DAYS} days  #####
+
+DBDELDATE=`date +"%d%b%Y" --date="${BACKUP_RETAIN_DAYS} days ago"`
+
+if [ ! -z ${DB_BACKUP_PATH} ]; then
+      cd ${DB_BACKUP_PATH}
+      if [ ! -z ${DBDELDATE} ] && [ -d ${DBDELDATE} ]; then
+            rm -rf ${DBDELDATE}
+      fi
+fi
+
+### End of script ####
+```
+
+These backups are done by a `tf2pickup` user, the same on which the config files and the backup folder is owned by. Make sure the `tf2pickup` is in the `docker` group, so it could execute commands against docker. Don't forget to add execution permission for the script by using `chmod o+x pickup-backup.sh` assuming `pickup-backup.sh` is a script filename. Then, you can also add a cronjob for the `tf2pickup` user by executing `crontab -e` as this user and adding a line with absolute path to the script:
+
+```cron
+0  3   * * *   bash /home/tf2pickup/tf2pickup.fi/pickup-backup.sh
+```
+
+This will let the script execute everyday at 3:00 AM as the user `tf2pickup`.
+
+Lastly, you have to replicate those backups on external storage. You can do it manually or automatize it. It is really up to you how are you going to deal with it. You can order some FTP storage for the replication and just sync `backup/` folder contents with it, you can use NFS shares to do so, you can download files through SSH from your local machine - there are many ways and you are the one who is going to choose it.
 
 ### Restore
 
-TODO: add restore descriptions
+In order to restore backups, you have to choose the dump you would like to restore. Let's assume the filename of the backup archive is `tf2pickup-15Jun2021.gz`. In that case you need to execute:
+
+```bash
+gunzip tf2pickup-15Jun2021.gz
+docker exec tf2pickupfi_mongodb_1 '/bin/bash' \
+    -c 'mongorestore -d tf2pickup -u tf2pickup -p yoursuperfunnypassword --archive' < tf2pickup-15Jun2021.dump
+```
 
 ## Firewall settings
 
