@@ -22,7 +22,7 @@ module.exports = {
       items: [
         'components',
         'reverse-proxy-deployment',
-        'docker-setup',
+        'docker-setup-with-configuration-samples',
         'final-touches',
       ],
     },

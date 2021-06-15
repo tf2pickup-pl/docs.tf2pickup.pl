@@ -1,5 +1,5 @@
 ---
-title: Docker setup
+title: Docker setup with configuration samples
 ---
 
 In order to allow for a quick site setup, we make use of Docker containers. That let us set up the website (client and server with its database), gameservers and optionally a Mumble server. In order to start the site, you have to have all files specified below. Examples are based on [tf2pickup.fi](https://tf2pickup.fi) website, domain and their Discord server.
