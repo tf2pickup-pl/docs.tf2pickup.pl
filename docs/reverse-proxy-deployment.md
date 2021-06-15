@@ -280,8 +280,3 @@ nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
 Otherwise, you should get a list of errors listed with file names and line numbers of the files containing the errors. Fix them and when you manage to get the test to be successful, restart the service by executing `systemctl restart nginx.service` and make sure the Nginx is started after every boot by executing `systemctl enable nginx.service`.
-
-## HSTS Preload
-
-In order to get the highest score in the site configuration tests, HSTS Preload should be configured for the domain. The Nginx configuration files meet the requirements for it and most of the browsers add the domains to their preload list automatically, but this is not the case for Chromium-based browsers, such as Google Chrome. For them, you are supposed to [register the site](https://hstspreload.org). The process is straightforward - you just have to enter the domain name, check boxes approving your domain ownership and accepting the service terms. After doing so, the website will check if your domain is eligible for the submission on the list and if yes, your domain will be added in a matter of a few days.
-![hsts preload example](/img/content/hsts-preload.png)
