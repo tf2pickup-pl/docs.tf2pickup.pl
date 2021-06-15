@@ -21,3 +21,7 @@ TODO: handing out bans
 TODO: how to sub a player
 
 TODO: show up discord notifications
+
+TODO: force closing games
+
+TODO: reinitializing games

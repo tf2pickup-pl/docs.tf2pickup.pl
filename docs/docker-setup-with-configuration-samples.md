@@ -103,7 +103,6 @@ SUPER_USER=76561198011558250
 QUEUE_CONFIG=6v6
 
 # Mumble channel configuration
-# TODO Configure this via website
 MUMBLE_SERVER_URL=tf2pickup.fi
 MUMBLE_CHANNEL_NAME=tf2pickup
 # This variable is used for passing a root tree channel name in which the pickup backend can
