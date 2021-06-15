@@ -119,7 +119,134 @@ docker exec tf2pickupfi_mongodb_1 '/bin/bash' \
 
 ## Firewall settings
 
-TODO: add firewall setup
+TODO: add some firewall setting explanation and requirements
+
+Example iptables setup:
+
+IPv4:
+
+```iptables
+Chain INPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     tcp  --  anywhere             anywhere             multiport dports https,http state NEW,ESTABLISHED
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:22 state NEW,ESTABLISHED
+ACCEPT     udp  --  anywhere             anywhere             multiport dports 27014:27130
+ACCEPT     tcp  --  anywhere             anywhere             multiport dports 27014:27130
+ACCEPT     udp  --  anywhere             anywhere             udp dpt:9871
+ACCEPT     udp  --  anywhere             anywhere             udp dpt:64738
+ACCEPT     udp  --  anywhere             anywhere             udp spt:64738
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:64738
+ACCEPT     tcp  --  anywhere             anywhere             tcp spt:64738
+
+Chain FORWARD (policy DROP)
+target     prot opt source               destination
+DOCKER-USER  all  --  anywhere             anywhere
+DOCKER-ISOLATION-STAGE-1  all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere             ctstate RELATED,ESTABLISHED
+DOCKER     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere             ctstate RELATED,ESTABLISHED
+DOCKER     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+
+Chain DOCKER (2 references)
+target     prot opt source               destination
+ACCEPT     tcp  --  anywhere             172.17.0.2           tcp dpt:9000
+ACCEPT     tcp  --  anywhere             172.17.0.2           tcp dpt:8000
+ACCEPT     tcp  --  anywhere             172.16.238.3         tcp dpt:http
+ACCEPT     tcp  --  anywhere             172.16.238.2         tcp dpt:27017
+
+Chain DOCKER-ISOLATION-STAGE-1 (1 references)
+target     prot opt source               destination
+DOCKER-ISOLATION-STAGE-2  all  --  anywhere             anywhere
+DOCKER-ISOLATION-STAGE-2  all  --  anywhere             anywhere
+RETURN     all  --  anywhere             anywhere
+
+Chain DOCKER-ISOLATION-STAGE-2 (2 references)
+target     prot opt source               destination
+DROP       all  --  anywhere             anywhere
+DROP       all  --  anywhere             anywhere
+RETURN     all  --  anywhere             anywhere
+
+Chain DOCKER-USER (1 references)
+target     prot opt source               destination
+RETURN     all  --  anywhere             anywhere
+```
+
+IPv6:
+
+```ip6tables
+Chain INPUT (policy DROP)
+target     prot opt source               destination
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     icmp --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere             state RELATED,ESTABLISHED
+ACCEPT     tcp  --  anywhere             anywhere             multiport dports https,http state NEW,ESTABLISHED
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:22 state NEW,ESTABLISHED
+ACCEPT     udp  --  anywhere             anywhere             multiport dports 27014:27130
+ACCEPT     tcp  --  anywhere             anywhere             multiport dports 27014:27130
+ACCEPT     udp  --  anywhere             anywhere             udp dpt:9871
+ACCEPT     udp  --  anywhere             anywhere             udp dpt:64738
+ACCEPT     udp  --  anywhere             anywhere             udp spt:64738
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:64738
+ACCEPT     tcp  --  anywhere             anywhere             tcp spt:64738
+
+Chain FORWARD (policy DROP)
+target     prot opt source               destination
+DOCKER-USER  all  --  anywhere             anywhere
+DOCKER-ISOLATION-STAGE-1  all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere             ctstate RELATED,ESTABLISHED
+DOCKER     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere             ctstate RELATED,ESTABLISHED
+DOCKER     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+ACCEPT     all  --  anywhere             anywhere
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+
+Chain DOCKER (2 references)
+target     prot opt source               destination
+ACCEPT     tcp  --  anywhere             172.17.0.2           tcp dpt:9000
+ACCEPT     tcp  --  anywhere             172.17.0.2           tcp dpt:8000
+ACCEPT     tcp  --  anywhere             172.16.238.3         tcp dpt:http
+ACCEPT     tcp  --  anywhere             172.16.238.2         tcp dpt:27017
+
+Chain DOCKER-ISOLATION-STAGE-1 (1 references)
+target     prot opt source               destination
+DOCKER-ISOLATION-STAGE-2  all  --  anywhere             anywhere
+DOCKER-ISOLATION-STAGE-2  all  --  anywhere             anywhere
+RETURN     all  --  anywhere             anywhere
+
+Chain DOCKER-ISOLATION-STAGE-2 (2 references)
+target     prot opt source               destination
+DROP       all  --  anywhere             anywhere
+DROP       all  --  anywhere             anywhere
+RETURN     all  --  anywhere             anywhere
+
+Chain DOCKER-USER (1 references)
+target     prot opt source               destination
+RETURN     all  --  anywhere             anywhere
+root@tf2pickup:~# ip6tables -L
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination
+```
 
 ## Securing SSH access to the host
 
