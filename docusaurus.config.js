@@ -48,6 +48,10 @@ module.exports = {
             {
               label: 'For server admins',
               to: 'docs/components'
+            },
+            {
+              label: 'For developers',
+              to: 'docs/server-api'
             }
           ],
         },
