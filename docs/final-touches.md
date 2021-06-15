@@ -107,6 +107,14 @@ This will let the script execute everyday at 3:00 AM as the user `tf2pickup`.
 
 Lastly, you have to replicate those backups on external storage. You can do it manually or automatize it. It is really up to you how are you going to deal with it. You can order some FTP storage for the replication and just sync `backup/` folder contents with it, you can use NFS shares to do so, you can download files through SSH from your local machine - there are many ways and you are the one who is going to choose it.
 
+If you have a local Linux host and you are able to set up a cronjob, you can use this command as the command syncing files from remote folder to your local one (assuming location `/home/mylocaluser/tf2pickup-backups` exist):
+
+```bash
+sync -a -e "ssh -p 22" "tf2pickup@tf2pickup.fi:/home/tf2pickup/tf2pickup.fi/backup/" "/home/mylocaluser/tf2pickup-backups" --info=progress2
+```
+
+This is probably the easiest way to replicate backups and it's called rsync over SSH.
+
 ### Restore
 
 In order to restore backups, you have to choose the dump you would like to restore. Let's assume the filename of the backup archive is `tf2pickup-15Jun2021.gz`. In that case you need to execute:
@@ -250,7 +258,15 @@ target     prot opt source               destination
 
 ## Securing SSH access to the host
 
-TODO: secure ssh server access
+Since most of the setups are based on Linux installations, their hosts can be controlled through the SSH. There are a few things which you should do in order to make access to the server shell more secure:
+
+- [use public key authentication only](https://serverfault.com/questions/2429/how-do-you-setup-ssh-to-authenticate-using-keys-instead-of-a-username-password),
+- [do not allow logging in by root in any case](https://www.pragmaticlinux.com/2020/05/no-longer-permit-root-login-via-ssh/) (you can jump to the root account after logging into a standard one),
+- use the latest version of your SSH server (whilst the most popular one is the OpenSSH) alongside with OpenSSL,
+- [use custom SSH port](https://www.cyberciti.biz/faq/howto-change-ssh-port-on-linux-or-unix-server/) in order to [not get scanned by the botnets very often](https://www.shodan.io/search?query=ssh),
+- [use](https://www.booleanworld.com/protecting-ssh-fail2ban/) [Fail2Ban](https://www.digitalocean.com/community/tutorials/how-to-protect-ssh-with-fail2ban-on-ubuntu-14-04) [for](https://www.linode.com/docs/guides/how-to-use-fail2ban-for-ssh-brute-force-protection/) blocking potential attackers,
+- [use port knocking in order to limit access to your SSH port](https://www.rapid7.com/blog/post/2017/10/04/how-to-secure-ssh-server-using-port-knocking-on-ubuntu-linux/) per IP address or even setup OpenVPN or Wireguard server and let admin(s) connect to the SSH through the VPN connection only,
+- use recommended and secure SSH server settings, [such as proposed by the Mozilla Observatory](https://infosec.mozilla.org/guidelines/openssh.html).
 
 ## HSTS Preload
 
