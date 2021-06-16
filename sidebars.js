@@ -21,9 +21,9 @@ module.exports = {
       type: 'category',
       label: 'For server admins',
       items: [
-        'components',
+        'components-introduction',
         'reverse-proxy-deployment',
-        'docker-setup-with-configuration-samples',
+        'site-components-deployment',
         'final-touches',
       ],
     },
@@ -32,6 +32,7 @@ module.exports = {
       label: 'For developers',
       items: [
         'server-api',
+        'building-a-custom-client',
         'development-environment',
         'coding-style',
         'best-practices',

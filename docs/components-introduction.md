@@ -1,5 +1,5 @@
 ---
-title: Components
+title: Components introduction
 ---
 
 In order to run a fully fledged tf2pickup.org instance, you are going to set up and configure a couple of components.
@@ -7,7 +7,7 @@ In order to run a fully fledged tf2pickup.org instance, you are going to set up 
 ## The server
 
 This is the backend of the whole system. It is responsible for accessing the database, configuring game servers and many, many more.
-Read how to deploy and configure one here.
+Read how to deploy and configure one [here](/docs/site-components-deployment).
 
 ## The client
 

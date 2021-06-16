@@ -47,7 +47,7 @@ module.exports = {
             },
             {
               label: 'For server admins',
-              to: 'docs/components'
+              to: 'docs/components-introduction'
             },
             {
               label: 'For developers',
