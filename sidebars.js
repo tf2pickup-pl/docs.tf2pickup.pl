@@ -15,6 +15,7 @@ module.exports = {
         'responsibilities-and-powers',
         'the-most-common-tasks',
         'website-settings',
+        'community-guidelines',
       ],
     },
     {
@@ -22,7 +23,7 @@ module.exports = {
       label: 'For server admins',
       items: [
         'components-introduction',
-        'reverse-proxy-deployment',
+        'setup-prerequisites',
         'site-components-deployment',
         'final-touches',
       ],

@@ -1,5 +1,5 @@
 ---
-title: Reverse proxy deployment
+title: Setup prerequisites
 ---
 
 ## Introduction
