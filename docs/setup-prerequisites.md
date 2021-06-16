@@ -39,7 +39,7 @@ A pickup domain should contain at least two `A` entries, but this configuration 
 |   `AAAA`   | `api.tf2pickup.fi` |       host IPv6 address       |    n/d   |
 |    `CAA`   | `api.tf2pickup.fi` | `0 issuewild letsencrypt.org` |    n/d   |
 
-Usage of AAAA entries is optional. If you do not want to handle IPv6 on Docker, feel free to actually not use these. We encourage to use [CAA entry](https://support.dnsimple.com/articles/caa-record/) alongside Let's Encrypt certificates. Since most of the sites host the tf2pickup.org client, server with Mumble and the TF2 gameserver, we suggest not to use DNS proxying since at some point it is meaningless, since it is for hiding the real host IP where we cannot do it for the gameservers as most likely proxying gameserver traffic would notably increase latency between players and the gameserver.
+Usage of AAAA entries is optional. If you do not want to handle IPv6 on Docker, feel free to actually not use these. We encourage to use [CAA entry](https://support.dnsimple.com/articles/caa-record/) alongside Let's Encrypt certificates. Since most of the sites host the tf2pickup.org client, server with Mumble and the TF2 game server, we suggest not to use DNS proxying since at some point it is meaningless, since it is for hiding the real host IP where we cannot do it for the gameservers as most likely proxying game server traffic would notably increase latency between players and the game server.
 
 We suggest to change the following settings in Cloudflare:
 

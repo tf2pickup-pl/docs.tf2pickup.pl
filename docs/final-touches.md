@@ -6,7 +6,7 @@ title: Final touches
 
 TODO: add setting up site rules
 
-## Adding gameservers to the website
+## Adding game servers to the website
 
 TODO: add adding servers to the website
 
