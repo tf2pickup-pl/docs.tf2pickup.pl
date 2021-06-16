@@ -68,6 +68,10 @@ module.exports = {
           title: 'More',
           items: [
             {
+              label: 'Our website',
+              href: 'https://tf2pickup.org',
+            },
+            {
               label: 'Blog',
               to: 'blog',
             },
