@@ -13,14 +13,14 @@ In order to allow for a quick site setup, we make use of Docker containers. That
   - [Arch Linux](https://wiki.archlinux.org/title/docker#Installation),
 - prepare the following files in a separate folder, name it `tf2pickup.fi`, then place inside:
   - `.env` - stores variables needed for setting client, server, database and mumble containers up
-  - `gameserver_1.env` - stores settings for the first gameserver _(optional)_
-  - `gameserver_2.env` - stores settings for the second gameserver _(optional)_
-  - `gameserver_3.env` - stores settings for the second gameserver _(optional)_
+  - `gameserver_1.env` - stores settings for the first game server _(optional)_
+  - `gameserver_2.env` - stores settings for the second game server _(optional)_
+  - `gameserver_3.env` - stores settings for the second game server _(optional)_
   - `docker-compose.yml` - contains all container settings
   - `data/murmur.ini` - contains all mumble server settings excluding SuperUser account password _(optional)_
-  - `maps/` folder - it should contain all maps available for the gameservers, both in `.bsp` and `.bsp.bz2`, example:
+  - `maps/` folder - it should contain all maps available for the game servers, both in `.bsp` and `.bsp.bz2`, example:
 
-Files `gameserver_{1,2,3}.env` are useful if you want to host gameservers on the same host as the website. There is no `gameserver_3.env` example, but in fact the file syntax is the same, so you can basically edit values and just uncomment the part of the configuration in the `docekr-compose.yml` file. In the same way, if you want to host 1 gameserver, just comment parts of the second gameserver and if you want to run gameservers separately, just comment all parts of it in the aforementioned file.
+Files `gameserver_{1,2,3}.env` are useful if you want to host game servers on the same host as the website. There is no `gameserver_3.env` example, but in fact the file syntax is the same, so you can basically edit values and just uncomment the part of the configuration in the `docekr-compose.yml` file. In the same way, if you want to host 1 game server, just comment parts of the second game server and if you want to run game servers separately, just comment all parts of it in the aforementioned file.
 
 The same rule goes for the Mumble server - if you want to run it outside Docker, aka use a local system installation, just don't provide needed configs for it and comment the part of the `docker-compose.yml` file for it.
 
@@ -171,7 +171,7 @@ Here you can find one more example of how the Mumble channels should be set up i
 ## `gameserver_1.env`
 
 ```env
-# TF2 Gameserver Configuration
+# TF2 Game server Configuration
 
 PORT=27015
 CLIENT_PORT=27016
@@ -261,7 +261,7 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
       - MONGO_INITDB_DATABASE=${MONGODB_DB}
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 1ST GAMESERVER ##
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 1ST GAME SERVER ##
   gameserver1:
     image: tf2pickuppl/tf2-gameserver
     network_mode: host
@@ -272,9 +272,9 @@ services:
     - ./maps:/home/tf2/server/tf/maps:ro
     env_file:
     - ./gameserver_1.env
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 1ST GAMESERVER ##
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 1ST GAME SERVER ##
 
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 2ND GAMESERVER ##
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 2ND GAME SERVER ##
   gameserver2:
     image: tf2pickuppl/tf2-gameserver
     network_mode: host
@@ -285,9 +285,9 @@ services:
     - ./maps:/home/tf2/server/tf/maps:ro
     env_file:
     - ./gameserver_2.env
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 2ND GAMESERVER ##
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 2ND GAME SERVER ##
 
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAMESERVER ##
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAME SERVER ##
   #gameserver3:
   #  image: tf2pickuppl/tf2-gameserver
   #  network_mode: host
@@ -298,7 +298,7 @@ services:
   #  - ./maps:/home/tf2/server/tf/maps:ro
   #  env_file:
   #  - ./gameserver_3.env
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAMESERVER ##
+## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAME SERVER ##
   client:
     image: tf2pickuppl/tf2pickup.fi
     restart: always
