@@ -16,6 +16,12 @@ The following guide should be taken as an example, which is based on:
 
 Following these instructions should lead to configuration assessed as [A+ in Qualsys SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=tf2pickup.fi) and [A+ in Mozilla Observatory](https://observatory.mozilla.org/analyze/tf2pickup.fi) tests. Most of the configuration examples given are based on configuration from the [tf2pickup.fi](https://tf2pickup.fi) website.
 
+## Host recommendations
+
+We do not have any specific info what are specific requirements for the site, since it can be run in with game servers together on one host, can be run with game servers and client/server on separate hosts. However, based on our experience, we suggest to get a machine (regardless if VPS or a dedicated server) with at least 4 vCPU (virtual CPU cores, preferably dedicated cores), 8 GB of RAM and at least 80 GB of SSD-based storage. Apparently 40 GB is probably enough to run the site with 2 game servers and mumble, but in most cases that disk size or even doubled one will be bundled with previous specs in an offer. Having a **static** IPv4 is a must, IPv6 address is optional. There are different options for host network speed and we suggest to get an offer with 1 Gbit/s both sides. Obviously the site will run with less, but having worse networking speed such as 250 Mbit/s both sides will greatly decrease the download speed for any host updates/game server updates.
+
+Our sites are run on different hostings, namely [OVH](https://ovh.com) (~~Strasbourg 🇫🇷~~, Gravelines 🇫🇷), [Hetzner](https://hetzner.com) (Nuremberg 🇩🇪, Helsinki 🇫🇮), [Netcup](https://netcup.eu) (Nuremberg 🇩🇪), [MyDevil](https://www.mydevil.net/) (Warsaw 🇵🇱), [Amazon Web Services](https://aws.amazon.com/) (Paris 🇫🇷), [Wedos](https://wedos.cz) (Hluboká nad Vltavou 🇨🇿).
+
 ## Domain name setup
 
 We encourage you to purchase domains in [OVH](https://www.ovh.com/world/domains/dotdomains.xml) since they provide an API allowing for dynamic DNS zone updates (also, since we have experience with it, we can provide help with it at some point). If a pickup domain was not purchased on OVH nor any [domain registrar for which certbot DNS API plugin was made](https://certbot.eff.org/docs/using.html?highlight=dns#dns-plugins), we encourage you for parking the DNS domain zone in Cloudflare, since they provide their domain zone management services for free and their API is pretty easy to use.
