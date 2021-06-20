@@ -15,3 +15,9 @@ TODO: describe site overview: adding to a game, subbing a player, discord notifi
 ![player-profile](/img/content/player-profile.png)
 
 ![rules-page](/img/content/rules-page.png)
+
+## Discord notifications
+
+![pickup-gather-notification](/img/content/pickup-gather-notification.png)
+
+TODO: add player sub notification

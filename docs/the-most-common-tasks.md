@@ -35,3 +35,9 @@ TODO: add ban description
 ![add-player-ban](/img/content/add-player-ban.png)
 
 ![player-bans-menu](/img/content/player-bans-menu.png)
+
+![ban-from-player-perspective](/img/content/ban-from-player-perspective.png)
+
+### Revoke player ban
+
+![revoke-player-ban](/img/content/revoke-player-ban.png)
