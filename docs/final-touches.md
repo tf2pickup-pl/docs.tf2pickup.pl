@@ -6,9 +6,19 @@ title: Final touches
 
 TODO: add setting up site rules
 
+![edit-rules](/img/content/edit-rules.png)
+
 ## Adding game servers to the website
 
 TODO: add adding servers to the website
+
+![add-game-server](/img/content/add-game-server.png)
+
+![game-server-status](/img/content/game-server-status.png)
+
+![run-diagnostics](/img/content/run-diagnostics.png)
+
+![diagnostics-status](/img/content/diagnostics-status.png)
 
 ## Host system updates
 
