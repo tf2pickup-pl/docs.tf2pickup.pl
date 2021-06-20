@@ -6,6 +6,7 @@ module.exports = {
       items: [
         'about',
         'site-overview',
+        'site-showcase',
         'faq',
       ],
     },
