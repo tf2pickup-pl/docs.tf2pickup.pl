@@ -18,6 +18,8 @@ TODO: describe site overview: adding to a game, subbing a player, discord notifi
 
 ## Discord notifications
 
+TODO: add some notification description
+
 ![pickup-gather-notification](/img/content/pickup-gather-notification.png)
 
-TODO: add player sub notification
+![sub-needed](/img/content/sub-needed.png)
