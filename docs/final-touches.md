@@ -68,6 +68,49 @@ docker run --rm \
 
 :::
 
+There you can see how it looks like in practice (this specific example is based on **tf2pickup.cz**):
+
+```bash
+tf2pickup@tf2pickup:~$ docker run --rm \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    containrrr/watchtower \
+    --run-once
+time="2021-06-23T10:48:56Z" level=info msg="Watchtower 1.3.0\nUsing no notifications\nChecking all containers (except explicitly disabled with label)\nRunning a one time update."
+time="2021-06-23T10:49:05Z" level=info msg="Found new tf2pickuppl/tf2pickup.cz:latest image (586b0ef05dcd)"
+time="2021-06-23T10:53:49Z" level=info msg="Found new tf2pickuppl/tf2-gameserver:latest image (7a86ac6e792a)"
+time="2021-06-23T10:54:16Z" level=info msg="Found new mongo:latest image (e12d72fd1857)"
+time="2021-06-23T10:54:26Z" level=info msg="Found new portainer/portainer-ce:latest image (45be17a5903a)"
+time="2021-06-23T10:54:26Z" level=info msg="Stopping /portainer (087e341f7e51) with SIGTERM"
+time="2021-06-23T10:55:00Z" level=info msg="Stopping /mongo (7d2f55013020) with SIGTERM"
+time="2021-06-23T10:55:01Z" level=info msg="Stopping /tf2pickup-gameserver (1f7cc1e037ca) with SIGTERM"
+time="2021-06-23T10:55:12Z" level=info msg="Stopping /tf2pickup-cz-frontend (8af1b342f0a4) with SIGTERM"
+time="2021-06-23T10:55:13Z" level=info msg="Creating /tf2pickup-cz-frontend"
+time="2021-06-23T10:55:17Z" level=info msg="Creating /tf2pickup-gameserver"
+time="2021-06-23T10:55:17Z" level=info msg="Creating /mongo"
+time="2021-06-23T10:55:19Z" level=info msg="Creating /portainer"
+tf2pickup@tf2pickup:~$ docker ps -a
+CONTAINER ID   IMAGE                               COMMAND                  CREATED          STATUS          PORTS                                            NAMES
+dc4d44148848   portainer/portainer-ce:latest       "/portainer"             11 minutes ago   Up 11 minutes   0.0.0.0:8000->8000/tcp, 0.0.0.0:9000->9000/tcp   portainer
+58d79c0eae41   mongo:latest                        "docker-entrypoint.s…"   11 minutes ago   Up 11 minutes   0.0.0.0:44999->27017/tcp                         mongo
+0ac50282f207   tf2pickuppl/tf2-gameserver:latest   "./entrypoint.sh +sv…"   11 minutes ago   Up 11 minutes                                                    tf2pickup-gameserver
+532925f38b93   tf2pickuppl/tf2pickup.cz:latest     "/docker-entrypoint.…"   11 minutes ago   Up 11 minutes   0.0.0.0:5309->80/tcp                             tf2pickup-cz-frontend
+8bf4a113b4f9   tf2pickuppl/server:latest           "docker-entrypoint.s…"   2 months ago     Up 7 weeks                                                       tf2pickup-server
+a292297b593f   cc6b1ab35b7b                        "./entrypoint.sh +sv…"   3 months ago     Up 2 months                                                      tf2pickup-gameserver-2
+tf2pickup@tf2pickup:~$ docker run --rm     -v /var/run/docker.sock:/var/run/docker.sock     containrrr/watchtower     --run-once
+time="2021-06-23T11:13:26Z" level=info msg="Watchtower 1.3.0\nUsing no notifications\nChecking all containers (except explicitly disabled with label)\nRunning a one time update."
+time="2021-06-23T11:13:35Z" level=info msg="Found new tf2pickuppl/tf2-gameserver:latest image (7a86ac6e792a)"
+time="2021-06-23T11:13:35Z" level=info msg="Stopping /tf2pickup-gameserver-2 (a292297b593f) with SIGTERM"
+time="2021-06-23T11:13:45Z" level=info msg="Creating /tf2pickup-gameserver-2"
+tf2pickup@tf2pickup:~$ docker ps -a
+CONTAINER ID   IMAGE                               COMMAND                  CREATED          STATUS          PORTS                                            NAMES
+cb236f93943e   tf2pickuppl/tf2-gameserver:latest   "./entrypoint.sh +sv…"   5 seconds ago    Up 4 seconds                                                     tf2pickup-gameserver-2
+dc4d44148848   portainer/portainer-ce:latest       "/portainer"             18 minutes ago   Up 18 minutes   0.0.0.0:8000->8000/tcp, 0.0.0.0:9000->9000/tcp   portainer
+58d79c0eae41   mongo:latest                        "docker-entrypoint.s…"   18 minutes ago   Up 18 minutes   0.0.0.0:44999->27017/tcp                         mongo
+0ac50282f207   tf2pickuppl/tf2-gameserver:latest   "./entrypoint.sh +sv…"   18 minutes ago   Up 18 minutes                                                    tf2pickup-gameserver
+532925f38b93   tf2pickuppl/tf2pickup.cz:latest     "/docker-entrypoint.…"   18 minutes ago   Up 18 minutes   0.0.0.0:5309->80/tcp                             tf2pickup-cz-frontend
+8bf4a113b4f9   tf2pickuppl/server:latest           "docker-entrypoint.s…"   2 months ago     Up 7 weeks  
+```
+
 Alternatively, you can use a Watchtower container which can update all/specific containers automatically with a schedule. All you need to do is to deploy it with proper parameters ([the one in example will execute upgrades everyday at 5:00 AM](https://pkg.go.dev/github.com/robfig/cron@v1.2.0#hdr-CRON_Expression_Format)):
 
 ```bash
