@@ -41,6 +41,33 @@ docker-compose stop
 docker compose up -d
 ```
 
+If your containers are not set up with docker-compose, you will have to pull all container images you use manually and recreate containers with the same port usage, links to the container and port definitions. However, if you want to do it once and immediately, you can use watchtower in order to do it automatically by executing:
+
+```bash
+docker run --rm \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    containrrr/watchtower \
+    --run-once
+```
+
+:::caution
+
+The example above will update all containers you have on your host! If you want to update specific containers, execute:
+
+```bash
+docker run --rm \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    containrrr/watchtower \
+    --run-once \
+    tf2pickupfi_gameserver1_1 \
+    tf2pickupfi_gameserver2_1 \
+    tf2pickupfi_mongodb_1 \
+    tf2pickup \
+    tf2pickupfi_client_1
+```
+
+:::
+
 Alternatively, you can use a Watchtower container which can update all/specific containers automatically with a schedule. All you need to do is to deploy it with proper parameters ([the one in example will execute upgrades everyday at 5:00 AM](https://pkg.go.dev/github.com/robfig/cron@v1.2.0#hdr-CRON_Expression_Format)):
 
 ```bash
