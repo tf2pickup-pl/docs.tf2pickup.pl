@@ -72,11 +72,11 @@ Alternatively, you can use a Watchtower container which can update all/specific 
 
 ```bash
 docker run -d \
---name watchtower \
---restart always \
--v /var/run/docker.sock:/var/run/docker.sock \
-containrrr/watchtower \
---cleanup --include-stopped --schedule "0 0 5 * * *"
+    --name watchtower \
+    --restart always \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    containrrr/watchtower \
+    --cleanup --include-stopped --schedule "0 0 5 * * *"
 ```
 
 Watchtower will pull images and replace container images automatically. It also deletes old images after being replaced by the new ones, so it will not waste your disk space.
