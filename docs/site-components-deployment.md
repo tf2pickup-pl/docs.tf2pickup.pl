@@ -128,9 +128,9 @@ LOG_RELAY_PORT=9871
 # Discord (optional)
 # You will find a bot token at https://discord.com/developers/applications
 DISCORD_BOT_TOKEN=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDX
-DISCORD_GUILD=tf2pickup.fi
+DISCORD_GUILD=Suomi TF2
 DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=tf2pickupfi-yleinen
-DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=Sotilas
+DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=Mixaajat
 DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=admin-ilmoitukset
 
 # twitch.tv integration (optional)
@@ -157,7 +157,7 @@ Then, copy and pass **Key** value to a `STEAM_API_KEY` variable.
 
 ![steam-api-key-registered](/img/content/steam-api-key-registered.png)
 
-### Setting up Discord bot
+### Setting up Discord bot with channels
 
 :::tip
 
@@ -165,17 +165,79 @@ This step is optional.
 
 :::
 
-TODO: add Discord bot setup
+Discord integration enables:
 
-### Setting up Discord channels
+- pickup gather up notification on a public channel,
+- substitute notifications when they are needed during a game,
+- administration notifications, such as:
+  - player bans,
+  - player unbans,
+  - skill changes,
+  - player role changes,
+  - player nickname changes,
+  - new player registrations,
+  - game force-ends,
+  - tf2pickup server starts.
 
-:::tip
+In order to create a bot, you have to enter the [Discord Developer Portal](https://discord.com/developers/applications) in the Applications section. Then, click **New Application**.
+![discord-create-new-application](/img/content/discord-create-new-application.png)
 
-This step is optional.
+Add a name for the bot and click **Create**.
 
-:::
+![discord-name-new-application](/img/content/discord-name-new-application.png)
 
-TODO: add Discord channels setup
+After that set the avatar for the application:
+
+![discord-bot-add-flag](/img/content/discord-bot-add-flag.png)
+
+Then go to the bot section, click **Add Bot** and then **Yes, do it!** button on the notification.
+
+![discord-add-new-bot](/img/content/discord-add-new-bot.png)
+
+In the menu you can find a token, which you have to pass in the `DISCORD_BOT_TOKEN` variable. Click **Copy** and note the token in your `.env` file.
+
+You *should* untick the Public Bot option, since you don't really want to let anybody invite this bot anywhere else than your Discord server(s) (even if that would be useless, because the bot would send messages only on a specific server).
+
+![discord-disable-public-invite](/img/content/discord-disable-public-invite.png)
+
+Now you should head over to the OAuth2 section and create a URL allowing you to invite the bot on a server. In the **OAuth2 URL Generator** section under *Scopes* tick `bot` option. That should create a link below. Copy and open it.
+
+![discord-bot-generate-invite-link](/img/content/discord-bot-generate-invite-link.png)
+
+There you should choose the server on which your community is. You have to have `Manage Server` permissions in order to add the bot on it. Choose the server you want from the dropdown list and click **Authorize**.
+
+![discord-invite-bot](/img/content/discord-invite-bot.png)
+
+After adding the bot you should configure the channels for it. Administration notifications should be sent on a channel available only for the site staff. We suggest to set permissions in a way where the staff have `View Channel` and `Read Message History` permissions and the bot has the following ones:
+
+- `View Channel`,
+- `Send Messages`,
+- `Embed Links`,
+- `Attach Files`,
+- `Read Message History`.
+
+The bot should have the same permissions on a channel supposed to be a place for the pickup gather up and substitute notifications. After that, you should define the rest of the Discord Bot related variables. You should look at the following things:
+
+The Discord server name is `Suomi TF2` and the pickup public notifications channel is `tf2pickupfi-yleinen`.
+
+![tf2pickupfi-yleinen](/img/content/tf2pickupfi-yleinen.png)
+
+You should also create a role for pinging players when the substitute is needed. In this example this role is called `Mixaajat`.
+
+![sub-needed](/img/content/sub-needed.png)
+
+The admin notifications channel is called `admin-ilmoitukset`.
+
+![discord-admin-notifications-1](/img/content/discord-admin-notifications-1.png)
+
+Therefore, you should define the rest of Discord Bot variables just like shown below:
+
+```env
+DISCORD_GUILD=Suomi TF2
+DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=tf2pickupfi-yleinen
+DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=Mixaajat
+DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=admin-ilmoitukset
+```
 
 ### Setting up Twitch stream integration
 
