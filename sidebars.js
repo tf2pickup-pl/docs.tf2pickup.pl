@@ -26,6 +26,7 @@ module.exports = {
       items: [
         'components-introduction',
         'setup-prerequisites',
+        'discord-server-setup',
         'site-components-deployment',
         'final-touches',
       ],
