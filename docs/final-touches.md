@@ -41,7 +41,15 @@ There you can see the diagnostics status. In this case everything went smooth an
 
 ## Add admins to the site, set up whitelist, maps and skills
 
-TODO: describe setting up admins
+After the site start, you may want to add admins in order to make site moderation easier and faster. To do that, you have to open up the player profile, choose **roles** button and choose a right role for them:
+
+![run-diagnostics](/img/content/player-profile.png)
+
+- no role - default player role, no administrative access,
+- admin - lets player set up everything on the website excluding managing game servers and player roles on the site,
+- super user - unlimited administrative privileges, the user defined in the `.env` configuration has this role always assigned in.
+
+![run-diagnostics](/img/content/player-roles.png)
 
 For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist), map pool settings can be seen [there](/docs/website-settings#map-pool-settings), and [there](/the-most-common-tasks#setting-up-players-skills) you can look at for the skill setup.
 
