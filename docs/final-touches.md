@@ -14,6 +14,12 @@ We discourage you to use inline HTML formatting, since it's buggy.
 
 ![edit-rules](/img/content/edit-rules.png)
 
+After setting up the rules, they will show up in a popup for every user joining the site for the very first time (right with Mumble requirement notification):
+
+![edit-rules](/img/content/i-have-mumble.png)
+
+![edit-rules](/img/content/accept-site-rules.png)
+
 ## Adding game servers to the website
 
 Pickup games require game servers on which it can be set up. In order to do that, you have to add one by entering the **servers** section and clicking a button to add game server. Define it's public name in the **Name** section, add the server address, port and the RCON password to the server. Example:
