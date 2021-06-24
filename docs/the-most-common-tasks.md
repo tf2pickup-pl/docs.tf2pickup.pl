@@ -38,10 +38,10 @@ TODO: add ban description
 
 ![ban-from-player-perspective](/img/content/ban-from-player-perspective.png)
 
-## Subbing out players
-
-TODO: how to sub a player
-
 ### Revoke player ban
 
 ![revoke-player-ban](/img/content/revoke-player-ban.png)
+
+## Subbing out players
+
+TODO: how to sub a player
