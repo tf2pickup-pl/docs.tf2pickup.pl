@@ -151,17 +151,53 @@ MUMBLE_SUPERUSER_PASSWORD=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 
 TODO: add steam api key setup
 
-### Setting up Discord bot (optional)
+### Setting up Discord bot
+
+:::tip
+
+This step is optional.
+
+:::
 
 TODO: add Discord bot setup
 
-### Setting up Discord channels (optional)
+### Setting up Discord channels
+
+:::tip
+
+This step is optional.
+
+:::
 
 TODO: add Discord channels setup
 
-### Setting up Twitch stream integration (optional)
+### Setting up Twitch stream integration
 
-TODO: add Twitch stream integration
+:::tip
+
+This step is optional.
+
+:::
+
+Setting it enables site users to integrate their tf2pickup accounts with Twitch, letting access their Twitch profiles through a Twitch link in an icon.
+
+![player-profile](/img/content/player-profile.png)
+
+Moreover, it will show up all Twitch streams on a left site of the main page.
+
+![tf2pickup.fi](/img/content/tf2pickup.fi.png)
+
+Go to the [Twitch Developers console](https://dev.twitch.tv/console) and register your new application by clicking **Register Your Application**:
+
+![twitch-dev-console-register-your-application](/img/content/twitch-dev-console-register-your-application.png)
+
+Define application name as `tf2pickup.fi` with OAuth Redirect URLs as `https://api.tf2pickup.fi/twitch/auth/return`. Choose any category - the best one for that purpose would be `Website Integration`. After defining that verify that you are not a bot and save.
+
+Then, you will see the application list. Find `tf2pickup.fi` and select **Manage**. You will be able to see the **Client ID**, the value used in `TWITCH_CLIENT_ID` variable. The Client Secret will be hidden, press New Secret and confirm it in the popup. The Client Secret will show up like on the screenshot below:
+
+![twitch-dev-console-tf2pickup.fi-api-settings](/img/content/twitch-dev-console-tf2pickup.fi-api-settings.png)
+
+Pass this secret value to a `TWITCH_CLIENT_SECRET` variable.
 
 ### Mumble channel setup example
 
