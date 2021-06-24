@@ -149,7 +149,13 @@ MUMBLE_SUPERUSER_PASSWORD=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 
 ### Setting up Steam API key
 
-TODO: add steam api key setup
+This is probably the easiest API key to get from all tasks here - open [Steam Web API Key site](https://steamcommunity.com/dev/apikey), enter `tf2pickup.fi` in the **Domain Name** field, agree for *Steam Web API Terms of Use* and click **Register**.
+
+![steam-api-key-register](/img/content/steam-api-key-register.png)
+
+Then, copy and pass **Key** value to a `STEAM_API_KEY` variable.
+
+![steam-api-key-registered](/img/content/steam-api-key-registered.png)
 
 ### Setting up Discord bot
 
