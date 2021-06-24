@@ -4,21 +4,46 @@ title: Final touches
 
 ## Adding site rules
 
-TODO: add setting up site rules
+You definitely want to define what things are allowed and what not, and because of that you should define site rules. You can do so through the Admin Panel. All instructions here are written in Markdown (based on [Marked.js](https://marked.js.org/)). Edits should be done on left side of the page, right one shows up a rule page preview.
+
+:::caution
+
+We discourage you to use inline HTML formatting, since it's buggy.
+
+:::
 
 ![edit-rules](/img/content/edit-rules.png)
 
 ## Adding game servers to the website
 
-TODO: add adding servers to the website
+Pickup games require game servers on which it can be set up. In order to do that, you have to add one by entering the **servers** section and clicking a button to add game server. Define it's public name in the **Name** section, add the server address, port and the RCON password to the server. Example:
+
+```nolanguage
+Name: tf2pickup.fi #1
+Address: tf2pickup.fi
+Port: 27015
+RCON password: funny_rcon_password
+```
 
 ![add-game-server](/img/content/add-game-server.png)
 
+After saving settings, the site will have to check if it can connect to the server and set it up. In most cases, the server status colour should be changed from red to green.
+
 ![game-server-status](/img/content/game-server-status.png)
+
+If that won't happen, click **Run diagnostics** button in order to perform server troubleshooting. The site will perform a few tests in order to see what may be a root cause of the problem.
 
 ![run-diagnostics](/img/content/run-diagnostics.png)
 
+There you can see the diagnostics status. In this case everything went smooth and things seem to be fine.
+
 ![diagnostics-status](/img/content/diagnostics-status.png)
+
+## Add admins to the site, set up whitelist, maps and skills
+
+TODO: describe setting up admins
+
+For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist), map pool settings can be seen [there](/docs/website-settings#map-pool-settings), and [there](/the-most-common-tasks#setting-up-players-skills) you can look at for the skill setup.
 
 ## Host system updates
 
