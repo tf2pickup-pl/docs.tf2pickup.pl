@@ -161,7 +161,7 @@ Then, copy and pass **Key** value to a `STEAM_API_KEY` variable.
 
 :::tip
 
-This step is optional.
+This step is optional. Follow these steps only if you own a Discord which is directed for the pickup community.
 
 :::
 
@@ -243,7 +243,7 @@ DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=admin-ilmoitukset
 
 :::tip
 
-This step is optional.
+This step is optional. Follow these steps only if you want to let people show up their streams on the main page of the pickup site.
 
 :::
 
