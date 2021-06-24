@@ -26,5 +26,18 @@ channels as well.
 
 ## The game server
 
-To launch a game, at least one game server is needed. We provide a [docker image](https://github.com/tf2pickup-org/tf2-gameserver)
+To launch a game, at least one game server is needed. In order to let the game server work properly with the server, it is expected to have specific extensions/plugins installed:
+
+- [SourceMod 1.10](https://www.sourcemod.net/downloads.php) (the latest stable version),
+- [Metamod:Source 1.11](https://www.sourcemm.net/downloads.php?branch=stable) (the latest stable version),
+- [TFTrue Extension](https://tftrue.esport-tools.net/)
+- [DHooks 2 Extension](https://github.com/peace-maker/DHooks2),
+- [tf2-comp-fixes plugin](https://github.com/ldesgoui/tf2-comp-fixes),
+- [updated-pause-plugin](https://github.com/l-Aad-l/updated-pause-plugin),
+- [cURL SourceMod Extension](https://code.google.com/archive/p/sourcemod-curl-extension/downloads),
+- [ETF2L server configuration files](https://etf2l.org/rules/configs/) "with the latest configs and whitelists",
+- [SrcTV+ Extension](https://github.com/dalegaard/srctvplus),
+- [TF2Stadium SourceMod Plugin](https://github.com/tf2pickup-org/stadium-sm-plugin),
+
+We provide a [docker image](https://github.com/tf2pickup-org/tf2-gameserver)
 that has all the plugins and configuration. [Here](/docs/site-compoents-deployment) you can find some information how to set them up fast.
