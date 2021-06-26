@@ -21,4 +21,4 @@ They are supposed to:
 - watch the site proactively to see if there are unbalanced games and change player skills if needed,
 - listen to the players' complaints and react to them,
 - listen to the general community feedback on various things, for example if the community wants to (not) play a certain map, then admins should change it if that change is for the general good or majority of the community wants that change,
-- if the community use a Discord/Mumlbe server for the community, admins should moderate it.
+- if the community use a Discord/Mumble server for the community, admins should moderate it.
