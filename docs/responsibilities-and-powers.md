@@ -15,10 +15,10 @@ They can:
 - scramble maps available in the votes,
 - edit rules page.
 
-## Admin discord notifications
+They are supposed to:
 
-TODO: show up discord notifications
-
-![discord-admin-notifications-1](/img/content/discord-admin-notifications-1.png)
-
-![discord-admin-notifications-2](/img/content/discord-admin-notifications-2.png)
+- consult actions if they are unsure if things what they want to do are fine (for example handing out bans, assigning skills to certain people, changing site elements such as map pool, rules or the whitelist),
+- watch the site proactively to see if there are unbalanced games and change player skills if needed,
+- listen to the players' complaints and react to them,
+- listen to the general community feedback on various things, for example if the community wants to (not) play a certain map, then admins should change it if that change is for the general good or majority of the community wants that change,
+- if the community use a Discord/Mumlbe server for the community, admins should moderate it.
