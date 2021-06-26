@@ -17,7 +17,6 @@ module.exports = {
         'responsibilities-and-powers',
         'the-most-common-tasks',
         'website-settings',
-        'community-guidelines',
       ],
     },
     {
