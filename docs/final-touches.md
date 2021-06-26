@@ -246,9 +246,22 @@ docker exec tf2pickupfi_mongodb_1 '/bin/bash' \
 
 ## Firewall settings
 
-TODO: add some firewall setting explanation and requirements
+In general you should let connection pass through for:
 
-Example iptables setup:
+- client:
+  - from/to the container to the host, so reverse proxy can let access it,
+- server:
+  - from/to the container to the host, so reverse proxy can let access it,
+  - from/to the container to the outside, in this case it's port UDP 9871 and it's used for retrieving logs from the game servers,
+- mumble:
+  - from/to the container/service to the outside, both UDP/TCP,
+- local services:
+  - SSH port from/to the service to the outside,
+  - HTTP(S) ports from/to the service to the outside,
+- game servers:
+  - all game server ports from/to the container to the outside.
+
+You can find an example configuration for IPtables (IPv4/IPv6) of the host below:
 
 IPv4:
 
