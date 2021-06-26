@@ -163,6 +163,17 @@ docker run -d \
 
 Watchtower will pull images and replace container images automatically. It also deletes old images after being replaced by the new ones, so it will not waste your disk space.
 
+## Game server updates
+
+There are two ways how you can update the game servers:
+
+- by restarting the game server container(s),
+- by updating the game server container(s) (if the container update is available).
+
+In most cases you'd rather to restart the container. Container has all game server files inside and if a Team Fortress 2 update comes out, the container will try to update game files every time on start. After updating the game files inside the container it will just start normally and its status will become green on server status on the server tab on the pickup site.
+
+In rare cases, you may need to update the container (for instance if a game update is going to crash the container). In this case you have to update it in the same way as you do with the pickup containers.
+
 ## Backups
 
 The best backup policy would be to:
