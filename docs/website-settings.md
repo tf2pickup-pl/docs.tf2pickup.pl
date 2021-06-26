@@ -32,9 +32,27 @@ Here you can set up a whitelist by defining a whitelist name or its ID from [whi
 
 This lets you force create accounts, omitting registration requirements which are:
 
-- having a public profile with public game progress,
-- having a ETF2L profile,
-- having more than 500 hours in the Team Fortress 2.
+- having a public profile with public game progress, just like here:
+
+![public-game-details](/img/content/public-game-details.png)
+
+In case a player won't have the game details public, an error will show up after the first log-in:
+
+![error-tf2-private-details](/img/content/error-tf2-private-details.png)
+
+- having an ETF2L profile ([like this](https://etf2l.org/forum/user/48288/)),
+
+If the player doesn't have an ETF2L profile registered then an error will show up after the first log-in.:
+
+![error-tf2-insufficient-tf2-game-hours](/img/content/error-tf2-insufficient-tf2-game-hours.png)
+
+- having more than 500 hours in the Team Fortress 2:
+
+![tf2-in-game-hours](/img/content/tf2-in-game-hours.png)
+
+In case a player won't have the sufficient amount of hours spent in the Team Fortress 2, an error will show up after the first log-in:
+
+![error-tf2-insufficient-tf2-game-hours](/img/content/error-tf2-insufficient-tf2-game-hours.png)
 
 All you need to do is to enter a player nickname and SteamID64 format value, for instance `76561198011558250`.
 
@@ -44,7 +62,13 @@ When the profile is created, it will be completely empty like on this screenshot
 
 ![force-created-profile](/img/content/force-created-profile.png)
 
-All user data will be filled up once the user for which an account was force created will log in to the site.
+All user data will be filled up once the user for which an account was force created will log-in to the site.
+
+:::tip
+
+If a player comes in an issue where they cannot log in due to the errors shown above, let them know that they should wait a bit before they attempt to log in again, because otherwise they will end up with the same error for a short period of time.
+
+:::
 
 ## Setting up players' skills
 
