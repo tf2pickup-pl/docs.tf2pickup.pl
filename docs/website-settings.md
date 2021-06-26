@@ -70,9 +70,9 @@ If a player comes in an issue where they cannot log in due to the errors shown a
 
 :::
 
-## Setting up players' skills
+## Setting up player skills
 
-See [here](/docs/the-most-common-tasks#setting-up-players-skills).
+See [here](/docs/the-most-common-tasks#setting-up-player-skills).
 
 ## Set up website rules
 
