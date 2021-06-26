@@ -8,6 +8,14 @@ title: Site overview
 
 ![pickup-queue](/img/content/pickup-queue.png)
 
+### Pickup game overview as a player
+
+![pickup-game-overview-as-a-player](/img/content/pickup-game-overview-as-a-player.png)
+
+### Pickup game overview as a spectator
+
+![pickup-game-overview-as-a-spectator](/img/content/pickup-game-overview-as-a-spectator.png)
+
 ### Player list
 
 ![player-list](/img/content/player-list.png)
@@ -34,7 +42,7 @@ title: Site overview
 
 ![sub-needed](/img/content/sub-needed.png)
 
-## Admin discord notifications
+### Admin discord notifications
 
 ![discord-admin-notifications-1](/img/content/discord-admin-notifications-1.png)
 
