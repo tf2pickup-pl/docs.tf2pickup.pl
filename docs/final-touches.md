@@ -7,9 +7,7 @@ title: Final touches
 You definitely want to define what things are allowed and what not, and because of that you should define site rules. You can do so through the Admin Panel. All instructions here are written in Markdown (based on [Marked.js](https://marked.js.org/)). Edits should be done on left side of the page, right one shows up a rule page preview.
 
 :::caution
-
 We discourage you to use inline HTML formatting, since it's buggy.
-
 :::
 
 ![edit-rules](/img/content/edit-rules.png)
@@ -62,17 +60,20 @@ For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist
 ## Host system updates
 
 Based on the Linux distribution you have (regardless if it's as a normal Linux installation or as a Windows Subsystem for Linux instance) just execute updates in a way suggested by a distribution documentation ([here's an example from Ubuntu](https://ubuntu.com/server/docs/upgrade-introduction) which is the same for Debian, as Ubuntu is a Debian-based distribution). In case you use Windows 10/Windows Server 2019, you may probably end up with Ubuntu too, so updating the system is being done in the same way, however upgrades between distribution versions is done by installing a new version of the Ubuntu application from Microsoft Store.
+
 :::important
-
 Please note that using WSL2 for hosting pickups is not recommended for the production, but it is completely fine for the development.
-
 :::
 
 ## Pickup site updates
 
-If you set up containers by using our `docker-compose.yml` sample, there are two ways of updating pickups - manually and automatically.
+If you set up containers by using our `docker-compose.yml` sample, there are two ways of updating pickups - manual and automatic.
 
-The manual way expects you to download (pull) images for your containers and then restart and replace old container images with the new ones. You can do so by executing commands in the folder with the configuration files ([tips are from there](https://stackoverflow.com/questions/31466428/how-to-restart-a-single-container-with-docker-compose)):
+### Manual update
+
+#### By `docker-compose pull`
+
+The manual way expects you to download (`pull`) images for your containers and then restart and replace old container images with the new ones. You can do so by executing commands in the folder with the configuration files ([tips are from there](https://stackoverflow.com/questions/31466428/how-to-restart-a-single-container-with-docker-compose)):
 
 ```bash
 docker-compose pull
@@ -80,7 +81,41 @@ docker-compose stop
 docker compose up -d
 ```
 
-If your containers are not set up with docker-compose, you will have to pull all container images you use manually and recreate containers with the same port usage, links to the container and port definitions. However, if you want to do it once and immediately, you can use watchtower in order to do it automatically by executing:
+#### Per container upgrade
+
+If your containers are not set up with docker-compose, you will have to pull all container images you use manually and recreate containers with the same [port usage](https://docs.docker.com/config/containers/container-networking/), [network settings](https://docs.docker.com/engine/reference/run/#network-settings), [and volume setup](https://docs.docker.com/engine/reference/commandline/run/#mount-volumes-from-container---volumes-from).
+
+For example, here is our list of containers:
+
+```bash
+tf2pickup@tf2pickup:~$ docker ps -a
+CONTAINER ID   IMAGE                               COMMAND                  CREATED        STATUS        PORTS                                                                                  NAMES
+314aa034dbaa   portainer/portainer-ce:latest       "/portainer"             33 hours ago   Up 15 hours   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp, 0.0.0.0:9000->9000/tcp, :::9000->9000/tcp   portainer
+d8885d9c1660   mongo:4.0                           "docker-entrypoint.s…"   33 hours ago   Up 15 hours   0.0.0.0:8001->27017/tcp, :::8001->27017/tcp                                            tf2pickupfi_mongodb_1
+213e9ca18159   tf2pickuppl/tf2-gameserver:latest   "./entrypoint.sh +sv…"   2 days ago     Up 15 hours                                                                                          tf2pickupfi_gameserver2_1
+27b4baca2ed1   tf2pickuppl/tf2-gameserver:latest   "./entrypoint.sh +sv…"   2 days ago     Up 15 hours                                                                                          tf2pickupfi_gameserver1_1
+e5ffd4447a8d   containrrr/watchtower               "/watchtower --clean…"   2 weeks ago    Up 15 hours   8080/tcp                                                                               watchtower
+02c53d082927   tf2pickuppl/server                  "docker-entrypoint.s…"   2 weeks ago    Up 15 hours                                                                                          tf2pickup
+906a368fe18d   tf2pickuppl/tf2pickup.fi            "/docker-entrypoint.…"   2 weeks ago    Up 15 hours   0.0.0.0:4000->80/tcp, :::4000->80/tcp                                                  tf2pickupfi_client_1
+```
+
+For instance, let's say you want to upgrade a `tf2pickupfi_client_1` container. This one is exposing its port TCP 80 to a host port TCP 4000 (both on IPv4 and IPv6 stacks). That means, in order to upgrade that single container, you will have to execute:
+
+```bash
+docker pull tf2pickuppl/tf2pickup.fi
+docker rename tf2pickupfi_client_1 tf2pickupfi_client_1_old
+docker stop tf2pickupfi_client_1_old
+docker run -d -p 4000:80 --name tf2pickupfi_client_1 --restart always --volumes-from tf2pickupfi_client_1_old tf2pickuppl/tf2pickup.fi
+docker rm tf2pickupfi_client_1_old
+```
+
+#### By one-time watchtower upgrade
+
+:::tip
+You can use this approach both with docker-compose and separate container setup.
+:::
+
+If you want to do the same thing in a way easier approach, you can use `watchtower` in order to do it automatically by executing:
 
 ```bash
 docker run --rm \
@@ -149,6 +184,8 @@ dc4d44148848   portainer/portainer-ce:latest       "/portainer"             18 m
 532925f38b93   tf2pickuppl/tf2pickup.cz:latest     "/docker-entrypoint.…"   18 minutes ago   Up 18 minutes   0.0.0.0:5309->80/tcp                             tf2pickup-cz-frontend
 8bf4a113b4f9   tf2pickuppl/server:latest           "docker-entrypoint.s…"   2 months ago     Up 7 weeks  
 ```
+
+### Automatic update
 
 Alternatively, you can use a Watchtower container which can update all/specific containers automatically with a schedule. All you need to do is to deploy it with proper parameters ([the one in example will execute upgrades everyday at 5:00 AM](https://pkg.go.dev/github.com/robfig/cron@v1.2.0#hdr-CRON_Expression_Format)):
 
