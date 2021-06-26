@@ -22,7 +22,7 @@ In cases like this just click the `reinitialize server` button.
 
 In some cases the game may fail - sometimes because of an excessive amount of substitutes, sometimes because the game was not started and people still wait for a substitute or for some reason the pickup server does not end the pickup (change pickup state from `started` to `ended`). This is when the game should be force-closed. Click `force end` in order to force-close the game.
 
-## Setting up players' skills
+## Setting up player skills
 
 This is probably the most important task of every single pickup admin. Pickup games on tf2pickup.org are based on skills - values assigned to players in order to define their skill on certain classes, depending on a gamemode used on a website. These are integer values between [-9007199254740991 and 9007199254740991](https://www.tektutorialshub.com/typescript/typescript-number-min-max-safe-values/). Any range of values can be used in order to define skills for players. These skill values are used by the pickup site in order to balance out teams for the pickup games, so after all people add and ready up in the queue, the pickup server will calculate the most balanced teams based on skill values of players who added up on certain classes.
 
