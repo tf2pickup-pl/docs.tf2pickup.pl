@@ -16,6 +16,10 @@ title: Site overview
 
 ![pickup-game-overview-as-a-spectator](/img/content/pickup-game-overview-as-a-spectator.png)
 
+### Pickup game overview after a game
+
+![pickup-game-overview-after-a-game](/img/content/pickup-game-overview-after-a-game.png)
+
 ### Player list
 
 ![player-list](/img/content/player-list.png)
