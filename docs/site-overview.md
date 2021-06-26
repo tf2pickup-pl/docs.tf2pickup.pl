@@ -42,6 +42,8 @@ title: Site overview
 
 ![pickup-gather-notification](/img/content/pickup-gather-notification.png)
 
+![pickup-gather-notification](/img/content/pickup-gather-notification-highlander.png)
+
 ### Substitute needed notification
 
 ![sub-needed](/img/content/sub-needed.png)
