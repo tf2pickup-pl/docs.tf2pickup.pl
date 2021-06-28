@@ -320,7 +320,7 @@ Moreover, the Streamcord live role should be noticable in this way:
 
 ### Statbot
 
-asd
+TODO: describe statbot configuration
 
 ### payload-neo
 
