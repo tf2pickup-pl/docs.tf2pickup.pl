@@ -28,18 +28,20 @@ The Discord consists with the following channels:
   - `#admins` - private admin discussion channel,
   - `#Admin` (voice channel) - private admin discussion voice channel.
 
+Additionally there is an empty `tf2pickup.org support` category for admin requests from the Ticket
+
 ## Bot setup
 
 A crucial part of the server configuration are bots. These cannot be bundled with the server template and their settings and permissions has to be set separately by a Discord server owner.
 
 The bots described in this guide are:
 
-- AltDentifier - used for checking potential alt accounts and user verification,
-- Carl-bot - general purpose bot, used mostly for reaction roles and moderation,
-- Streamcord - creates a stream feed of Discord users streaming at the moment, it also adds a live role,
-- Statbot - gathers statistics about the server usage,
-- payload-neo - generates a lot of cool stuff TF2 related such us Steam connect strings into Steam URI (clickable connects) and more,
-- Ticket Tool - lets you talk about the incidents happening on the pickups in a private and professional manner.
+- [AltDentifier](https://altdentifier.com/?lang=en) - used for checking potential alt accounts and user verification,
+- [Carl-bot](https://carl.gg/) - general purpose bot, used mostly for reaction roles and moderation,
+- [Streamcord](https://streamcord.io/twitch/) - creates a stream feed of Discord users streaming at the moment, it also adds a live role,
+- [Statbot](https://statbot.net/) - gathers statistics about the server usage,
+- [payload-neo](https://payload.tf/) - generates a lot of cool stuff TF2 related such us Steam connect strings into Steam URI (clickable connects) and more,
+- [Ticket Tool](https://tickettool.xyz/) - lets you talk about the incidents happening on the pickups in a private and professional manner.
 
 ### AltDentifier
 
@@ -151,6 +153,14 @@ These permissions should be set on a channels: `#welcome`, `#altdentifier-logs`,
 
 ![altdentifier-final-result](/img/content/altdentifier-final-result.png)
 
+The last thing you should do is to add `Manage Server` permission for the `AltDentifier` role, so the AltDentifier could be able to track invites from which people join on the server. Make sure you move a AltDentifier role on the top of the list, but below the `crown deleter` role.
+
+![altdentifier-set-role-on-top](/img/content/altdentifier-set-role-on-top.png)
+
+![altdentifier-set-manage-server-permission](/img/content/altdentifier-set-manage-server-permission.png)
+
+For more you can find AltDentifier command list [here](https://altdentifier.com/commands?lang=en).
+
 ### Carl-bot
 
 asd
@@ -165,7 +175,29 @@ asd
 
 ### payload-neo
 
-asd
+The payload-neo bot is a result of the development of [sharky](https://sharky.cool/), later developed by [24](https://steamcommunity.com/id/chab133). The bot is open-source and its source code can be found [here](https://github.com/payload-bot). The bot command list can be found [here](https://payload.tf/docs). The most important features are:
+
+- connect string conversion to a clickable Steam URI,
+
+![payload-connect-steam-uri](/img/content/payload-connect-steam-uri.png)
+
+- ETF2L/UGC team profile previews,
+
+![payload-etf2l-team-preview](/img/content/payload-etf2l-team-preview.png)
+
+![payload-ugc-team-preview](/img/content/payload-ugc-team-preview.png)
+
+- logs.tf game previews,
+
+![payload-log-preview](/img/content/payload-log-preview.png)
+
+- teamfortress.tv thread previews.
+
+![payload-tftv-preview](/img/content/payload-tftv-preview.png)
+
+This bot does not need any specific configuration, as long as it's allowed to speak on public channels. Just [invite it](https://payload.tf/invite) as you do with the other bots and that should be it.
+
+![invite-payload-bot](/img/content/invite-payload-bot.png)
 
 ### Ticket Tool
 
