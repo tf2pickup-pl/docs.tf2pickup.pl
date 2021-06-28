@@ -167,7 +167,60 @@ asd
 
 ### Streamcord
 
-asd
+This bot lets you make two things related to the Twitch streams:
+
+- create a Twitch feed where you can see who's live on Twitch,
+- create a live role being assigned to people streaming on Twitch in order to highlight them on Discord user list and with nickname colour.
+
+Invite bot to the Discord server by [this invite link](https://discord.com/oauth2/authorize?client_id=375805687529209857&permissions=842452040&scope=bot%20applications.commands). Unselect `Administrator`, `Connect`, `Speak` and `Use Voice Activity` permissions since they are not really needed for this bot.
+
+![invite-streamcord-bot](/img/content/invite-streamcord-bot.png)
+
+Choose the server you want to use the bot from the list.
+
+#### Streamcord settings on Discord
+
+The website part is done, now you have to set up a proper channel permissions on the `#twitch` channel for the `Streamcord` role (it gets added on bot join on the server). It should have the following list of permissions on this channel:
+
+- `View Channel`,
+- `Send Messages`,
+- `Embed Links`,
+- `Attach Files`,
+- `Add Reactions`,
+- `Use External Emoji`,
+- `Mention @everyone, @here and All Roles`,
+- `Manage Messages`,
+- `Read Message History`.
+
+After the channel permissions are set, set up a role called `watch me now`. It should be below moderation bot roles and it can be above the administration role if your server is small (otherwise put it under the admin role on the list). Edit the role.
+
+![streamcord-set-live-role-1](/img/content/streamcord-set-live-role-1.png)
+
+Assign the colour `#6441a5` to the role, make sure `Display role members separately from online members` and `Allow anyone to @mention this role` is checked. Also, head over to the **Permissions** tab and unselect all permissions from this role.
+
+![streamcord-set-live-role-2](/img/content/streamcord-set-live-role-2.png)
+
+#### Streamcord website settings
+
+![streamcord-choose-server](/img/content/streamcord-choose-server.png)
+
+Then go to the **Live Role** tab and click **Add a Live Role** button.
+
+![streamcord-add-live-role-1](/img/content/streamcord-add-live-role-1.png)
+
+Choose `watch me now` **Role** from the list, leave **Filter** role empty, tick **Enable notifications**, select channel named `#twitch` and use a template you want to. The template used in the example below is:
+
+```example
+{user.name} is now live! Watch them at {user.twitch_url}
+```
+
+After filling all values, click **Save changes** to save it.
+
+![streamcord-add-live-role-2](/img/content/streamcord-add-live-role-2.png)
+
+In the end, the Twitch feed should look like this:
+
+![streamcord-twitch-feed](/img/content/streamcord-set-live-role-2.png)
 
 ### Statbot
 
