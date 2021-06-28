@@ -203,6 +203,16 @@ This bot does not need any specific configuration, as long as it's allowed to sp
 
 asd
 
-## Discord server channel final setup
+## Discord server channel final settings
+
+### Adding public announcement feed
+
+asd
+
+### Adding private moderation feed
+
+asd
+
+### Setting up the server as a `community` type
 
 asd
