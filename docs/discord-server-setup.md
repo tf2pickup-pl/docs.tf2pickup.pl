@@ -41,7 +41,8 @@ The bots described in this guide are:
 - [Streamcord](https://streamcord.io/twitch/) - creates a stream feed of Discord users streaming at the moment, it also adds a live role,
 - [Statbot](https://statbot.net/) - gathers statistics about the server usage,
 - [payload-neo](https://payload.tf/) - generates a lot of cool stuff TF2 related such us Steam connect strings into Steam URI (clickable connects) and more,
-- [Ticket Tool](https://tickettool.xyz/) - lets you talk about the incidents happening on the pickups in a private and professional manner.
+- [Ticket Tool](https://tickettool.xyz/) - lets you talk about the incidents happening on the pickups in a private and professional manner,
+- [MEE6](https://mee6.xyz/) - general purpose bot, we only use auto-mod functionality from this bot since it works way better than Carl-bot auto-moderation options.
 
 ### AltDentifier
 
@@ -163,7 +164,7 @@ For more you can find AltDentifier command list [here](https://altdentifier.com/
 
 ### Carl-bot
 
-asd
+This bot combines many different moderation tools in one and we recommend it just because we have very 
 
 ### Streamcord
 
@@ -222,6 +223,10 @@ In the end, the Twitch feed should look like this:
 
 ![streamcord-twitch-feed](/img/content/streamcord-set-live-role-2.png)
 
+Moreover, the Streamcord live role should be noticable in this way:
+
+![streamcord-live-role](/img/content/streamcord-live-role.png)
+
 ### Statbot
 
 asd
@@ -254,18 +259,22 @@ This bot does not need any specific configuration, as long as it's allowed to sp
 
 ### Ticket Tool
 
-asd
+TODO: describe ticket tool
+
+### MEE6
+
+TODO: describe MEE6
 
 ## Discord server channel final settings
 
 ### Adding public announcement feed
 
-asd
+TODO: describe adding public announcement feed
 
 ### Adding private moderation feed
 
-asd
+TODO: describe adding private moderation feed
 
 ### Setting up the server as a `community` type
 
-asd
+TODO: describe setting up the server as a community type
