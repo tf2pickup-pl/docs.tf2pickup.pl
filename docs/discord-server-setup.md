@@ -42,7 +42,9 @@ The bots described in this guide are:
 - [Statbot](https://statbot.net/) - gathers statistics about the server usage,
 - [payload-neo](https://payload.tf/) - generates a lot of cool stuff TF2 related such us Steam connect strings into Steam URI (clickable connects) and more,
 - [Ticket Tool](https://tickettool.xyz/) - lets you talk about the incidents happening on the pickups in a private and professional manner,
-- [MEE6](https://mee6.xyz/) - general purpose bot, we only use auto-mod functionality from this bot since it works way better than Carl-bot auto-moderation options.
+- [MEE6](https://mee6.xyz/) - general purpose bot, we only use auto-mod functionality from this bot since it works way better than Carl-bot auto-moderation options,
+- [MonitoRSS](https://monitorss.xyz/) - RSS forwarders, lets you send notifications from popular sites such as etf2l.org or teamfortress.tv,
+- [PatchBot](https://patchbot.io/) - sends game update notifications for various games, Team Fortress 2 is one of them.
 
 ### AltDentifier
 
@@ -164,7 +166,92 @@ For more you can find AltDentifier command list [here](https://altdentifier.com/
 
 ### Carl-bot
 
-This bot combines many different moderation tools in one and we recommend it just because we have very 
+This bot combines many different moderation tools in one and we recommend it just because we have very good experience with it on many Discord servers. The most important features are:
+
+- moderation tools aka warnings, (un)mutes, kicks, (un)bans by a command which lets you make temporary mutes/bans with an option to add a moderation reason and with an option to message the offender while some action against him is taken (like a mute),
+- extensive logging options, from the moderation logging up to even the smallest things like avatar/nickname changes,
+- reaction role support,
+- word filters,
+- many more.
+
+Use [this link](https://discord.com/oauth2/authorize?&client_id=235148962103951360&scope=applications.commands+bot&permissions=2088234230&response_type=code&redirect_uri=https://carl.gg/api/server_auth) in order to add the bot. You don't have to untick any roles for this specific bot.
+
+![invite-carlbot](/img/content/invite-carlbot.png)
+
+In this step, feel free to skip the initial configuration, since you get a setting list to set in the dashboard.
+
+![carlbot-skip-fast-setup](/img/content/carlbot-skip-fast-setup.png)
+
+First, in the **Bot settings** delete the `?` prefix, so `!` prefix would be the only one available for the Carl-bot.
+
+![carlbot-dashboard-settings-1](/img/content/carlbot-dashboard-settings-1.png)
+
+Then, scroll down to the **Commands** and set a *Bot manager role* the `Admin` role.
+
+![carlbot-dashboard-settings-2](/img/content/carlbot-dashboard-settings-2.png)
+
+Next, go to the **Automod** tab and set:
+
+- Log actions to - `#carlbot-logs`,
+- Muterole - `Muted`.
+
+![carlbot-dashboard-settings-3](/img/content/carlbot-dashboard-settings-3.png)
+
+In the **Moderations** tab, under the **Moderation settings** section, set:
+
+- Modlogs channel - `#moderation-notifications`,
+- Send reports to - `#moderation-notifications`,
+- Logged events - **select all**.
+
+The rest of the settings in this tab defines how bans, warns, hardmutes, mutes, kicks and tempbans are done. In all these settings, make sure you will choose a notification option `Send server, action and reason` for an offender, so the offender will get a message on DMs that they got banned/warned/hardmuted/muted/kicked/tempbanned.
+
+![carlbot-dashboard-settings-4](/img/content/carlbot-dashboard-settings-4.png)
+
+![carlbot-dashboard-settings-5](/img/content/carlbot-dashboard-settings-5.png)
+
+Next, in the **Logging** tab, under **Channel Selection** section, choose options from the list:
+
+- Default log channel - `#carlbot-logs`,
+- Member log channel - `#carlbot-logs`,
+- Server log channel - `#carlbot-logs`,
+- Voice log channel - `#carlbot-logs`,
+- Message log channel - `#carlbot-logs`,
+- Join/leave log channel - `#carlbot-logs`,
+- Ignored channels - leave empty.
+
+In the **Server Events**, **Message Events**, **Member Events** and **Members joining and leaving** select all options. Deselect all of them in the **Voice Events** section.
+
+![carlbot-dashboard-settings-6](/img/content/carlbot-dashboard-settings-6.png)
+
+![carlbot-dashboard-settings-7](/img/content/carlbot-dashboard-settings-7.png)
+
+Eventually, go to the **Autoroles** tab and under **Sticky roles** section select `Reassign roles upon rejoining` option and add `Admin` role to the blacklist. In that way, if someone leaves the server, they will get all roles assigned back on the rejoin. It's important to have it set, because otherwise, if you mute someone, then that person could escape the mute by rejoining the server. The `Admin` role is in the blacklist, because if someone who is an admin leaves the server, that will let you have an option to freely readd the role to this person in a time you want, so that will prevent potential situation where some ex-admin could rejoin the server in order to abuse their admin rights given by that role by for example banning everyone on the server.
+
+![carlbot-dashboard-settings-8](/img/content/carlbot-dashboard-settings-8.png)
+
+The last part of the configuration in the dashboard would be to disable command groups. We suggest to disable the following command groups:
+
+- `Blizzard`,
+- `Config`,
+- `Feeds`,
+- `Greetings`,
+- `Levels`,
+- `Suggestions`,
+- `Tags`.
+
+![carlbot-dashboard-disable-commands-1](/img/content/carlbot-dashboard-disable-commands-1.png)
+
+![carlbot-dashboard-disable-commands-2](/img/content/carlbot-dashboard-disable-commands-2.png)
+
+![carlbot-dashboard-disable-commands-3](/img/content/carlbot-dashboard-disable-commands-3.png)
+
+![carlbot-dashboard-disable-commands-4](/img/content/carlbot-dashboard-disable-commands-4.png)
+
+![carlbot-dashboard-disable-commands-5](/img/content/carlbot-dashboard-disable-commands-5.png)
+
+![carlbot-dashboard-disable-commands-6](/img/content/carlbot-dashboard-disable-commands-6.png)
+
+![carlbot-dashboard-disable-commands-7](/img/content/carlbot-dashboard-disable-commands-7.png)
 
 ### Streamcord
 
@@ -264,6 +351,14 @@ TODO: describe ticket tool
 ### MEE6
 
 TODO: describe MEE6
+
+### MonitoRSS
+
+TODO: describe MonitoRSS configuration
+
+### PatchBot
+
+TODO: describe PatchBot configuration
 
 ## Discord server channel final settings
 
