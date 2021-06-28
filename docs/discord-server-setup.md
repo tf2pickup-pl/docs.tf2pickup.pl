@@ -156,7 +156,7 @@ These permissions should be set on a channels: `#welcome`, `#altdentifier-logs`,
 
 ![altdentifier-final-result](/img/content/altdentifier-final-result.png)
 
-The last thing you should do is to add `Manage Server` permission for the `AltDentifier` role, so the AltDentifier could be able to track invites from which people join on the server. Make sure you move a AltDentifier role on the top of the list, but below the `crown deleter` role.
+The last thing you should do is to add `Manage Server` permission for the `AltDentifier` role, so the AltDentifier could be able to track invites from which people join on the server. Make sure you move a AltDentifier role on the top of the list, but below the `crown remover` role.
 
 ![altdentifier-set-role-on-top](/img/content/altdentifier-set-role-on-top.png)
 
@@ -252,6 +252,10 @@ The last part of the configuration in the dashboard would be to disable command 
 ![carlbot-dashboard-disable-commands-6](/img/content/carlbot-dashboard-disable-commands-6.png)
 
 ![carlbot-dashboard-disable-commands-7](/img/content/carlbot-dashboard-disable-commands-7.png)
+
+In the end make sure to move the `carl-bot` Discord role to the top of the list, but below the `crown remover` role:
+
+![carlbot-set-role-on-top](/img/content/carlbot-set-role-on-top.png)
 
 ### Streamcord
 
