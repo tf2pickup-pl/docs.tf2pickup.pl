@@ -12,7 +12,7 @@ You may want to scramble the maps if one of the maps is played too often. You ca
 
 ## Reinitializing games
 
-Sometimes the game server may be stuck during the pickup initialization. In case the pickup starts up for over two minutes, you may want to reinitialize the game. This means that the pickup server will try to initialize the game by using one of the available game servers connected to the pickup server.
+Sometimes the game server may be stuck during the pickup initialization. In case the pickup starts up for over two minutes, you may want to reinitialize the game. This means that the pickup server will try to reinitialize the game on the same pickup server.
 
 In cases like this just click the `reinitialize server` button.
 
@@ -21,6 +21,10 @@ In cases like this just click the `reinitialize server` button.
 ## Force closing games
 
 In some cases the game may fail - sometimes because of an excessive amount of substitutes, sometimes because the game was not started and people still wait for a substitute or for some reason the pickup server does not end the pickup (change pickup state from `started` to `ended`). This is when the game should be force-closed. Click `force end` in order to force-close the game.
+
+:::caution
+Force ended games do not count in the player statistics.
+:::
 
 ## Setting up player skills
 
