@@ -30,7 +30,8 @@ To launch a game, at least one game server is needed. In order to let the game s
 
 - [SourceMod 1.10](https://www.sourcemod.net/downloads.php) (the latest stable version),
 - [Metamod:Source 1.11](https://www.sourcemm.net/downloads.php?branch=stable) (the latest stable version),
-- [TFTrue Extension](https://tftrue.esport-tools.net/)
+- [TFTrue Extension](https://tftrue.esport-tools.net/),
+- [demos.tf plugin](https://github.com/demostf/plugin),
 - [DHooks 2 Extension](https://github.com/peace-maker/DHooks2),
 - [tf2-comp-fixes plugin](https://github.com/ldesgoui/tf2-comp-fixes),
 - [updated-pause-plugin](https://github.com/l-Aad-l/updated-pause-plugin),
