@@ -18,7 +18,8 @@ In order to allow for a quick site setup, we make use of Docker containers. That
   - `gameserver_3.env` - stores settings for the second game server _(optional)_
   - `docker-compose.yml` - contains all container settings
   - `data/murmur.ini` - contains all mumble server settings excluding SuperUser account password _(optional)_
-  - `maps/` folder - it should contain all maps available for the game servers, both in `.bsp` and `.bsp.bz2`, example:
+  - `maps/` folder - it should contain all maps available for the game servers, `.bsp` extension,
+  - `sourcetv1`, `sourcetv2`, `sourcetv3` folders - they will contain SourceTV demos from the pickup gameservers.
 
 Files `gameserver_{1,2,3}.env` are useful if you want to host game servers on the same host as the website. There is no `gameserver_3.env` example, but in fact the file syntax is the same, so you can basically edit values and just uncomment the part of the configuration in the `docekr-compose.yml` file. In the same way, if you want to host 1 game server, just comment parts of the second game server and if you want to run game servers separately, just comment all parts of it in the aforementioned file.
 
@@ -374,6 +375,7 @@ services:
     restart: always
     volumes:
     - ./maps:/home/tf2/server/tf/maps:ro
+    - ./sourcetv1:/home/tf2/server/tf/demos
     env_file:
     - ./gameserver_1.env
 ## COMMENT/DELETE THIS PART IF YOU DON'T USE 1ST GAME SERVER ##
@@ -387,6 +389,7 @@ services:
     restart: always
     volumes:
     - ./maps:/home/tf2/server/tf/maps:ro
+    - ./sourcetv2:/home/tf2/server/tf/demos
     env_file:
     - ./gameserver_2.env
 ## COMMENT/DELETE THIS PART IF YOU DON'T USE 2ND GAME SERVER ##
@@ -400,6 +403,7 @@ services:
   #  restart: always
   #  volumes:
   #  - ./maps:/home/tf2/server/tf/maps:ro
+  #  - ./sourcetv3:/home/tf2/server/tf/demos
   #  env_file:
   #  - ./gameserver_3.env
 ## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAME SERVER ##
