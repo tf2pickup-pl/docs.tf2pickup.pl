@@ -19,7 +19,7 @@ In order to allow for a quick site setup, we make use of Docker containers. That
   - `docker-compose.yml` - contains all container settings
   - `data/murmur.ini` - contains all mumble server settings excluding SuperUser account password _(optional)_
   - `maps/` folder - it should contain all maps available for the game servers, `.bsp` extension,
-  - `sourcetv1`, `sourcetv2`, `sourcetv3` folders - they will contain SourceTV demos from the pickup gameservers.
+  - `sourcetv1`, `sourcetv2`, `sourcetv3` folders - they will contain SourceTV demos from the pickup game servers.
 
 Files `gameserver_{1,2,3}.env` are useful if you want to host game servers on the same host as the website. There is no `gameserver_3.env` example, but in fact the file syntax is the same, so you can basically edit values and just uncomment the part of the configuration in the `docekr-compose.yml` file. In the same way, if you want to host 1 game server, just comment parts of the second game server and if you want to run game servers separately, just comment all parts of it in the aforementioned file.
 

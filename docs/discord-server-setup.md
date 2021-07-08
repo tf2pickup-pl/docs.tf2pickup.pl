@@ -26,9 +26,21 @@ The Discord consists with the following channels:
   - `#moderation-spam` - a separate channel for the Discord administration letting them execute commands privately without having to spam an admin discussion channel,
   - `#pickup-notifications` - all skill changes, force-closed games, (un)bans, role changes get logged there,
   - `#admins` - private admin discussion channel,
-  - `#Admin` (voice channel) - private admin discussion voice channel.
+  - `Admin` (voice channel) - private admin discussion voice channel.
 
-Additionally there is an empty `tf2pickup.org support` category for admin requests from the Ticket
+Additionally there is an empty `tf2pickup.org support` category for admin requests from the Ticket Tool. The server also contains the following roles in the final:
+
+- `crown remover` - this rule has an `Administrator` permission and it's not assigned to anybody in order to hide a server owner's crown next to the nickname,
+- `carl-bot` - Carl-bot's role, it has to be under user roles in order to be able to manage them,
+- `AltDentifier` - AltDentifier's role, works in the same way as Carl-bot's one,
+- `Streamcord` - Streamcord's role, it has to be above the live role in order to let it work,
+- `watch me now` - a Streamcord's live role, it's being assigned to players who are streaming on Twitch at the moment,
+- `Admin` - a pickup admin role, in the same time it's a Discord server moderator role,
+- `ping me when sub needed` - a ping role used for the tf2pickup.org site used for pinging players when a substitute is needed,
+- `Merc` - a ping role for mercs, people can assign it through a reaction role and then, if someone needs a merc, they can just ping it in order to find somebody to play,
+- `Muted` - mute role for naughty gamers,
+- `verification` - verification role used against people being verified through a AltDentifier,
+- `payload-neo` - payload-neo's role, not used in any certain way specifically, but it's created on bot join on the server.
 
 ## Bot setup
 
@@ -320,7 +332,52 @@ Moreover, the Streamcord live role should be noticable in this way:
 
 ### Statbot
 
-TODO: describe statbot configuration
+Statbot is a bot letting you count server usage statistics in the last 30 days. It counts user messages, time spent on voice channels, game activities and more. After going to [Statbot's site](https://statbot.net/) click on [**Start Tracking Now!**](https://discord.com/oauth2/authorize?client_id=491769129318088714&scope=bot&permissions=270126169).
+
+![statbot-start-tracking](/img/content/statbot-start-tracking.png)
+
+Uncheck `Administrator`, `Manage Roles` and `Manage Channels` permission from the bot. It's unneeded for our use case. After adding the bot on the server, go back to the main page and click **Dashboard** button on the top right corner.
+
+![statbot-invite](/img/content/statbot-invite.png)
+
+Click on *Statbot Dashboard* and choose to **Log in** from the dropdown list.
+
+![statbot-log-in](/img/content/statbot-log-in.png)
+
+After logging in, choose **My Servers** from the top right dropdown list.
+
+![statbot-my-servers](/img/content/statbot-my-servers.png)
+
+Then, choose the server you want to set up the bot by hovering on its icon and clicking **Manage**.
+
+![statbot-choose-server](/img/content/statbot-choose-server.png)
+
+Change the *Command Access Level* to **Admin Only**, as this is not needed at all for the bot in order to work.
+
+![statbot-setup-1](/img/content/statbot-setup-1.png)
+
+Then set *Dashboard Access Level* to **Public**. Save all changes by clicking on **Save**. After that, go to the **Stats** section on left side of the website.
+
+![statbot-setup-2](/img/content/statbot-setup-2.png)
+
+Then scroll down and change the *Lookback* time to **All**. In the *Channels* section choose:
+
+- `Staff Logs` section,
+- `tf2pickup.org` section,
+- `Staff` section,
+- `welcome`, `rules` and `twitch` channels.
+
+These settings are made in order to exclude logging on these channels. Make sure the *Blacklist* option is selected.
+
+![statbot-setup-3](/img/content/statbot-setup-3.png)
+
+![statbot-setup-4](/img/content/statbot-setup-4.png)
+
+In the end scroll down to the bottom and add some games people on the server usually play, so it can be shown in the stats when these gets gathered.
+
+![statbot-setup-5](/img/content/statbot-setup-5.png)
+
+After that the bot should be up. This is an [example server dashboard](https://statbot.net/settings/516366706751438868/stats) where you can watch user stats on the server.
 
 ### payload-neo
 
