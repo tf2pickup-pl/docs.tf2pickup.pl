@@ -25,6 +25,7 @@ The Discord consists with the following channels:
   - `#bot-notifications` - moderation notification sent by the Discord due to a community setup are sent there along with the all Discord bot notifications such us updates or outages,
   - `#moderation-spam` - a separate channel for the Discord administration letting them execute commands privately without having to spam an admin discussion channel,
   - `#pickup-notifications` - all skill changes, force-closed games, (un)bans, role changes get logged there,
+  - `#ticket-history` - all Ticket Tool logs and ticket logs are sent there,
   - `#admins` - private admin discussion channel,
   - `Admin` (voice channel) - private admin discussion voice channel.
 
@@ -407,7 +408,139 @@ This bot does not need any specific configuration, as long as it's allowed to sp
 
 ### Ticket Tool
 
-TODO: describe ticket tool
+Ticket Tool is a utility bot letting you have a support queue for player queries, for instance if someone notice a cheater or abusive behaviour, this bot lets people report and have a conversation with the server staff about it. After setting a bot, player could be able to open a ticket by clicking a button like this:
+
+![ticket-tool-panel-on-discord](/img/content/ticket-tool-panel-on-discord.png)
+
+In this guide, this ticket panel will be placed in the `#rules` channel.
+
+#### Ticket Tool configuration
+
+In order to invite the bot, enter [this website](https://tickettool.xyz/) and click **Invite Ticket Tool**.
+
+![ticket-tool-main-site](/img/content/ticket-tool-main-site.png)
+
+Then make sure you'll live all permissions ticket and click **Authorize**.
+
+![ticket-tool-invite](/img/content/ticket-tool-invite.png)
+
+After that, go back to the main page and choose **Manage Servers**. You will have to choose the server you want to set up Ticket Tool for. In our case it's `tf2pickup.org server template`.
+
+![ticket-tool-choose-server](/img/content/ticket-tool-choose-server.png)
+
+After that, you will see a window with the bot server permissions. The **Administrator** permissions should remain unticked. Select **Panel Configs** tab on left.
+
+![ticket-tool-server-permissions](/img/content/ticket-tool-server-permissions.png)
+
+That menu lets you create a new panel - it will be used for creating tickets and in the end it will create an "open ticket" button you saw above. Click **Create Panel**, define a panel name `tf2pickup.org support` in the **Panel Name**, assign an admin role `Admin` to the **Support Team Roles** and leave **Panel Channel** empty. The panel will be added in the end of this guide.
+
+![ticket-tool-create-panel](/img/content/ticket-tool-create-panel.png)
+
+After that, the panel should be created. Click **Settings** in order to open up the support queue settings.
+
+![ticket-tool-panel-settings](/img/content/ticket-tool-panel-settings.png)
+
+:::caution
+You have to click **Save** after every single setting section, otherwise you will lose all changes made in them.
+:::
+
+Make sure to leave **Two step Close** and **Two step Ticket** selected and **Auto Pin Ticket** unselected.
+
+In the **Category Options**, select category `tf2pickup.org`. That will let support queue open ticket under that channel category. After that, you will have to set up permissions for the sections. We suggest you to set them like on the images below:
+
+![ticket-tool-panel-setup-1](/img/content/ticket-tool-panel-setup-1.png)
+
+![ticket-tool-panel-setup-2](/img/content/ticket-tool-panel-setup-2.png)
+
+![ticket-tool-panel-setup-3](/img/content/ticket-tool-panel-setup-3.png)
+
+![ticket-tool-panel-setup-4](/img/content/ticket-tool-panel-setup-4.png)
+
+![ticket-tool-panel-setup-5](/img/content/ticket-tool-panel-setup-5.png)
+
+![ticket-tool-panel-setup-6](/img/content/ticket-tool-panel-setup-6.png)
+
+![ticket-tool-panel-setup-7](/img/content/ticket-tool-panel-setup-7.png)
+
+![ticket-tool-panel-setup-8](/img/content/ticket-tool-panel-setup-8.png)
+
+![ticket-tool-panel-setup-9](/img/content/ticket-tool-panel-setup-9.png)
+
+After setting all permissions, open **Logging Options** and choose the following options:
+
+- Transcript Channel - `ticket-history`,
+- Logging Channel - `ticket-history`,
+- *Ticket Created*, *Ticket Closed*, *Ticket Opened*, *Ticket Renamed*, *Ticket Deleted* and *Transcript Saved* should be selected.
+
+![ticket-tool-panel-setup-10](/img/content/ticket-tool-panel-setup-10.png)
+
+Finally, open **Ticket Options** and click **Edit Ticket Message** in order to edit it.
+
+![ticket-tool-panel-setup-11](/img/content/ticket-tool-panel-setup-11.png)
+
+There you can set a message of your own (in the **Message Text** section). Here is an example you can use on your server:
+
+```ticket
+Hello {user}.
+Once an admin is available they will respond to your request in this channel. Please provide any relevant info while you are waiting.
+```
+
+![ticket-tool-panel-setup-12](/img/content/ticket-tool-panel-setup-12.png)
+
+After that, you will have to set up permissions on channels `#ticket-history` and `#rules` and the `tf2pickup.org support` channel section.
+
+Aforementioned channels require the following permissions for the `Ticket Tool` role or bot account:
+
+- `View Channel`,
+- `Send Messages`,
+- `Embed Links`,
+- `Attach Files`,
+- `Add Reactions`,
+- `Use External Emoji`,
+- `Manage Messages`,
+- `Read Message History`.
+
+Moreover, `tf2pickup.org support` channel section requires:
+
+- `View Channel`,
+- `Manage Channels`,
+- `Manage Permissions`,
+- `Send Messages`,
+- `Embed Links`,
+- `Attach Files`,
+- `Add Reactions`,
+- `Use External Emoji`,
+- `Mention @everyone, @here and All Roles`,
+- `Manage Messages`,
+- `Read Message History`.
+
+![ticket-tool-discord-permissions](/img/content/ticket-tool-discord-permissions.png)
+
+Finally, you can add the ticket panel to the `#rules` channel by selecting this channel from the *Select a channel to send the panel..* dropdown list and clicking **Send**.
+
+![ticket-tool-panel-settings](/img/content/ticket-tool-panel-settings.png)
+
+From that point, creating tickets is possible.
+
+#### Ticket Tool usage
+
+This is a quick overview how the admin requests looks from the admin point of view.
+
+After someone creates a ticket, it always possible to close it at any moment. All you have to do is to click on the **Close** button.
+
+![ticket-tool-example-1](/img/content/ticket-tool-example-1.png)
+
+You will be asked for a close confirmation.
+
+![ticket-tool-example-2](/img/content/ticket-tool-example-2.png)
+
+After closing the case, it becomes invisible for the requester. At this point you can reopen it by clicking **Open**, save a ticket transcript (which we recommend to do so) by clicking **Transcript** and remove the case by clicking **Delete**.
+
+![ticket-tool-example-3](/img/content/ticket-tool-example-3.png)
+
+And this is how it looks like from the `#ticket-history` channel, where all ticket notifications and transcripts are sent:
+
+![ticket-tool-example-4](/img/content/ticket-tool-example-4.png)
 
 ### MEE6
 
