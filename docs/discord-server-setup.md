@@ -544,7 +544,76 @@ And this is how it looks like from the `#ticket-history` channel, where all tick
 
 ### MEE6
 
-TODO: describe MEE6
+MEE6 is yet another general purpose Discord bot we use for the auto-moderation. It serves many options, but we are going to use the automod feature only since this bot does the job better than the Carl-bot.
+
+To start the bot setup, open the [MEE6 website](https://mee6.xyz/), log into your Discord account, choose `tf2pickup.org server template` server from the list and click **Set up MEE6** next to its name.
+
+![mee6-get-started](/img/content/mee6-get-started.png)
+
+![mee6-choose-server](/img/content/mee6-choose-server.png)
+
+That will let you invite the bot. Leave all permissions checked.
+
+![invite-mee6](/img/content/invite-mee6.png)
+
+First of all, disable all features which are enabled in the bot by unselecting them.
+
+![mee6-disable-features](/img/content/mee6-disable-features.png)
+
+You have to confirm every single feature disable.
+
+![mee6-disable-feature-confirmation](/img/content/mee6-disable-feature-confirmation.png)
+
+After that, enable the **Moderator** feature and confirm it.
+
+![mee6-enable-moderator-feature](/img/content/mee6-enable-moderator-feature.png)
+
+![mee6-enable-feature-confirmation](/img/content/mee6-enable-feature-confirmation.png)
+
+Open **Moderator** settings by clicking on it. There you can set all moderation and automod settings. Start from selecting an `Admin` role as a moderator role. In the **Audit Logging** set `#moderation-notifications` as the **Logging Channel**, leave all **Moderation Events** checked and all **Message Events** unchecked. This will let MEE6 post only notifications about the automod infractions, as we log different things by the Carl-bot.
+
+![mee6-moderator-settings-1](/img/content/mee6-moderator-settings-1.png)
+
+In the **Auto-Moderator** section, choose **Delete Message & Warn Member** for:
+
+- Bad words,
+- Excessive spoilers,
+- Repeated text,
+- Excessive caps (70% > CAPS),
+- Excessive mentions,
+- Excessive emojis,
+- Zalgo.
+
+![mee6-moderator-settings-2](/img/content/mee6-moderator-settings-2.png)
+
+After that, click the setting icon for the **Bad words** option. Here you can add words you'd like to ban on the server. Also, there you can see an option to disable moderation on certain channels, as the `#admins` channel is here on the exclusion list. You can do so for every single automod feature.
+
+![mee6-moderator-settings-3](/img/content/mee6-moderator-settings-3.png)
+
+We suggest to change default **Excessive mentions** settings from 5 to 10, because sometimes people ping around 5-6 other users and usually this is not a spam.
+
+![mee6-moderator-settings-4](/img/content/mee6-moderator-settings-4.png)
+
+After that, scroll down to the bottom of the Moderation settings and disable all commands except `/clear-all-infractions` and `/infractions`.
+
+![mee6-moderator-settings-5](/img/content/mee6-moderator-settings-5.png)
+
+The last step you could do is to add bot permissions for the `#moderation-notifications` channel. Since it has the Administrator permission, it does not need any permissions on any channel at all, because this role overrides all permissions, but it's a good measure to do so, so for instance if a Discord admin would like to set up Discord server more restrictively, then they could take the Administrator permission off from the bot.
+
+The bot role should have the following permissions:
+
+- `View Channel`,
+- `Send Messages`,
+- `Embed Links`,
+- `Attach Files`,
+- `Add Reactions`,
+- `Use External Emoji`,
+- `Manage Messages`,
+- `Read Message History`.
+
+This is how the automod looks like in practice:
+
+![mee6-automod-result](/img/content/mee6-automod-result.png)
 
 ### MonitoRSS
 
