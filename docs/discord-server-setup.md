@@ -552,7 +552,33 @@ TODO: describe MonitoRSS configuration
 
 ### PatchBot
 
-TODO: describe PatchBot configuration
+PatchBot is a bot sending notifications when game updates are released for many games such as League of Legends, Fortnite and many others you don't care about, because what we care about is the Team Fortress 2 which is on the supported game list. Basically after setting the bot up, every TF2 update will be announced in the `#tf2news` channel.
+
+In order to start, open up [PatchBot website](https://patchbot.io/) and click **Get Started**. You will have to log into your Discord account.
+
+![patchbot-get-started](/img/content/patchbot-get-started.png)
+
+After that, your Discord server list will show up on left side of the page. Hover over the **tf2pickup.org server template** server logo and click on the button with its name.
+
+![patchbot-choose-server](/img/content/patchbot-choose-server.png)
+
+Since obviously you don't have a bot invited on the server *yet*, you will have to do it by clicking **Continue to Discord**.
+
+![patchbot-start-setup](/img/content/patchbot-start-setup.png)
+
+Select `tf2pickup.org server template` server from the list, untick `Manage Roles` and **Authorize** the bot.
+
+![patchbot-invite-bot](/img/content/patchbot-invite-bot.png)
+
+After that, simply scroll down on a game list on left and click on the Team Fortress 2 logo. Select the `#tf2news` channel from the list. After that click the paper kite icon in order to test out the channel.
+
+![patchbot-choose-channel](/img/content/patchbot-choose-channel.png)
+
+You should see a notification like this:
+
+![patchbot-notification](/img/content/patchbot-notification.png)
+
+If that's the case, the PatchBot configuration is done.
 
 ## Discord server channel final settings
 
