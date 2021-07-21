@@ -548,7 +548,59 @@ TODO: describe MEE6
 
 ### MonitoRSS
 
-TODO: describe MonitoRSS configuration
+This bot enables automatic channel announcements based on RSS feeds. When a site you want to follow posts a news, a message about it can be sent on a chosen channel, in our case on `#tf2news` channel. At the moment we are aware of two popular TF2 feeds which are from [ETF2L](https://etf2l.org/) and [teamfortress.tv](https://www.teamfortress.tv/).
+
+In order to add the bot to your server enter [this website](https://monitorss.xyz/) and click **Invite Me!**.
+
+![monitorss-get-started](/img/content/monitorss-get-started.png)
+
+After that, choose **With Role**.
+
+![monitorss-with-role](/img/content/monitorss-with-role.png)
+
+Leave checkboxes checked for the bot permissions, they're sufficient.
+
+![invite-monitorss](/img/content/invite-monitorss.png)
+
+After adding the bot, set up bot permissions for the channel `#tf2news` for role `MonitoRSS`:
+
+- `View Channel`,
+- `Send Messages`,
+- `Embed Links`,
+- `Attach Files`,
+- `Add Reactions`,
+- `Use External Emoji`,
+- `Manage Messages`,
+- `Read Message History`.
+
+After that come back to the main page and this time choose **Control Panel**. Choose a server you want to set up RSS feeds for, in our case `tf2pickup.org server template`.
+
+![monitorss-choose-server](/img/content/monitorss-choose-server.png)
+
+In order to add the feeds, you have to provide their name, RSS feed link and the channel the notification should go for. In our case it would be:
+
+- ETF2L:
+  - URL - `https://etf2l.org/feed/`
+  - Channel - `#tf2news`
+  - Title (optional) - `ETF2L`
+- teamfortress.tv:
+  - URL - `https://www.teamfortress.tv/rss`
+  - Channel - `#tf2news`
+  - Title (optional) - `teamfortress.tv`
+
+![monitorss-add-feeds](/img/content/monitorss-add-feeds.png)
+
+After adding the feeds, when you choose **Message** submenu on left, you'll be able to see preview of the last RSS feed messages and test sending them our on a specific channel. This is good, because you can test, if the bot has proper rights in order to post messages in the `#tf2news` channel.
+
+![monitorss-feed-options](/img/content/monitorss-feed-options.png)
+
+Click **Send Original to Discord** and choose `#tf2news` from the dropdown list.
+
+![monitorss-feed-test](/img/content/monitorss-feed-test.png)
+
+The message should appear on the aforementioned channel.
+
+![monitorss-feed-response](/img/content/monitorss-feed-response.png)
 
 ### PatchBot
 
