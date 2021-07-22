@@ -703,14 +703,43 @@ If that's the case, the PatchBot configuration is done.
 
 ## Discord server channel final settings
 
+After setting up bots it's time to finalize the server setup. Here's what you can do:
+
 ### Adding public announcement feed
 
-TODO: describe adding public announcement feed
+Some of the public feeds are covered by the MonitoRSS bot, but some of them are not. This is where you can make a good use of the broadcasting channels on other popular servers. Obviously, it's up to you what channels are you going to follow, but we can imagine having a general feed from the TF2 community is a good way to keep your community informed about the things going on around. The follow example is based on teamfortress.tv's `#announcements` channel where all casted games and newsposts are announced when they are live.
+
+In order to follow the channel, just open it up, click **Follow** on the top right corner, choose the server where you want to enable these notifications and choose the channel for it.
+
+![discord-follow-announcements](/img/content/discord-follow-announcements.png)
+
+![discord-follow-select-channel](/img/content/discord-follow-select-channel.png)
+
+In that way we recommend to follow these channels:
+
+- `#announcements` on [teamfortress.tv](https://discord.gg/0if53iRT2W4nyL6t) (we suggest selecting the `#twitch` channel for this specific feed since there are LOADS of the annoucnements going on),
+- `#announce-kritzkast` on [KritzKast](https://discord.com/invite/9vTwpEJ),
+- `#announcements` on [EssentialsTF](https://discord.com/invite/hyQrEjw),
+- `#announcements` on [RGL NA Official Discord](https://discord.com/invite/3hJsWu7),
+- `#announcements` on [UGC League](https://discord.com/invite/ugcleague) in the `Team Fortress 2` section.
 
 ### Adding private moderation feed
 
-TODO: describe adding private moderation feed
+Private moderation feed is a good things for admins/mods, because it lets them know if something is going on with the bot(s) like bot updates, maintenances, outages etc. These notifications should be sent to the `#bot-notifications` channel and here is the list of the channels you should follow in it:
+
+- `#altdentifier-updates` in [Auxim Solutions](https://discord.com/invite/k3Ggcwg),
+- `#outages` in [Carl-bot Help](https://discord.gg/DSg744v),
+- `#announcements` in [Statbot](https://discord.gg/bEqx5Skkqu),
+- `#announcements` and `#bot-status` in [Streamcord](https://discord.gg/streamcord),
+- `#announcements` and `#releases` in [payload-neo](https://discord.com/invite/gYnnMYz),
+- `#status-updates` in [MEE6 Support](https://discord.gg/mee6),
+- `#bot-news` in [Ticket Tool Support](https://discord.com/invite/tUM9Xcv),
+- `#downtime-updates` and `#news` in [MonitoRSS Support (Formerly Discord.RSS)](https://discord.com/invite/pudv7Rx).
 
 ### Setting up the server as a `community` type
 
 TODO: describe setting up the server as a community type
+
+### Setting general Discord server settings
+
+TODO: add general discord server setting
