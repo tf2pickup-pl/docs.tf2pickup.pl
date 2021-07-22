@@ -701,7 +701,7 @@ You should see a notification like this:
 
 If that's the case, the PatchBot configuration is done.
 
-## Discord server channel final settings
+## Final touches
 
 After setting up bots it's time to finalize the server setup. Here's what you can do:
 
@@ -738,8 +738,81 @@ Private moderation feed is a good things for admins/mods, because it lets them k
 
 ### Setting up the server as a `community` type
 
-TODO: describe setting up the server as a community type
+In the end it's good to set up a `community` type server, because it lets you:
+
+- have a welcome screen showing up for all users on server join,
+- announcement channels made as a broadcasting channels, they are like the channels you've followed earlier,
+- having a look at the server insights,
+- discovery option in a Discord server browser for very big servers.
+
+In order to start, go to your **Server Settings**.
+
+![discord-enter-server-settings](/img/content/discord-enter-server-settings.png)
+
+Go to the **Enable Community** section and click **Get started**.
+
+![discord-enable-community-1](/img/content/discord-enable-community-1.png)
+
+Make sure your email address is verified on your Discord account, also tick an option **Scan media content from all members**. In our case we had these options set already, so they were grayed out. After that, go next.
+
+![discord-enable-community-2](/img/content/discord-enable-community-2.png)
+
+Choose channels for the rules and community updates going directly from Discord. In our case they should be `#rules` and `#bot-notifications`.
+
+![discord-enable-community-3](/img/content/discord-enable-community-3.png)
+
+As in the first menu, the security options are ticked and the last thing we have to do is to accept the Community Guidelines and click **Finish setup**.
+
+![discord-enable-community-4](/img/content/discord-enable-community-4.png)
+
+Now we can make use of the **Community** server features. Let's start with Membership Screening which lets you force the user to accept the rules before posting any message on the server. Click **Set up Membership Screening** in order to start.
+
+![discord-membership-screening-1](/img/content/discord-membership-screening-1.png)
+
+Feel free to add any description you want like we did here. In order to add rules, click **Get started**.
+
+![discord-membership-screening-2](/img/content/discord-membership-screening-2.png)
+
+This is the place you can write the rules. Feel free to click on the buttons below the text field, so you can use predefined rules or make your own ones.
+
+![discord-membership-screening-3](/img/content/discord-membership-screening-3.png)
+
+When it's done like on an example below, click **Save**.
+
+![discord-membership-screening-4](/img/content/discord-membership-screening-4.png)
+
+Before applying the settings you always have an option to see a rules preview. Click **Preview** in order to show it up.
+
+![discord-membership-screening-preview](/img/content/discord-membership-screening-preview.png)
+
+That concludes Membership Screening setup. Now let's get over to the Welcome Screen settings. Click **Set up Welcome Screen** to start.
+
+![discord-welcome-screen-1](/img/content/discord-welcome-screen-1.png)
+
+After adding a channel a popup window with its settings will show up. Select the channel, write a short description for the channel and optionally choose a matching emote to it. After that, click **Save**. You can add up to 5 channels to the Welcome Screen in this way.
+
+![discord-welcome-screen-2](/img/content/discord-welcome-screen-2.png)
+
+After adding more channels, define a server description below the server name.
+
+![discord-welcome-screen-3](/img/content/discord-welcome-screen-3.png)
+
+After that, before saving make sure the Welcome Screen looks like you want to. Click **Preview**, so you can have a look on it.
+
+![discord-welcome-screen-preview](/img/content/discord-welcome-screen-preview.png)
 
 ### Setting general Discord server settings
 
-TODO: add general discord server setting
+Finally, there are only a few options to set on the server in order to make it great. Start off from the **Moderation** section. Choose **High** moderation level. This is the best compromise between restrictive and safe setup. All big community servers usually set this to the **Highest** in order to let spammers have harder time, but we think it's not needed in small communities. Moreover, make sure to enable the 2FA (two-factor authentication) requirement for the administrators/moderators, so they could be safer meaning getting access to an account of them is even harder than usual. Click **Enable 2FA requirement**, type in your token and click it again.
+
+![discord-moderation-settings](/img/content/discord-moderation-settings.png)
+
+![discord-enable-admin-2fa-requirement](/img/content/discord-enable-admin-2fa-requirement.png)
+
+After that, it's good to have some server emojis, so people could interact in a way they want to. We recommend to add emotes with transparency in the background - these looks the best. All you need to do is to upload emojis by clicking **Upload emoji**, choosing emoji pictures and naming them in a way you want to let use them.
+
+![discord-add-emojis](/img/content/discord-add-emojis.png)
+
+Another good thing you can do is to create your server template. This lets you create a clone of your whole server without bots, so if you'd like to make some of your own changes on the server, you can always test these first on a testing server you can make by using a template. You have to update it every single time you make a change on the server like channel permissions, role setting etc. Click **Sync template** in order to sync changes to a template. In that way you could [use a link from this image below](https://discord.new/UeNaSR5pQaMS) to make your own server based on all descriptions we made here.
+
+![discord-create-server-template](/img/content/discord-create-server-template.png)
