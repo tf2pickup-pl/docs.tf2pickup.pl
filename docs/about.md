@@ -2,26 +2,19 @@
 title: About
 ---
 
-## The goal
+## Our goal
 
 tf2pickup.org is a service for every Team Fortress 2 competitive player to find their place.
 
-It is a place for the beginners to play with more experienced players and learn from them, as well as for those
-who have been playing competitive Team Fortress 2 for quite some time now and want to relax with their favorite game.
+A place for beginners to play with more experienced players and learn from them, as well for the more experienced to relax and enjoy their favourite game.
 
-## The drive
+## Our reason
 
-What competitive Team Fortress 2 has been struggling with since always, is growing the playerbase. For those who are new to
-the game, the options to play a good 6v6 or 9v9 match are quite limited. It has always been my opinion that you get better
-at the game by playing with more experienced players and learning from them. **tf2pickup.org** is aimed at making it possible
-for players of all levels of experience to play together a well-balanced games, where there are no 5-0 rolls and there is a relaxed
-and friendly atmosphere.
+What competitive Team Fortress 2 has always been struggling with is growing the playerbase. For those who are new to the game, the options for finding a good 6v6 or 9v9 match are limited. It has always been our opinion, that you only get better at the game by playing with more experienced players. tf2pickup.org is focused on making it possible for players of all skill levels to enjoy well-balanced games together, where there are no 5-0 rolls and a relaxed and friendly atmosphere.
 
-## The history
+## Our history
 
-The tf2pickup.org project was started in July 2019 as a small service for Polish TF2 competitive scene, named as tf2pickup.pl. We wanted to include
-as many fresh players as possible and with double mixes it was pretty difficult. tf2pickup.pl's aim was to create a friendly
-and welcoming environment where everyone interested in 6v6 format could find their place.
+The tf2pickup.org project was started in July 2019 as a small service for the Polish TF2 competitive scene named tf2pickup.pl. We wanted to include as many newer players as possible, but with traditional double mixes it was pretty difficult. tf2pickup.pl's aim was to create a friendly and welcoming environment where everyone interested in 6v6 format could find their place.
 
 At first it was only the Polish service for 6v6 game mode, but soon enough we learned there is a demand for more game modes in more
 countries. After [tf2pickup.pl](https://tf2pickup.pl/) initial success, we launched [hl.tf2pickup.pl](https://hl.tf2pickup.pl/),
@@ -35,7 +28,4 @@ is not limited to Polish domain. In fact, anyone could launch their own instance
 
 ## What tf2pickup.org is NOT
 
-tf2pickup.org relies on admins to balance the games. There is no ELO system, no automatic skill recognition, nor a captain-pick system.
-Each player has assigned a skill number on each class in the current game mode and that number is edited by hand, by admins.
-Therefore it requires **a lot of admins' attention** and dedication to run proper tf2pickup.org service. In return, players can expect
-a properly balanced games that do not discourage new players and remain fun for the more experienced ones.
+tf2pickup.org relies on admins to balance the games. There is no ELO system, no automatic skill recognition, nor a captain-pick system. Each player has an assigned skill number on each class in the current game mode and that number is edited by hand, by admins. Therefore, it requires **a lot of admins' attention** and dedication to run a proper tf2pickup.org service. In return, players can expect properly balanced games that do not discourage new players, and remain fun for the more experienced ones.
