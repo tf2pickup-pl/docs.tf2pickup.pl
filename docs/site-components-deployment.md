@@ -2,7 +2,7 @@
 title: Site components deployment
 ---
 
-In order to allow for a quick site setup, we make use of Docker containers. That let us set up the website (client and server with its database), gameservers and optionally a Mumble server. In order to start the site, you have to have all files specified below. Examples are based on [tf2pickup.fi](https://tf2pickup.fi) website, domain and their Discord server.
+In order to allow for a quick site setup, we make use of Docker containers. That lets us set up the website (client and server with its database), gameservers and optionally a Mumble server. In order to start looking into deploying your own tf2pickup.org instance, you have to have all files specified below. Examples are based on [tf2pickup.fi](https://tf2pickup.fi) website, domain and their Discord server.
 
 ## Prerequisites
 
@@ -21,7 +21,7 @@ In order to allow for a quick site setup, we make use of Docker containers. That
   - `maps/` folder - it should contain all maps available for the game servers, `.bsp` extension,
   - `sourcetv1`, `sourcetv2`, `sourcetv3` folders - they will contain SourceTV demos from the pickup game servers.
 
-Files `gameserver_{1,2,3}.env` are useful if you want to host game servers on the same host as the website. There is no `gameserver_3.env` example, but in fact the file syntax is the same, so you can basically edit values and just uncomment the part of the configuration in the `docekr-compose.yml` file. In the same way, if you want to host 1 game server, just comment parts of the second game server and if you want to run game servers separately, just comment all parts of it in the aforementioned file.
+Files `gameserver_{1,2,3}.env` are useful if you want to host game servers on the same host as the website. There is no `gameserver_3.env` example, but in fact the file syntax is the same, so you can basically edit values and just uncomment the part of the configuration in the `docker-compose.yml` file. In the same way, if you want to host 1 game server, just comment parts of the second game server and if you want to run game servers separately, just comment all parts of it in the aforementioned file.
 
 The same rule goes for the Mumble server - if you want to run it outside Docker, aka use a local system installation, just don't provide needed configs for it and comment the part of the `docker-compose.yml` file for it.
 
@@ -63,7 +63,7 @@ drwxrwxr-x 4 tf2pickup tf2pickup      4096 Jun  9 21:09 ..
 -rw-r--r-- 1 tf2pickup tf2pickup  17056131 May 11  2019 koth_product_rcx.bsp.bz2
 ```
 
-Then, these are templates for the aforementioned files:
+Then, these are the templates for the aforementioned files:
 
 ## `.env`
 
@@ -102,22 +102,6 @@ SUPER_USER=76561198011558250
 
 # Which gamemode to run; see src/configs/queue for different gamemodes, possible values: 6v6, 9v9
 QUEUE_CONFIG=6v6
-
-# Mumble channel configuration
-MUMBLE_SERVER_URL=tf2pickup.fi
-MUMBLE_CHANNEL_NAME=tf2pickup
-# This variable is used for passing a root tree channel name in which the pickup backend can
-# generate links to the channel for the games, this setup allows for 3 games running in the same time.
-# tf2pickup
-# ├───1
-# │   ├───BLU
-# │   └───RED
-# ├───2
-# │   ├───BLU
-# │   └───RED
-# └───3
-#     ├───BLU
-#     └───RED
 
 # Log relay
 # The log relay uses one UDP port to receive logs from the TF2 game servers. These are used
