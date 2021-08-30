@@ -4,7 +4,7 @@ title: Discord server setup
 
 ## Discord server template
 
-There you can see how to configure a Discord server from scratch, by using one of our examples. [Here you can find our Discord template](https://discord.new/UeNaSR5pQaMS), however it is not ready to use and there are some additional steps to prepare in order to let it be properly set up for the public. The bots described in the setup are ones proposed by us to use on the Discord server. You may use different bots for the same purpose or just use different purpose bots.
+Here you can see how to configure a Discord server from scratch, by using one of our examples. [Here you can find our Discord template](https://discord.new/UeNaSR5pQaMS), however it is not ready to use and there are some additional steps to take care of in order to have it properly set up for the public use. The bots described in the setup are ones proposed by us to use on the Discord server. You may use different bots for the same purpose or just use different purpose bots.
 
 The Discord consists with the following channels:
 
@@ -45,7 +45,7 @@ Additionally there is an empty `tf2pickup.org support` category for admin reques
 
 ## Bot setup
 
-A crucial part of the server configuration are bots. These cannot be bundled with the server template and their settings and permissions has to be set separately by a Discord server owner.
+Crucial part of the server configuration are bots. These cannot be bundled with the server template and their settings and permissions have to be set separately by the Discord server owner.
 
 The bots described in this guide are:
 

@@ -50,9 +50,7 @@ If you add up individual player values per team, you will end up with this:
 |  | 90 | 170 |
 | Result | 840 | 835 |
 
-This is pretty much expected result.
-
-When launching a new site, it's a good practise to make a list of players potentially playing on the site in the future in a spreadsheet with their SteamID64 values next to their nicknames, assign skills to them with your pickup admin team and before the site launch, force create accounts for everybody on the list and assign skills you've decided on. In that way there is a smaller risk that the games may be less balanced. Feel free to use [this](https://docs.google.com/spreadsheets/d/1mCG29TwUoqZhzTQz4UslekaRozSr2Sud5nY26RzJU2U/edit?usp=sharing) spreadsheet as an example of how to define skills for 6v6 players and [this](https://docs.google.com/spreadsheets/d/1zsoYdz32iQwRGVWK5orxSjcqs1e5NJ2ViOLV7JjBu3g/edit?usp=sharing) one for Highlander.
+This is pretty much the expected result.
 
 If you won't assign skill for a player - they will get skill values defined in a default skill table, where it's 0 by default. Default skills are assigned to a player right after their registration on site - regardless if they joined the site themselves or the registration was forced by an admin.
 
@@ -146,6 +144,6 @@ After opening up a link, you can see a free spot where you can join in and you c
 
 ![request-substitute-free-spot](/img/content/request-substitute-free-spot.png)
 
-Upon joining, the connect link to a server will show up. Moreover, the player who is a substitute will not have a skill value shown up next to their nickname in order to mark that this player was a sub and his skill did not count to a team skill calculations.
+Upon joining, the connect link to a server will show up. Moreover, the replacement player will not have a skill value shown up next to their nickname in order to mark that this player was a sub and his skill did not count to a team skill calculations.
 
 ![request-substitute-free-spot](/img/content/request-substitute-after-joining.png)

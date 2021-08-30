@@ -10,7 +10,7 @@ This part of the setup is not currently delivered together with the tf2pickup.or
 
 ## The server
 
-This is the backend of the whole system. It is responsible for accessing the database, configuring game servers and many, many more.
+This is the backend of the whole system. It is responsible for accessing the database, configuring game servers and much, much more.
 Read how to deploy and configure one [here](/docs/site-components-deployment).
 
 ## The client
@@ -34,10 +34,9 @@ To launch a game, at least one game server is needed. In order to let the game s
 - [demos.tf plugin](https://github.com/demostf/plugin),
 - [DHooks 2 Extension](https://github.com/peace-maker/DHooks2),
 - [tf2-comp-fixes plugin](https://github.com/ldesgoui/tf2-comp-fixes),
-- [updated-pause-plugin](https://github.com/l-Aad-l/updated-pause-plugin),
 - [cURL SourceMod Extension](https://code.google.com/archive/p/sourcemod-curl-extension/downloads),
 - [ETF2L server configuration files](https://etf2l.org/rules/configs/) "with the latest configs and whitelists",
-- [SrcTV+ Extension](https://github.com/dalegaard/srctvplus),
+- [SrcTV+ Extension](https://github.com/dalegaard/srctvplus) (optional),
 - [TF2Stadium SourceMod Plugin](https://github.com/tf2pickup-org/stadium-sm-plugin),
 
 We provide a [docker image](https://github.com/tf2pickup-org/tf2-gameserver)

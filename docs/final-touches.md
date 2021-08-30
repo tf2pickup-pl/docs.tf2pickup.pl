@@ -7,7 +7,7 @@ title: Final touches
 You definitely want to define what things are allowed and what not, and because of that you should define site rules. You can do so through the Admin Panel. All instructions here are written in Markdown (based on [Marked.js](https://marked.js.org/)). Edits should be done on left side of the page, right one shows up a rule page preview.
 
 :::caution
-We discourage you to use inline HTML formatting, since it's buggy.
+We discourage you from using inline HTML formatting, since it's buggy.
 :::
 
 ![edit-rules](/img/content/edit-rules.png)

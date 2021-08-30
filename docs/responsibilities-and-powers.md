@@ -9,11 +9,11 @@ They can:
 - assign skills to players, see skills of all players,
 - request player substitutes during the games,
 - ban players and revoke those bans,
-- define maps available on site,
-- define what whitelist is used on pickup games,
+- manage the map pool,
+- manage the whitelist,
 - force create player accounts,
 - scramble maps available in the votes,
-- edit rules page.
+- edit static pages (like the rules page).
 
 They are supposed to:
 
