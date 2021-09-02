@@ -167,7 +167,7 @@ http {
         ##
         # SSL Settings
         ##
-
+        resolver 9.9.9.9;
         ssl_protocols TLSv1.3 TLSv1.2;
         ssl_prefer_server_ciphers off;
         ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
@@ -206,7 +206,7 @@ map $http_upgrade $connection_upgrade {
 server {
         listen 80;
         #listen [::]:80; #IPv6 specific entry
-        server_name yu.tf2pickup.fi;
+        server_name tf2pickup.fi;
         return 302 https://tf2pickup.fi$request_uri;
 }
 server {

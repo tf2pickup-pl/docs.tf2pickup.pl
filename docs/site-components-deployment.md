@@ -17,7 +17,7 @@ In order to allow for a quick site setup, we make use of Docker containers. That
   - `gameserver_2.env` - stores settings for the second game server _(optional)_
   - `gameserver_3.env` - stores settings for the second game server _(optional)_
   - `docker-compose.yml` - contains all container settings
-  - `data/murmur.ini` - contains all mumble server settings excluding SuperUser account password _(optional)_
+  - `data/config.ini` - contains all mumble server settings excluding SuperUser account password _(optional)_
   - `maps/` folder - it should contain all maps available for the game servers, `.bsp` extension,
   - `sourcetv1`, `sourcetv2`, `sourcetv3` folders - they will contain SourceTV demos from the pickup game servers.
 
@@ -107,7 +107,7 @@ QUEUE_CONFIG=6v6
 # The log relay uses one UDP port to receive logs from the TF2 game servers. These are used
 # to determine when the match starts, ends, when users connect, etc.
 # It should be the same address as API_URL, but without the https schema.
-LOG_RELAY_ADDRESS=tf2pickup.fi
+LOG_RELAY_ADDRESS=api.tf2pickup.fi
 LOG_RELAY_PORT=9871
 
 # Discord (optional)
@@ -420,7 +420,7 @@ networks:
               - subnet: fc00::/64
 ```
 
-## `data/murmur.ini`
+## `data/config.ini`
 
 ```ini
 # Murmur configuration file.
