@@ -100,7 +100,7 @@ KEY_STORE_PASSPHARE=XDXDXDXDXDXDXDXDXD
 # NOTE: Use the SteamID64 format.
 SUPER_USER=76561198011558250
 
-# Which gamemode to run; see src/configs/queue for different gamemodes, possible values: 6v6, 9v9
+# Which gamemode to run; see src/configs/queue for different gamemodes, possible values: 6v6, 9v9, bball
 QUEUE_CONFIG=6v6
 
 # Log relay
@@ -396,19 +396,11 @@ services:
     restart: always
     ports:
      - '4000:80'
-    volumes:
-    - staticwebsite:/usr/share/nginx/html
 volumes:
 ## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
   mumble-data:
 ## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
   database-data:
-  staticwebsite:
-    driver: local 
-    driver_opts:
-        type: none
-        o: bind
-        device: /var/www/client/
 
 networks:
     default: 
