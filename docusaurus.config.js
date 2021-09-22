@@ -47,7 +47,11 @@ module.exports = {
             },
             {
               label: 'For server admins',
-              to: 'docs/components'
+              to: 'docs/components-introduction'
+            },
+            {
+              label: 'For developers',
+              to: 'docs/server-api'
             }
           ],
         },
@@ -56,13 +60,17 @@ module.exports = {
           items: [
             {
               label: 'Discord',
-              href: 'https://discord.gg/5w6WF7xFZp',
+              href: 'https://discord.gg/SXtcadpQTK',
             }
           ],
         },
         {
           title: 'More',
           items: [
+            {
+              label: 'Our website',
+              href: 'https://tf2pickup.org',
+            },
             {
               label: 'Blog',
               to: 'blog',
@@ -84,7 +92,7 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
-            'https://github.com/tf2pickup-org/docs.tf2pickup.org/edit/master',
+            'https://github.com/tf2pickup-org/docs.tf2pickup.org',
         },
         blog: {
           showReadingTime: true,
