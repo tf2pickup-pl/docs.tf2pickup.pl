@@ -85,3 +85,33 @@ Replace `api.tf2pickup.pl` with your own backend URL address.
 #### Start the game servers and the tf2pickup.org server
 
 If everything was migrated successfully, game servers should register themselves within a minute and you should be able to see them in the _game servers_ page.
+
+#### Switch the server container back to isolated network mode
+
+:::note
+
+This step applies only if you are running your tf2pickup.org server container in host network mode (`--network=host`).
+
+:::
+
+Go to your docker-compose.yml file and remove the following line from the `website:` service section:
+
+```
+network_mode: host
+```
+
+Also, uncomment the following lines in the same section:
+
+```
+ports:
+ - '3000:3000'
+ - '9871:9871/udp'
+links:
+ - mongodb
+```
+
+And finally, edit one line in your .env file:
+
+```
+MONGODB_HOST=mongodb
+```
