@@ -272,7 +272,7 @@ SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
 
-TF2PICKUPORG_API_ADDRESS: api.tf2pickup.fi
+TF2PICKUPORG_API_ADDRESS: https://api.tf2pickup.fi
 TF2PICKUPORG_SECRET: XDXDXDXD
 
 # Get your logs.tf API key from https://logs.tf/uploader
@@ -298,7 +298,7 @@ SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
 
-TF2PICKUPORG_API_ADDRESS: api.tf2pickup.fi
+TF2PICKUPORG_API_ADDRESS: https://api.tf2pickup.fi
 TF2PICKUPORG_SECRET: XDXDXDXD
 
 # Get your logs.tf API key from https://logs.tf/uploader

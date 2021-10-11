@@ -109,7 +109,7 @@ This step applies only if you are using the _tf2-gameserver_ docker image to hos
 Add the following two variables to your `gameserver_{1,2}.env` files:
 
 ```env
-TF2PICKUPORG_API_ADDRESS: api.tf2pickup.fi
+TF2PICKUPORG_API_ADDRESS: https://api.tf2pickup.fi
 TF2PICKUPORG_SECRET: UMx2s3xv
 ```
 
@@ -136,8 +136,8 @@ This step applies only if you are hosting your game server without the use of Do
 Add the following two variables to your `server.cfg` file:
 
 ```cfg
-sm_tf2pickuporg_api_address api.tf2pickup.pl
-sm_tf2pickuporg_secret UMx2s3xv
+sm_tf2pickuporg_api_address "https://api.tf2pickup.fi"
+sm_tf2pickuporg_secret "UMx2s3xv"
 ```
 
 Replace `api.tf2pickup.pl` with your own backend URL address.
