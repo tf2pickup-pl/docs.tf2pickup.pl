@@ -62,11 +62,23 @@ With version 8 of the tf2pickup.org server, a new game server registration mecha
 
 In order to make use of the new game server recognition mechanism, make sure you are on the latest version of the **server** project.
 
-##### If you are using [the tf2-gameserver docker image](https://hub.docker.com/r/tf2pickuppl/tf2-gameserver)
+##### Upgrading [the tf2-gameserver docker image](https://hub.docker.com/r/tf2pickuppl/tf2-gameserver) to the latest version
 
-Make sure you have updated the image to the latest version. You can proceed directly to [generating the secret](#generate-the-game-server-secret).
+:::note
 
-##### If you are hosting game servers without Docker
+This step applies only if you are using the _tf2-gameserver_ docker image to host your game servers.
+
+:::
+
+Make sure you have updated the image to the latest version. You can proceed directly to [generating the secret](#generating-the-game-server-secret).
+
+##### Installing required game server plugins
+
+:::note
+
+This step applies only if you are hosting your game server without the use of Docker.
+
+:::
 
 Make sure the following plugins are installed:
 
@@ -76,7 +88,7 @@ Make sure the following plugins are installed:
 
 Please keep in mind you need to keep track of any _tf2pickup.org connector_ plugin updates manually.
 
-#### Generate the game server secret
+#### Generating the game server secret
 
 The secret is used by the connector plugin to authorize to the tf2pickup.org server. You need to generate it manually, you may generate a secure one using [Secure Password Generator](https://passwordsgenerator.net/). Please keep in mind that the secret should not containy any special characters - stick to letters and numbers only. The generated secret should be at least **8 characters long**. For educational purposes, we are going to use the following secret in this documentation section: `UMx2s3xv`.
 
@@ -86,7 +98,7 @@ Put the generated secret under the `GAME_SERVER_SECRET` variable in your .env fi
 GAME_SERVER_SECRET=UMx2s3xv
 ```
 
-#### Alter your docker-compose.yml file
+#### Altering the docker-compose.yml file
 
 :::note
 
@@ -113,7 +125,7 @@ TF2PICKUPORG_SECRET: ${GAME_SERVER_SECRET}
 
 :::
 
-#### Alter your server.cfg file
+#### Altering the server.cfg file
 
 :::note
 
@@ -130,11 +142,11 @@ sm_tf2pickuporg_secret UMx2s3xv
 
 Replace `api.tf2pickup.pl` with your own backend URL address.
 
-#### Start the game servers and the tf2pickup.org server
+#### Starting the game servers and the tf2pickup.org server
 
 If everything was migrated successfully, game servers should register themselves within a minute and you should be able to see them in the _game servers_ page.
 
-#### Switch the server container back to isolated network mode
+#### Switching the server container back to isolated network mode
 
 :::note
 
