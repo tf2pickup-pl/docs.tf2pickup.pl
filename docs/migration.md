@@ -54,9 +54,9 @@ MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@mongodb:8001/admin
 ```
 
 
-### Game servers
+### Game Servers
 
-With version 8 of the tf2pickup.org server the new game server registration mechanism is introduced. Instead of adding them manually via the admin panel, game servers make use of the new [connector plugin](https://github.com/tf2pickup-org/connector). That way, managing game servers is not only easier, but also more stable and less error-prone.
+With version 8 of the tf2pickup.org server, a new game server registration mechanism is introduced. Instead of adding them manually via the admin panel, game servers make use of the new [connector plugin](https://github.com/tf2pickup-org/connector). That way, managing game servers is not only easier, but also more stable and less error-prone.
 
 #### Prerequisites
 
@@ -78,9 +78,7 @@ Please keep in mind you need to keep track of any _tf2pickup.org connector_ plug
 
 #### Generate the game server secret
 
-The secret is used by the connector plugin to authorize to the tf2pickup.org server. You need to generate it manually, using, for example, [Secure Password Generator](https://passwordsgenerator.net/). Please keep in mind that the secret should not containy any special characters - stick to letters and numbers only. The generated secret should be at least **8 characters long**. For educational purposes, we are going to use the following secret in this documentation section: `UMx2s3xv`.
-
-#### Modify the environment
+The secret is used by the connector plugin to authorize to the tf2pickup.org server. You need to generate it manually, you may generate a secure one using [Secure Password Generator](https://passwordsgenerator.net/). Please keep in mind that the secret should not containy any special characters - stick to letters and numbers only. The generated secret should be at least **8 characters long**. For educational purposes, we are going to use the following secret in this documentation section: `UMx2s3xv`.
 
 Put the generated secret under the `GAME_SERVER_SECRET` variable in your .env file:
 
