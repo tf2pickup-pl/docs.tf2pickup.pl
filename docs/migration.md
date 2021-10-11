@@ -2,6 +2,13 @@
 title: Migration
 ---
 
+:::tip
+
+Before doing any migration **back up your database** in case the whole process goes south.
+
+:::
+
+
 ## Version 8
 
 ### Environment
@@ -28,7 +35,23 @@ If you are using database authentication, the URI will look similar to the follo
 MONGODB_URI=mongodb://username:password@host:port/database
 ```
 
-Take a look at the `sample.env` file to see what the default value is.
+#### Example
+
+The following `.env` file:
+
+```env
+MONGODB_HOST=mongodb
+MONGODB_PORT=8001
+MONGODB_DB=admin
+MONGODB_USERNAME=tf2pickup
+MONGODB_PASSWORD=yoursuperfunnypassword
+```
+
+should look like this after migration:
+
+```env
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@mongodb:8001/admin
+```
 
 
 ### Game servers
@@ -76,7 +99,7 @@ This step applies only if you are using the _tf2-gameserver_ docker image to hos
 Add the following two variables to your `gameserver_{1,2}.env` files:
 
 ```env
-TF2PICKUPORG_API_ADDRESS: api.tf2pickup.pl
+TF2PICKUPORG_API_ADDRESS: api.tf2pickup.fi
 TF2PICKUPORG_SECRET: UMx2s3xv
 ```
 

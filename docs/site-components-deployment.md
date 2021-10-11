@@ -80,11 +80,7 @@ CLIENT_URL=https://tf2pickup.fi
 BOT_NAME=tf2pickup.fi
 
 # MongoDB
-MONGODB_HOST=mongodb
-MONGODB_PORT=8001
-MONGODB_DB=admin
-MONGODB_USERNAME=tf2pickup
-MONGODB_PASSWORD=yoursuperfunnypassword
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@mongodb:8001/admin
 
 # Steam API key
 # Get your key at https://steamcommunity.com/dev/apikey
