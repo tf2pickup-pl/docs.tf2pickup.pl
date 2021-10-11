@@ -80,11 +80,7 @@ CLIENT_URL=https://tf2pickup.fi
 BOT_NAME=tf2pickup.fi
 
 # MongoDB
-MONGODB_HOST=localhost
-MONGODB_PORT=8001
-MONGODB_DB=admin
-MONGODB_USERNAME=tf2pickup
-MONGODB_PASSWORD=yoursuperfunnypassword
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@mongodb:8001/admin
 
 # Steam API key
 # Get your key at https://steamcommunity.com/dev/apikey
@@ -109,6 +105,9 @@ QUEUE_CONFIG=6v6
 # It should be the same address as API_URL, but without the https schema.
 LOG_RELAY_ADDRESS=api.tf2pickup.fi
 LOG_RELAY_PORT=9871
+
+# Game server secret is used by the connector plugin to register the gameservers.
+GAME_SERVER_SECRET=XDXDXDXD
 
 # Discord (optional)
 # You will find a bot token at https://discord.com/developers/applications
@@ -273,6 +272,9 @@ SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
 
+TF2PICKUPORG_API_ADDRESS: api.tf2pickup.fi
+TF2PICKUPORG_SECRET: XDXDXDXD
+
 # Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 LOGS_TF_PREFIX=tf2pickup.fi
@@ -295,6 +297,10 @@ SERVER_HOSTNAME=tf2pickup.fi #2
 SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
+
+TF2PICKUPORG_API_ADDRESS: api.tf2pickup.fi
+TF2PICKUPORG_SECRET: XDXDXDXD
+
 # Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 LOGS_TF_PREFIX=tf2pickup.fi
@@ -308,21 +314,20 @@ DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDX
 version: '2.4'
 
 services:
-  website:
-    network_mode: host
-    container_name: 'tf2pickup'
+  backend:
+    container_name: 'backend'
     depends_on:
       - mongodb
     image: tf2pickuppl/server
     restart: always
-    # ports:
-    # - '3000:3000'
-    # - '9871:9871/udp'
+    ports:
+     - '3000:3000'
+     - '9871:9871/udp'
     volumes:
     - './.env:/tf2pickup.pl/.env'
     - './.migrate:/tf2pickup.pl/.migrate'
-    # links:
-    #  - mongodb
+    links:
+     - mongodb
 ## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
   mumble-server:
     image: phlak/mumble
@@ -391,7 +396,8 @@ services:
   #  env_file:
   #  - ./gameserver_3.env
 ## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAME SERVER ##
-  client:
+  frontend:
+    container_name: 'frontend'
     image: tf2pickuppl/tf2pickup.fi
     restart: always
     ports:

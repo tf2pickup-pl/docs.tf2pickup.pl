@@ -28,6 +28,7 @@ module.exports = {
         'discord-server-setup',
         'site-components-deployment',
         'final-touches',
+        'migration',
       ],
     },
     {
