@@ -4,6 +4,33 @@ title: Migration
 
 ## Version 8
 
+### Environment
+
+The `MONGODB_*` values used in the .env file are deprecated and removed in favor of using just one - `MONGODB_URI`. This lets us have more flexibility when it comes to telling the MongoDB client how to connect to the database.
+
+Open your `.env` file and find the following values:
+
+* `MONGODB_HOST`
+* `MONGODB_PORT`
+* `MONGODB_DB`
+* `MONGODB_USERNAME`
+* `MONGODB_PASSWORD`
+
+All of these are no longer used. Comment them out for now and add a new variable, named `MONGODB_URI`. If your database username and password were empty, the URI should look like this:
+
+```
+MONGODB_URI=mongodb://host:port/database
+```
+
+If you are using database authentication, the URI will look similar to the following:
+
+```
+MONGODB_URI=mongodb://username:password@host:port/database
+```
+
+Take a look at the `sample.env` file to see what the default value is.
+
+
 ### Game servers
 
 With version 8 of the tf2pickup.org server the new game server registration mechanism is introduced. Instead of adding them manually via the admin panel, game servers make use of the new [connector plugin](https://github.com/tf2pickup-org/connector). That way, managing game servers is not only easier, but also more stable and less error-prone.
