@@ -40,7 +40,7 @@ MONGODB_URI=mongodb://username:password@host:port/database
 The following `.env` file:
 
 ```env
-MONGODB_HOST=mongodb
+MONGODB_HOST=localhost
 MONGODB_PORT=8001
 MONGODB_DB=admin
 MONGODB_USERNAME=tf2pickup
@@ -50,7 +50,7 @@ MONGODB_PASSWORD=yoursuperfunnypassword
 should look like this after migration:
 
 ```env
-MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@mongodb:8001/admin
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@localhost:8001/admin
 ```
 
 
@@ -109,8 +109,8 @@ This step applies only if you are using the _tf2-gameserver_ docker image to hos
 Add the following two variables to your `gameserver_{1,2}.env` files:
 
 ```env
-TF2PICKUPORG_API_ADDRESS: https://api.tf2pickup.fi
-TF2PICKUPORG_SECRET: UMx2s3xv
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_SECRET=UMx2s3xv
 ```
 
 Replace `api.tf2pickup.pl` with your own backend URL address.
@@ -120,7 +120,7 @@ Replace `api.tf2pickup.pl` with your own backend URL address.
 If you are hosting the game servers on the same physical host as the tf2pickup.org server, you can use the `GAME_SERVER_SECRET` environment variable instead of providing the secret directly:
 
 ```env
-TF2PICKUPORG_SECRET: ${GAME_SERVER_SECRET}
+TF2PICKUPORG_SECRET=${GAME_SERVER_SECRET}
 ```
 
 :::
@@ -173,5 +173,7 @@ links:
 And finally, edit one line in your .env file:
 
 ```
-MONGODB_HOST=mongodb
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@mongodb:8001/admin
 ```
+
+Notice we changed MongoDB host from `localhost` to `mongodb`.

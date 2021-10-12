@@ -80,7 +80,10 @@ CLIENT_URL=https://tf2pickup.fi
 BOT_NAME=tf2pickup.fi
 
 # MongoDB
-MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@mongodb:8001/admin
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@mongodb:27017/tf2pickup
+MONGODB_USERNAME=tf2pickup
+MONGODB_PASSWORD=yoursuperfunnypassword
+MONGODB_DB=tf2pickup
 
 # Steam API key
 # Get your key at https://steamcommunity.com/dev/apikey
@@ -272,8 +275,8 @@ SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
 
-TF2PICKUPORG_API_ADDRESS: https://api.tf2pickup.fi
-TF2PICKUPORG_SECRET: XDXDXDXD
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_SECRET=XDXDXDXD
 
 # Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
@@ -315,7 +318,6 @@ version: '2.4'
 
 services:
   backend:
-    container_name: 'backend'
     depends_on:
       - mongodb
     image: tf2pickuppl/server
@@ -325,7 +327,6 @@ services:
      - '9871:9871/udp'
     volumes:
     - './.env:/tf2pickup.pl/.env'
-    - './.migrate:/tf2pickup.pl/.migrate'
     links:
      - mongodb
 ## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
@@ -348,7 +349,7 @@ services:
     image: mongo:4.0
     restart: unless-stopped
     ports:
-     - '8001:27017'
+     - '27017:27017'
     volumes:
     - database-data:/data/db
     environment:
@@ -407,15 +408,6 @@ volumes:
   mumble-data:
 ## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
   database-data:
-
-networks:
-    default: 
-        enable_ipv6: true
-        ipam:
-            driver: default
-            config:
-              - subnet: 172.16.238.0/24
-              - subnet: fc00::/64
 ```
 
 ## `data/config.ini`
