@@ -80,11 +80,18 @@ CLIENT_URL=https://tf2pickup.fi
 BOT_NAME=tf2pickup.fi
 
 # MongoDB
-MONGODB_HOST=localhost
-MONGODB_PORT=8001
-MONGODB_DB=admin
+# The commented values below were used in the old version of the tf2pickup.org project, deprecated since server 8.x version
+# MONGODB_HOST=tf2pickup-fi-mongo
+# MONGODB_PORT=27017
+# MONGODB_DB=admin
 MONGODB_USERNAME=tf2pickup
 MONGODB_PASSWORD=yoursuperfunnypassword
+# MONGODB_URI syntax:
+# mongodb://username:password@hostname/database-name
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-fi-mongo/admin
+
+# Used to authenticate and add servers to the serverlist.
+GAME_SERVER_SECRET=yoursuperfunnygameserversecret
 
 # Steam API key
 # Get your key at https://steamcommunity.com/dev/apikey
@@ -268,11 +275,12 @@ STEAM_PORT=27018
 STV_PORT=27020
 
 RCON_PASSWORD=funny_rcon_password
-SERVER_HOSTNAME=tf2pickup.fi #1
+SERVER_HOSTNAME="tf2pickup.fi #1"
 SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
-
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
 # Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 LOGS_TF_PREFIX=tf2pickup.fi
@@ -291,10 +299,12 @@ STEAM_PORT=27028
 STV_PORT=27030
 
 RCON_PASSWORD=funny_rcon_password
-SERVER_HOSTNAME=tf2pickup.fi #2
+SERVER_HOSTNAME="tf2pickup.fi #2"
 SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
 # Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 LOGS_TF_PREFIX=tf2pickup.fi
@@ -302,28 +312,55 @@ LOGS_TF_PREFIX=tf2pickup.fi
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
 
-## `docker-compose.yml`
+## `gameserver_3.env`
+
+```env
+# TF2 Gameserver Configuration
+
+PORT=27035
+CLIENT_PORT=27036
+STEAM_PORT=27038
+STV_PORT=27040
+
+RCON_PASSWORD=funny_rcon_password
+SERVER_HOSTNAME="tf2pickup.fi #3"
+SERVER_PASSWORD=some_random_password
+STV_NAME=tf2pickup.fi TV
+STV_TITLE=tf2pickup.fi Source TV
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
+# Get your logs.tf API key from https://logs.tf/uploader
+LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
+LOGS_TF_PREFIX=tf2pickup.fi
+# Get your demos.tf API key from https://demos.tf/upload
+DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
+```
+
+## `docker-compose.yml` for all in one setup (website + gameservers + mumble)
+
+If you don't want to use Mumble, feel free to remove the 'mumble-server' part of the file.
 
 ```docker
-version: '2.4'
+version: '3.9'
 
 services:
-  website:
-    network_mode: host
-    container_name: 'tf2pickup'
+  api:
     depends_on:
       - mongodb
     image: tf2pickuppl/server
     restart: always
-    # ports:
-    # - '3000:3000'
-    # - '9871:9871/udp'
+    ports:
+    - '3000:3000'
+    - '9871:9871/udp'
     volumes:
     - './.env:/tf2pickup.pl/.env'
-    - './.migrate:/tf2pickup.pl/.migrate'
-    # links:
-    #  - mongodb
-## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
+
+  website:
+    image: tf2pickuppl/tf2pickup.fi
+    restart: always
+    ports:
+     - '4000:80'
+
   mumble-server:
     image: phlak/mumble
     ports:
@@ -336,80 +373,132 @@ services:
       - /etc/letsencrypt/live/tf2pickup.fi:/cert/live/tf2pickup.fi:ro
       - /etc/letsencrypt/archive/tf2pickup.fi:/cert/archive/tf2pickup.fi:ro
     environment:
-    #  - SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
+      - SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
       - TZ=${MUMBLE_TZ}
-## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
+
   mongodb:
     image: mongo:4.0
     restart: unless-stopped
-    ports:
-     - '8001:27017'
     volumes:
     - database-data:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
-      - MONGO_INITDB_DATABASE=${MONGODB_DB}
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 1ST GAME SERVER ##
+    hostname: tf2pickup-fi-mongo
+
   gameserver1:
     image: tf2pickuppl/tf2-gameserver
     network_mode: host
-    tty: true
-    stdin_open: true
     restart: always
     volumes:
-    - ./maps:/home/tf2/server/tf/maps:ro
+    - ./maps:/home/tf2/server/tf/maps:rw
     - ./sourcetv1:/home/tf2/server/tf/demos
+    - ./smlogs1:/home/tf2/server/tf/addons/sourcemod/logs
     env_file:
     - ./gameserver_1.env
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 1ST GAME SERVER ##
 
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 2ND GAME SERVER ##
   gameserver2:
     image: tf2pickuppl/tf2-gameserver
     network_mode: host
-    tty: true
-    stdin_open: true
     restart: always
     volumes:
-    - ./maps:/home/tf2/server/tf/maps:ro
+    - ./maps:/home/tf2/server/tf/maps:rw
     - ./sourcetv2:/home/tf2/server/tf/demos
+    - ./smlogs2:/home/tf2/server/tf/addons/sourcemod/logs
     env_file:
     - ./gameserver_2.env
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 2ND GAME SERVER ##
 
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAME SERVER ##
-  #gameserver3:
-  #  image: tf2pickuppl/tf2-gameserver
-  #  network_mode: host
-  #  tty: true
-  #  stdin_open: true
-  #  restart: always
-  #  volumes:
-  #  - ./maps:/home/tf2/server/tf/maps:ro
-  #  - ./sourcetv3:/home/tf2/server/tf/demos
-  #  env_file:
-  #  - ./gameserver_3.env
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAME SERVER ##
-  client:
+  gameserver3:
+    image: tf2pickuppl/tf2-gameserver
+    network_mode: host
+    restart: always
+    volumes:
+    - ./maps:/home/tf2/server/tf/maps:rw
+    - ./sourcetv3:/home/tf2/server/tf/demos
+    - ./smlogs3:/home/tf2/server/tf/addons/sourcemod/logs
+    env_file:
+    - ./gameserver_3.env
+
+volumes:
+  database-data:
+```
+
+## `docker-compose.yml` for the website only
+
+```docker
+version: '3.9'
+
+services:
+  api:
+    depends_on:
+      - mongodb
+    image: tf2pickuppl/server
+    restart: always
+    ports:
+    - '3000:3000'
+    - '9871:9871/udp'
+    volumes:
+    - './.env:/tf2pickup.pl/.env'
+
+  website:
     image: tf2pickuppl/tf2pickup.fi
     restart: always
     ports:
      - '4000:80'
-volumes:
-## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
-  mumble-data:
-## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
-  database-data:
 
-networks:
-    default: 
-        enable_ipv6: true
-        ipam:
-            driver: default
-            config:
-              - subnet: 172.16.238.0/24
-              - subnet: fc00::/64
+  mongodb:
+    image: mongo:4.0
+    restart: unless-stopped
+    volumes:
+    - database-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+    hostname: tf2pickup-fi-mongo
+
+volumes:
+  database-data:
+```
+
+## `docker-compose.yml` for gameservers only
+
+Feel free to remove reduntant gameservers from the file if there are more than you actually need.
+
+```docker
+version: '3.9'
+
+  gameserver1:
+    image: tf2pickuppl/tf2-gameserver
+    network_mode: host
+    restart: always
+    volumes:
+    - ./maps:/home/tf2/server/tf/maps:rw
+    - ./sourcetv1:/home/tf2/server/tf/demos
+    - ./smlogs1:/home/tf2/server/tf/addons/sourcemod/logs
+    env_file:
+    - ./gameserver_1.env
+
+  gameserver2:
+    image: tf2pickuppl/tf2-gameserver
+    network_mode: host
+    restart: always
+    volumes:
+    - ./maps:/home/tf2/server/tf/maps:rw
+    - ./sourcetv2:/home/tf2/server/tf/demos
+    - ./smlogs2:/home/tf2/server/tf/addons/sourcemod/logs
+    env_file:
+    - ./gameserver_2.env
+
+  gameserver3:
+    image: tf2pickuppl/tf2-gameserver
+    network_mode: host
+    restart: always
+    volumes:
+    - ./maps:/home/tf2/server/tf/maps:rw
+    - ./sourcetv3:/home/tf2/server/tf/demos
+    - ./smlogs3:/home/tf2/server/tf/addons/sourcemod/logs
+    env_file:
+    - ./gameserver_3.env
 ```
 
 ## `data/config.ini`
