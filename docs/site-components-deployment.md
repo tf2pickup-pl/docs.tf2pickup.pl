@@ -626,7 +626,7 @@ Ice.Warn.UnknownProperties=1
 Ice.MessageSizeMax=65536
 ```
 
-## Letting `tf2pickup` user use Docker commands
+## Giving `tf2pickup` access to Docker commands
 
 :::caution
 This step is optional. By default the only user allowed to utilize Docker commands is `root`.
