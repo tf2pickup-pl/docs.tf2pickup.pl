@@ -571,6 +571,17 @@ Ice.Warn.UnknownProperties=1
 Ice.MessageSizeMax=65536
 ```
 
+## Letting `tf2pickup` user use Docker commands
+
+:::caution
+This step is optional. By default the only user allowed to utilize Docker commands is `root`.
+:::
+This one is simple, all you have to do is to add `tf2pickup` user to the group called `docker`:
+
+```sh
+# gpasswd -a tf2pickup docker
+```
+
 ## `docker-compose up -d`
 
 In order to create and start all containers needed for letting site working, you just have to enter the `tf2pickup.fi` folder with all files prepared for a launch and execute `docker-compose up -d`. Each time you would like to stop the application stack, you are supposed to execute command `docker-compose stop` and `docker-compose start -d` when you start the stack. Containers have a `restart always` policy meaning the containers will always restart on fail, so it will also always start on a system boot as long as `docker.service` service is also starting on system boot.
