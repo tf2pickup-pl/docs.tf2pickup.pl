@@ -200,6 +200,61 @@ docker run -d \
 
 Watchtower will pull images and replace container images automatically. It also deletes old images after being replaced by the new ones, so it will not waste your disk space.
 
+## Blocking automatic updates when using watchtower
+
+In some unusual cases you may want to prevent your website from updating it. In order to do so, you must change the client and server tag in `docker-compose.yml` for a specific version (by default the tag used is `latest` **even if it's undefined**). For example:
+
+```docker
+services:
+  api:
+    depends_on:
+      - mongodb
+    image: tf2pickuppl/server:latest
+    restart: always
+    ports:
+    - '3000:3000'
+    - '9871:9871/udp'
+    volumes:
+    - './.env:/tf2pickup.pl/.env'
+
+  website:
+    image: tf2pickuppl/tf2pickup.fi:latest
+    restart: always
+    ports:
+     - '4000:80'
+```
+
+can be switched to:
+
+```docker
+services:
+  api:
+    depends_on:
+      - mongodb
+    image: tf2pickuppl/server:7.0.6
+    restart: always
+    ports:
+    - '3000:3000'
+    - '9871:9871/udp'
+    volumes:
+    - './.env:/tf2pickup.pl/.env'
+
+  website:
+    image: tf2pickuppl/tf2pickup.fi:3.19.4
+    restart: always
+    ports:
+     - '4000:80'
+```
+
+After that, you have to recreate the stack by executing the following commands while being in a `tf2pickup.fi` folder containing environment files and the `docker-compose.yml` file:
+
+```bash
+docker-compose down
+docker-compose up -d
+```
+
+in order to prevent the site from updating server from 7.x to 8.x with the client, so the client and server still matches with their functionalities. This can be also used if you want to switch for an older version of the site (assuming you have a database backup with data containing a matching schema to the one used in a version you want to rollback).
+
 ## Game server updates
 
 There are two ways how you can update the game servers:
