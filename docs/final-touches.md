@@ -57,6 +57,33 @@ After the site start, you may want to add admins in order to make site moderatio
 
 For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist), map pool settings can be seen [there](/docs/website-settings#map-pool-settings), and [there](/docs/the-most-common-tasks#setting-up-player-skills) you can look at for the skill setup.
 
+## Set up voice chat settings
+
+Since server 8.x the voice chat setup is being done through the client and backend variables for it are deprecated. Those settings can be set by superusers only. There are three options to set it up:
+
+![voice-chat-settings](/img/content/voice-chat-settings.png)
+
+- **Disabled** - disables voice connect link entirely on the pickup page,
+- **Static link** - the voice chat button redirects to the address defined in the `Static link` field,
+- **Mumble** - allows for defining Mumble server configuration. There are three values to set:
+  - URL - IP/domain name address of the server
+  - Port - port used by the Mumble server
+  - Password (optional) - password needed to log onto the Mumble server
+  - Channel name - defined the root channel name for the pickups, each game server owns one subchannel containing another two subchannels, each one for BLU and RED team. Based on example given in the Site components deployment with three game servers and their perspective game server names: `tf2pickup.fi #1`, `tf2pickup.fi #2`, `tf2pickup.fi #3`, the channel schema should look like this:
+
+```nolanguage
+tf2pickup
+    ├───tf2pickup-fi-1
+    │   ├───BLU
+    │   └───RED
+    ├───tf2pickup-fi-2
+    │   ├───BLU
+    │   └───RED
+    └───tf2pickup-fi-3
+        ├───BLU
+        └───RED
+```
+
 ## Host system updates
 
 Based on the Linux distribution you have (regardless if it's as a normal Linux installation or as a Windows Subsystem for Linux instance) just execute updates in a way suggested by a distribution documentation ([here's an example from Ubuntu](https://ubuntu.com/server/docs/upgrade-introduction) which is the same for Debian, as Ubuntu is a Debian-based distribution). In case you use Windows 10/Windows Server 2019, you may probably end up with Ubuntu too, so updating the system is being done in the same way, however upgrades between distribution versions is done by installing a new version of the Ubuntu application from Microsoft Store.
