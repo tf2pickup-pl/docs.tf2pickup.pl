@@ -289,7 +289,7 @@ In order to restore backups, you have to choose the dump you would like to resto
 ```bash
 gunzip tf2pickup-15Jun2021.gz
 docker exec tf2pickupfi_mongodb_1 '/bin/bash' \
-    -c 'mongorestore -d tf2pickup -u tf2pickup -p yoursuperfunnypassword --archive' < tf2pickup-15Jun2021.dump
+    -c 'mongorestore -d tf2pickup -u tf2pickup -p yoursuperfunnypassword --archive --drop' < tf2pickup-15Jun2021.dump
 ```
 
 ## Firewall settings
