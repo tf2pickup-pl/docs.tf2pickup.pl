@@ -20,22 +20,13 @@ After setting up the rules, they will show up in a popup for every user joining 
 
 ## Adding game servers to the website
 
-Pickup games require game servers on which it can be set up. In order to do that, you have to add one by entering the **servers** section and clicking a button to add game server. Define it's public name in the **Name** section, add the server address, port and the RCON password to the server. Example:
+Pickup games require game servers on which it can be set up. In order to do that, you have to define the same game server secret for the server (variable `GAME_SERVER_SECRET` in `.env`) and for game servers (variable `TF2PICKUPORG_SECRET` in `gameserver_x.env` or by defining `sm_tf2pickuporg_secret` value in game server's `server.cfg` configuration file). Server being behind a proxy may need an internal address value define, head over [there](/docs/site-components-deployment#gameserver_1env) for more details.
 
-```nolanguage
-Name: tf2pickup.fi #1
-Address: tf2pickup.fi
-Port: 27015
-RCON password: funny_rcon_password
-```
-
-![add-game-server](/img/content/add-game-server.png)
-
-After saving settings, the site will have to check if it can connect to the server and set it up. In most cases, the server status colour should be changed from red to green.
+This mechanism is used since server version 8.x and the game server setup is being done automatically. After discovering newly setup game servers, they will show up on the server list:
 
 ![game-server-status](/img/content/game-server-status.png)
 
-If that won't happen, click **Run diagnostics** button in order to perform server troubleshooting. The site will perform a few tests in order to see what may be a root cause of the problem.
+You can always use **Run diagnostics** button in order to perform server troubleshooting. The site will perform a few tests in order to see what may be a root cause of the problem.
 
 ![run-diagnostics](/img/content/run-diagnostics.png)
 
@@ -59,7 +50,7 @@ For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist
 
 ## Set up voice chat settings
 
-Since server 8.x the voice chat setup is being done through the client and backend variables for it are deprecated. Those settings can be set by superusers only. There are three options to set it up:
+Since server version 8.x the voice chat setup is being done through the client and backend variables for it are deprecated. Those settings can be set by superusers only. There are three options to set it up:
 
 ![voice-chat-settings](/img/content/voice-chat-settings.png)
 

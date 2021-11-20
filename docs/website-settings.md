@@ -9,6 +9,7 @@ Currently website settings lets you:
 - configure map pool,
 - configure whitelist,
 - configure default player skill,
+- configure player restrictions,
 - force create player account,
 - show site player skill table,
 - scramble maps available to vote at the moment,
@@ -27,6 +28,14 @@ You can configure as much maps as you want to. You have to make sure the map is 
 Here you can set up a whitelist by defining a whitelist name or its ID from [whitelist.tf](https://whitelist.tf). If not defined, all items will be available on the pickup games.
 
 ![set-whitelist](/img/content/set-whitelist.png)
+
+## Configurting player restrictions
+
+TODO: configure player restrtictions
+
+## Configuring voice server settings
+
+See [here](/docs/final-touches#set-up-voice-chat-settings).
 
 ## Force create a player account
 
