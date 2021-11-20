@@ -73,3 +73,7 @@ title: Site showcase
 ## [hl.tf2pickup.ru](https://hl.tf2pickup.ru)
 
 ![hl.tf2pickup.ru](/img/content/hl.tf2pickup.ru.png)
+
+## [br.tf2pickup.org](https://br.tf2pickup.org)
+
+![br.tf2pickup.org](/img/content/br.tf2pickup.org.png)
