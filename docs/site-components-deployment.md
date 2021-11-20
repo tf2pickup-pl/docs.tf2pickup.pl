@@ -347,7 +347,7 @@ services:
   api:
     depends_on:
       - mongodb
-    image: tf2pickuppl/server
+    image: tf2pickuppl/server:latest
     restart: always
     ports:
     - '3000:3000'
@@ -356,13 +356,13 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   website:
-    image: tf2pickuppl/tf2pickup.fi
+    image: tf2pickuppl/tf2pickup.fi:latest
     restart: always
     ports:
      - '4000:80'
 
   mumble-server:
-    image: phlak/mumble
+    image: phlak/mumble:latest
     ports:
       - '64738:64738/tcp'
       - '64738:64738/udp'
@@ -378,6 +378,8 @@ services:
 
   mongodb:
     image: mongo:4.0
+    # you can set the tag to the 'latest', '4.4' or '5.0', however it requires your host CPU to have AVX instructions available
+    # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS not
     restart: unless-stopped
     volumes:
     - database-data:/data/db
@@ -387,7 +389,7 @@ services:
     hostname: tf2pickup-fi-mongo
 
   gameserver1:
-    image: tf2pickuppl/tf2-gameserver
+    image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
@@ -398,7 +400,7 @@ services:
     - ./gameserver_1.env
 
   gameserver2:
-    image: tf2pickuppl/tf2-gameserver
+    image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
@@ -409,7 +411,7 @@ services:
     - ./gameserver_2.env
 
   gameserver3:
-    image: tf2pickuppl/tf2-gameserver
+    image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
@@ -432,7 +434,7 @@ services:
   api:
     depends_on:
       - mongodb
-    image: tf2pickuppl/server
+    image: tf2pickuppl/server:latest
     restart: always
     ports:
     - '3000:3000'
@@ -441,13 +443,15 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   website:
-    image: tf2pickuppl/tf2pickup.fi
+    image: tf2pickuppl/tf2pickup.fi:latest
     restart: always
     ports:
      - '4000:80'
 
   mongodb:
     image: mongo:4.0
+    # you can set the tag to the 'latest', '4.4' or '5.0', however it requires your host CPU to have AVX instructions available
+    # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS not
     restart: unless-stopped
     volumes:
     - database-data:/data/db
@@ -468,7 +472,7 @@ Feel free to remove reduntant gameservers from the file if there are more than y
 version: '3.9'
 
   gameserver1:
-    image: tf2pickuppl/tf2-gameserver
+    image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
@@ -479,7 +483,7 @@ version: '3.9'
     - ./gameserver_1.env
 
   gameserver2:
-    image: tf2pickuppl/tf2-gameserver
+    image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
@@ -490,7 +494,7 @@ version: '3.9'
     - ./gameserver_2.env
 
   gameserver3:
-    image: tf2pickuppl/tf2-gameserver
+    image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
