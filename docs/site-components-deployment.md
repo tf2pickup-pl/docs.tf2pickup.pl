@@ -80,10 +80,7 @@ CLIENT_URL=https://tf2pickup.fi
 BOT_NAME=tf2pickup.fi
 
 # MongoDB
-# The commented values below were used in the old version of the tf2pickup.org project, deprecated since server 8.x version
-# MONGODB_HOST=tf2pickup-fi-mongo
-# MONGODB_PORT=27017
-# MONGODB_DB=admin
+# The commented values below are used for creating a database user and establishing a connection with it
 MONGODB_USERNAME=tf2pickup
 MONGODB_PASSWORD=yoursuperfunnypassword
 # MONGODB_URI syntax:
@@ -279,25 +276,31 @@ SERVER_HOSTNAME="tf2pickup.fi #1"
 SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
+
 # Website API address, must match API_URL from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
 TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
 TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
+
 # Optional variable, overrides the channel name used for this server, which is derived from the 
 # SERVER_HOSTNAME by default (with whitespaces and dots replaced with - etc), in this example
 # the default voice channel name would be tf2pickup-fi-1
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_voice_channel_name
 TF2PICKUPORG_VOICE_CHANNEL_NAME=
+
 # Optional variable, sets server priority for the server, the default value is 1
 # higher value = higher priority
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_priority
 TF2PICKUPORG_PRIORITY=1
+
 # Optional variable, used when the tf2pickup.org server is behind a proxy
 # the value is an IP address of the game server, for example 177.54.144.126
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
+
 # Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 LOGS_TF_PREFIX=tf2pickup.fi
@@ -320,25 +323,31 @@ SERVER_HOSTNAME="tf2pickup.fi #2"
 SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
+
 # Website API address, must match API_URL from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
 TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
 TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
+
 # Optional variable, overrides the channel name used for this server, which is derived from the 
 # SERVER_HOSTNAME by default (with whitespaces and dots replaced with - etc), in this example
 # the default voice channel name would be tf2pickup-fi-2
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_voice_channel_name
 TF2PICKUPORG_VOICE_CHANNEL_NAME=
+
 # Optional variable, sets server priority for the server, the default value is 1
 # higher value = higher priority
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_priority
 TF2PICKUPORG_PRIORITY=1
+
 # Optional variable, used when the tf2pickup.org server is behind a proxy
 # the value is an IP address of the game server, for example 177.54.144.126
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
+
 # Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 LOGS_TF_PREFIX=tf2pickup.fi
@@ -361,25 +370,31 @@ SERVER_HOSTNAME="tf2pickup.fi #3"
 SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
+
 # Website API address, must match API_URL from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
 TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
 TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
+
 # Optional variable, overrides the channel name used for this server, which is derived from the 
 # SERVER_HOSTNAME by default (with whitespaces and dots replaced with - etc), in this example
 # the default voice channel name would be tf2pickup-fi-3
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_voice_channel_name
 TF2PICKUPORG_VOICE_CHANNEL_NAME=
+
 # Optional variable, sets server priority for the server, the default value is 1
 # higher value = higher priority
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_priority
 TF2PICKUPORG_PRIORITY=1
+
 # Optional variable, used when the tf2pickup.org server is behind a proxy
 # the value is an IP address of the game server, for example 177.54.144.126
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
+
 # Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 LOGS_TF_PREFIX=tf2pickup.fi

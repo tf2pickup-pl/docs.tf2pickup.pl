@@ -41,7 +41,7 @@ To launch a game, at least one game server is needed. In order to let the game s
 
 We provide a [docker image](https://github.com/tf2pickup-org/tf2-gameserver)
 
-The site deployment can be done in both ways:
+The site deployment can be done in one of two ways:
 
 - bundled - server, client, game server(s) and optionally voice server on one host,
 - divided - server and client are hosted on one host and game server(s) are on another one, this does not exclude hosting game servers on multiple different hosts.

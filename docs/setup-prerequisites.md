@@ -103,7 +103,7 @@ After that, certificate should be able to be created by using the command (the `
 certbot certonly --non-interactive -d 'tf2pickup.fi' -d '*.tf2pickup.fi' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple --agree-tos --email your-mailbox@you-are-really-using.com
 ```
 
-There is a special case if your domain is a subdomain of the `tf2pickup.org` or `tf2pickup.eu`, for instance `br.tf2pickup.org` or `au.tf2pickup.org` which you have to use for (the example given is for `br.tf2pickup.org`).
+There is a special case if your domain is a subdomain of `tf2pickup.org` or `tf2pickup.eu`, for instance `br.tf2pickup.org` or `au.tf2pickup.org` which you have to use for (example given is for `br.tf2pickup.org`).
 
 ```sh
 certbot --nginx --non-interactive -d 'br.tf2pickup.org' -d 'api.br.tf2pickup.org' --rsa-key-size 4096 --must-staple --agree-tos --email your-mailbox@you-are-really-using.com

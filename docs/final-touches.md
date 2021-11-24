@@ -26,7 +26,7 @@ This mechanism is used since server version 8.x and the game server setup is bei
 
 ![game-server-status](/img/content/game-server-status.png)
 
-You can always use **Run diagnostics** button in order to perform server troubleshooting. The site will perform a few tests in order to see what may be a root cause of the problem.
+You can always use **Run diagnostics** button in order to perform server troubleshooting. The site will perform a few tests in order to make sure game server connectivity works correctly.
 
 ![run-diagnostics](/img/content/run-diagnostics.png)
 
@@ -50,7 +50,7 @@ For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist
 
 ## Set up voice chat settings
 
-Since server version 8.x the voice chat setup is being done through the client and backend variables for it are deprecated. Those settings can be set by superusers only. There are three options to set it up:
+Those settings can be set by superusers only. There are three options to set it up:
 
 ![voice-chat-settings](/img/content/voice-chat-settings.png)
 
