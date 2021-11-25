@@ -20,13 +20,13 @@ After setting up the rules, they will show up in a popup for every user joining 
 
 ## Adding game servers to the website
 
-Pickup games require game servers on which it can be set up. In order to do that, you have to define the same game server secret for the server (variable `GAME_SERVER_SECRET` in `.env`) and for game servers (variable `TF2PICKUPORG_SECRET` in `gameserver_x.env` or by defining `sm_tf2pickuporg_secret` value in game server's `server.cfg` configuration file). Server being behind a proxy may need an internal address value define, head over [there](/docs/site-components-deployment#gameserver_1env) for more details.
+Pickup games require game servers on which it can be set up. In order to do that, you have to define the same game server secret for the server (variable `GAME_SERVER_SECRET` in `.env`) and for game servers (variable `TF2PICKUPORG_SECRET` in `gameserver_x.env` or by defining `sm_tf2pickuporg_secret` value in game server's `server.cfg` configuration file). Server being behind a proxy [may need an internal address value defined](/docs/site-components-deployment#gameserver_1env).
 
 This mechanism is used since server version 8.x and the game server setup is being done automatically. After discovering newly setup game servers, they will show up on the server list:
 
 ![game-server-status](/img/content/game-server-status.png)
 
-You can always use **Run diagnostics** button in order to perform server troubleshooting. The site will perform a few tests in order to make sure game server connectivity works correctly.
+You can always use **Run diagnostics** button in order to perform server troubleshooting. The site will perform a tests to ensure the game server works correctly.
 
 ![run-diagnostics](/img/content/run-diagnostics.png)
 
@@ -50,7 +50,7 @@ For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist
 
 ## Set up voice chat settings
 
-Those settings can be set by superusers only. There are three options to set it up:
+These settings can be set by superusers only. There are three options to set it up:
 
 ![voice-chat-settings](/img/content/voice-chat-settings.png)
 
@@ -220,7 +220,7 @@ Watchtower will pull images and replace container images automatically. It also 
 
 ## Blocking automatic updates when using watchtower
 
-In some unusual cases you may want to prevent your website from updating it. In order to do so, you must change the client and server tag in `docker-compose.yml` for a specific version (by default the tag used is `latest` **even if it's undefined**). For example:
+In some unusual cases you may want to prevent your website from updating. In order to do so, you must change the client and server tag in `docker-compose.yml` to a specific version (by default the tag used is `latest` **even if it's undefined**). For example:
 
 ```docker
 services:
@@ -242,7 +242,7 @@ services:
      - '4000:80'
 ```
 
-can be switched to:
+Can be switched to:
 
 ```docker
 services:
@@ -264,7 +264,7 @@ services:
      - '4000:80'
 ```
 
-After that, you have to recreate the stack by executing the following commands while being in a `tf2pickup.fi` folder containing environment files and the `docker-compose.yml` file:
+After that, you must restart all containers. You can do this by executing the following commands while being in a `tf2pickup.fi` folder containing both the `.env` and `docker-compose.yml` file:
 
 ```bash
 docker-compose down

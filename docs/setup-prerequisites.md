@@ -126,7 +126,7 @@ When the certificate is obtained, we suggest you to leave these two commands in 
 5  1   20 * *   systemctl restart nginx
 ```
 
-In that manner, the certificates will renew once in a 20th day of the month, every two months at 1:05 in a current timezone set for the server on which the certificates are renewed.
+In that manner, the certificates will renew every 20th day of the month and every 2 months at 1:05 AM server time.
 
 ## Nginx setup
 

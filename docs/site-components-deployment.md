@@ -644,7 +644,7 @@ Ice.MessageSizeMax=65536
 ## Giving `tf2pickup` user access to Docker commands
 
 :::caution
-This step is optional. By default the only user allowed to utilize Docker commands is `root`.
+This step is optional. By default, the only user allowed to utilize Docker commands is `root`.
 :::
 This one is simple, all you have to do is to add `tf2pickup` user to the group called `docker`:
 

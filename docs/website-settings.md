@@ -31,7 +31,7 @@ Here you can set up a whitelist by defining a whitelist name or its ID from [whi
 
 ## Configurting player restrictions
 
-Since not all regions of the world participate in the ETF2L competitions nor have a profile created there, this option allows you to:
+Since not all regions of the world participate in ETF2L or have a profile created there, this option allows you to:
 
 - enable/disable user validation against the [ETF2L API](https://api.etf2l.org),
 - define minimum TF2 in-game time spent in order to register to the website.
@@ -42,7 +42,7 @@ The ETF2L user validation lets website:
 - block player registration if the player is blacklisted/banned from the ETF2L,
 - assign the nickname to a player (without it, the current nickname on steam is assigned to a tf2pickup.org profile).
 
-The switch lets you enable or disable the ETF2L profile validation, according to your needs.
+This switch lets you toggle the ETF2L profile validation check, according to your needs.
 
 The in-game time spent restriction is based on the Team Fortress 2 Stats [(example)](https://steamcommunity.com/id/cosiepatrzysz/stats/TF2), not the general in-game spent time on the Steam profile [(example)](https://steamcommunity.com/id/cosiepatrzysz). The example of hours being checked can be also seen below:
 
