@@ -220,6 +220,10 @@ Watchtower will pull images and replace container images automatically. It also 
 
 ## Blocking automatic updates when using watchtower
 
+:::caution
+Only use version of server and client that are compatible with each other. Mixing server and client version can and will break if not done properly. If you're unsure which version to use, you may always reach out for clarification.
+:::
+
 In some unusual cases you may want to prevent your website from updating. In order to do so, you must change the client and server tag in `docker-compose.yml` to a specific version (by default the tag used is `latest` **even if it's undefined**). For example:
 
 ```docker
@@ -270,8 +274,6 @@ After that, you must restart all containers. You can do this by executing the fo
 docker-compose down
 docker-compose up -d
 ```
-
-in order to prevent the site from updating server from 7.x to 8.x with the client, so the client and server still matches with their functionalities. This can be also used if you want to switch for an older version of the site (assuming you have a database backup with data containing a matching schema to the one used in a version you want to rollback).
 
 ## Game server updates
 

@@ -38,9 +38,9 @@ Since not all regions of the world participate in ETF2L or have a profile create
 
 The ETF2L user validation lets website:
 
-- assign an ETF2L profile to the tf2pickup.org profile,
-- block player registration if the player is blacklisted/banned from the ETF2L,
-- assign the nickname to a player (without it, the current nickname on steam is assigned to a tf2pickup.org profile).
+- Assign an ETF2L profile to the tf2pickup.org profile.
+- Block player registration if the player is blacklisted/banned from the ETF2L.
+- Assign the nickname to a player (without it, the current nickname on steam is assigned to a tf2pickup.org profile).
 
 This switch lets you toggle the ETF2L profile validation check, according to your needs.
 
