@@ -39,5 +39,11 @@ To launch a game, at least one game server is needed. In order to let the game s
 - [SrcTV+ Extension](https://github.com/dalegaard/srctvplus) (optional),
 - [TF2Stadium SourceMod Plugin](https://github.com/tf2pickup-org/stadium-sm-plugin),
 
-We provide a [docker image](https://github.com/tf2pickup-org/tf2-gameserver)
+We provide a [Docker image](https://github.com/tf2pickup-org/tf2-gameserver)
+
+The site deployment can be done in one of two ways:
+
+- Bundled - Server, client, game and voice server(s) on one host.
+- Divided - Server and client are both on one host, while game server(s) are on another. This does not exclude hosting game servers on multiple different hosts.
+
 that has all the plugins and configuration. [Here](/docs/site-compoents-deployment) you can find some information how to set them up fast.

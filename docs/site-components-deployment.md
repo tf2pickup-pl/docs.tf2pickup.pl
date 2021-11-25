@@ -80,10 +80,15 @@ CLIENT_URL=https://tf2pickup.fi
 BOT_NAME=tf2pickup.fi
 
 # MongoDB
-MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@mongodb:27017/tf2pickup
+# The commented values below are used for creating a database user and establishing a connection with it
 MONGODB_USERNAME=tf2pickup
 MONGODB_PASSWORD=yoursuperfunnypassword
-MONGODB_DB=tf2pickup
+# MONGODB_URI syntax:
+# mongodb://username:password@hostname/database-name
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-fi-mongo/admin
+
+# Used to authenticate and add servers to the serverlist.
+GAME_SERVER_SECRET=yoursuperfunnygameserversecret
 
 # Steam API key
 # Get your key at https://steamcommunity.com/dev/apikey
@@ -108,9 +113,6 @@ QUEUE_CONFIG=6v6
 # It should be the same address as API_URL, but without the https schema.
 LOG_RELAY_ADDRESS=api.tf2pickup.fi
 LOG_RELAY_PORT=9871
-
-# Game server secret is used by the connector plugin to register the gameservers.
-GAME_SERVER_SECRET=XDXDXDXD
 
 # Discord (optional)
 # You will find a bot token at https://discord.com/developers/applications
@@ -270,13 +272,34 @@ STEAM_PORT=27018
 STV_PORT=27020
 
 RCON_PASSWORD=funny_rcon_password
-SERVER_HOSTNAME=tf2pickup.fi #1
+SERVER_HOSTNAME="tf2pickup.fi #1"
 SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
 
+# Website API address, must match API_URL from .env file
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
 TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
-TF2PICKUPORG_SECRET=XDXDXDXD
+
+# Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
+TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
+
+# Optional variable, overrides the channel name used for this server, which is derived from the 
+# SERVER_HOSTNAME by default (with whitespaces and dots replaced with - etc), in this example
+# the default voice channel name would be tf2pickup-fi-1
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_voice_channel_name
+TF2PICKUPORG_VOICE_CHANNEL_NAME=
+
+# Optional variable, sets server priority for the server, the default value is 1
+# higher value = higher priority
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_priority
+TF2PICKUPORG_PRIORITY=1
+
+# Optional variable, used when the tf2pickup.org server is behind a proxy
+# the value is an IP address of the game server, for example 177.54.144.126
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
+TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
 
 # Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
@@ -296,13 +319,34 @@ STEAM_PORT=27028
 STV_PORT=27030
 
 RCON_PASSWORD=funny_rcon_password
-SERVER_HOSTNAME=tf2pickup.fi #2
+SERVER_HOSTNAME="tf2pickup.fi #2"
 SERVER_PASSWORD=some_random_password
 STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
 
-TF2PICKUPORG_API_ADDRESS: https://api.tf2pickup.fi
-TF2PICKUPORG_SECRET: XDXDXDXD
+# Website API address, must match API_URL from .env file
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+
+# Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
+TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
+
+# Optional variable, overrides the channel name used for this server, which is derived from the 
+# SERVER_HOSTNAME by default (with whitespaces and dots replaced with - etc), in this example
+# the default voice channel name would be tf2pickup-fi-2
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_voice_channel_name
+TF2PICKUPORG_VOICE_CHANNEL_NAME=
+
+# Optional variable, sets server priority for the server, the default value is 1
+# higher value = higher priority
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_priority
+TF2PICKUPORG_PRIORITY=1
+
+# Optional variable, used when the tf2pickup.org server is behind a proxy
+# the value is an IP address of the game server, for example 177.54.144.126
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
+TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
 
 # Get your logs.tf API key from https://logs.tf/uploader
 LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
@@ -311,27 +355,80 @@ LOGS_TF_PREFIX=tf2pickup.fi
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
 
-## `docker-compose.yml`
+## `gameserver_3.env`
+
+```env
+# TF2 Gameserver Configuration
+
+PORT=27035
+CLIENT_PORT=27036
+STEAM_PORT=27038
+STV_PORT=27040
+
+RCON_PASSWORD=funny_rcon_password
+SERVER_HOSTNAME="tf2pickup.fi #3"
+SERVER_PASSWORD=some_random_password
+STV_NAME=tf2pickup.fi TV
+STV_TITLE=tf2pickup.fi Source TV
+
+# Website API address, must match API_URL from .env file
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+
+# Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
+TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
+
+# Optional variable, overrides the channel name used for this server, which is derived from the 
+# SERVER_HOSTNAME by default (with whitespaces and dots replaced with - etc), in this example
+# the default voice channel name would be tf2pickup-fi-3
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_voice_channel_name
+TF2PICKUPORG_VOICE_CHANNEL_NAME=
+
+# Optional variable, sets server priority for the server, the default value is 1
+# higher value = higher priority
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_priority
+TF2PICKUPORG_PRIORITY=1
+
+# Optional variable, used when the tf2pickup.org server is behind a proxy
+# the value is an IP address of the game server, for example 177.54.144.126
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
+TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
+
+# Get your logs.tf API key from https://logs.tf/uploader
+LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
+LOGS_TF_PREFIX=tf2pickup.fi
+# Get your demos.tf API key from https://demos.tf/upload
+DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
+```
+
+## `docker-compose.yml` for all in one setup (website + gameservers + mumble)
+
+If you don't want to use Mumble, feel free to remove the 'mumble-server' part of the file.
 
 ```docker
-version: '2.4'
+version: '3.9'
 
 services:
-  backend:
+  api:
     depends_on:
       - mongodb
-    image: tf2pickuppl/server
+    image: tf2pickuppl/server:latest
     restart: always
     ports:
-     - '3000:3000'
-     - '9871:9871/udp'
+    - '3000:3000'
+    - '9871:9871/udp'
     volumes:
     - './.env:/tf2pickup.pl/.env'
-    links:
-     - mongodb
-## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
+
+  website:
+    image: tf2pickuppl/tf2pickup.fi:latest
+    restart: always
+    ports:
+     - '4000:80'
+
   mumble-server:
-    image: phlak/mumble
+    image: phlak/mumble:latest
     ports:
       - '64738:64738/tcp'
       - '64738:64738/udp'
@@ -342,72 +439,136 @@ services:
       - /etc/letsencrypt/live/tf2pickup.fi:/cert/live/tf2pickup.fi:ro
       - /etc/letsencrypt/archive/tf2pickup.fi:/cert/archive/tf2pickup.fi:ro
     environment:
-    #  - SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
+      - SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
       - TZ=${MUMBLE_TZ}
-## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
+
   mongodb:
     image: mongo:4.0
+    # you can set the tag to the 'latest', '4.4' or '5.0', however it requires your host CPU to have AVX instructions available
+    # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS not
     restart: unless-stopped
-    ports:
-     - '27017:27017'
     volumes:
     - database-data:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
-      - MONGO_INITDB_DATABASE=${MONGODB_DB}
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 1ST GAME SERVER ##
+    hostname: tf2pickup-fi-mongo
+
   gameserver1:
-    image: tf2pickuppl/tf2-gameserver
+    image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
-    tty: true
-    stdin_open: true
     restart: always
     volumes:
-    - ./maps:/home/tf2/server/tf/maps:ro
+    - ./maps:/home/tf2/server/tf/maps:rw
     - ./sourcetv1:/home/tf2/server/tf/demos
+    - ./smlogs1:/home/tf2/server/tf/addons/sourcemod/logs
     env_file:
     - ./gameserver_1.env
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 1ST GAME SERVER ##
 
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 2ND GAME SERVER ##
   gameserver2:
-    image: tf2pickuppl/tf2-gameserver
+    image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
-    tty: true
-    stdin_open: true
     restart: always
     volumes:
-    - ./maps:/home/tf2/server/tf/maps:ro
+    - ./maps:/home/tf2/server/tf/maps:rw
     - ./sourcetv2:/home/tf2/server/tf/demos
+    - ./smlogs2:/home/tf2/server/tf/addons/sourcemod/logs
     env_file:
     - ./gameserver_2.env
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 2ND GAME SERVER ##
 
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAME SERVER ##
-  #gameserver3:
-  #  image: tf2pickuppl/tf2-gameserver
-  #  network_mode: host
-  #  tty: true
-  #  stdin_open: true
-  #  restart: always
-  #  volumes:
-  #  - ./maps:/home/tf2/server/tf/maps:ro
-  #  - ./sourcetv3:/home/tf2/server/tf/demos
-  #  env_file:
-  #  - ./gameserver_3.env
-## COMMENT/DELETE THIS PART IF YOU DON'T USE 3RD GAME SERVER ##
-  frontend:
-    container_name: 'frontend'
-    image: tf2pickuppl/tf2pickup.fi
+  gameserver3:
+    image: tf2pickuppl/tf2-gameserver:latest
+    network_mode: host
+    restart: always
+    volumes:
+    - ./maps:/home/tf2/server/tf/maps:rw
+    - ./sourcetv3:/home/tf2/server/tf/demos
+    - ./smlogs3:/home/tf2/server/tf/addons/sourcemod/logs
+    env_file:
+    - ./gameserver_3.env
+
+volumes:
+  database-data:
+```
+
+## `docker-compose.yml` for the website only
+
+```docker
+version: '3.9'
+
+services:
+  api:
+    depends_on:
+      - mongodb
+    image: tf2pickuppl/server:latest
+    restart: always
+    ports:
+    - '3000:3000'
+    - '9871:9871/udp'
+    volumes:
+    - './.env:/tf2pickup.pl/.env'
+
+  website:
+    image: tf2pickuppl/tf2pickup.fi:latest
     restart: always
     ports:
      - '4000:80'
+
+  mongodb:
+    image: mongo:4.0
+    # you can set the tag to the 'latest', '4.4' or '5.0', however it requires your host CPU to have AVX instructions available
+    # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS not
+    restart: unless-stopped
+    volumes:
+    - database-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+    hostname: tf2pickup-fi-mongo
+
 volumes:
-## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
-  mumble-data:
-## COMMENT/DELETE THIS PART IF YOU DON'T USE MUMBLE ##
   database-data:
+```
+
+## `docker-compose.yml` for gameservers only
+
+Feel free to remove reduntant gameservers from the file if there are more than you actually need.
+
+```docker
+version: '3.9'
+
+  gameserver1:
+    image: tf2pickuppl/tf2-gameserver:latest
+    network_mode: host
+    restart: always
+    volumes:
+    - ./maps:/home/tf2/server/tf/maps:rw
+    - ./sourcetv1:/home/tf2/server/tf/demos
+    - ./smlogs1:/home/tf2/server/tf/addons/sourcemod/logs
+    env_file:
+    - ./gameserver_1.env
+
+  gameserver2:
+    image: tf2pickuppl/tf2-gameserver:latest
+    network_mode: host
+    restart: always
+    volumes:
+    - ./maps:/home/tf2/server/tf/maps:rw
+    - ./sourcetv2:/home/tf2/server/tf/demos
+    - ./smlogs2:/home/tf2/server/tf/addons/sourcemod/logs
+    env_file:
+    - ./gameserver_2.env
+
+  gameserver3:
+    image: tf2pickuppl/tf2-gameserver:latest
+    network_mode: host
+    restart: always
+    volumes:
+    - ./maps:/home/tf2/server/tf/maps:rw
+    - ./sourcetv3:/home/tf2/server/tf/demos
+    - ./smlogs3:/home/tf2/server/tf/addons/sourcemod/logs
+    env_file:
+    - ./gameserver_3.env
 ```
 
 ## `data/config.ini`
@@ -478,6 +639,17 @@ sslDHParams=@ffdhe4096
 [Ice]
 Ice.Warn.UnknownProperties=1
 Ice.MessageSizeMax=65536
+```
+
+## Giving `tf2pickup` user access to Docker commands
+
+:::caution
+This step is optional. By default, the only user allowed to utilize Docker commands is `root`.
+:::
+This one is simple, all you have to do is to add `tf2pickup` user to the group called `docker`:
+
+```sh
+# gpasswd -a tf2pickup docker
 ```
 
 ## `docker-compose up -d`

@@ -20,22 +20,13 @@ After setting up the rules, they will show up in a popup for every user joining 
 
 ## Adding game servers to the website
 
-Pickup games require game servers on which it can be set up. In order to do that, you have to add one by entering the **servers** section and clicking a button to add game server. Define it's public name in the **Name** section, add the server address, port and the RCON password to the server. Example:
+Pickup games require game servers on which it can be set up. In order to do that, you have to define the same game server secret for the server (variable `GAME_SERVER_SECRET` in `.env`) and for game servers (variable `TF2PICKUPORG_SECRET` in `gameserver_x.env` or by defining `sm_tf2pickuporg_secret` value in game server's `server.cfg` configuration file). Server being behind a proxy [may need an internal address value defined](/docs/site-components-deployment#gameserver_1env).
 
-```nolanguage
-Name: tf2pickup.fi #1
-Address: tf2pickup.fi
-Port: 27015
-RCON password: funny_rcon_password
-```
-
-![add-game-server](/img/content/add-game-server.png)
-
-After saving settings, the site will have to check if it can connect to the server and set it up. In most cases, the server status colour should be changed from red to green.
+This mechanism is used since server version 8.x and the game server setup is being done automatically. After discovering newly setup game servers, they will show up on the server list:
 
 ![game-server-status](/img/content/game-server-status.png)
 
-If that won't happen, click **Run diagnostics** button in order to perform server troubleshooting. The site will perform a few tests in order to see what may be a root cause of the problem.
+You can always use **Run diagnostics** button in order to perform server troubleshooting. The site will perform a tests to ensure the game server works correctly.
 
 ![run-diagnostics](/img/content/run-diagnostics.png)
 
@@ -56,6 +47,33 @@ After the site start, you may want to add admins in order to make site moderatio
 ![run-diagnostics](/img/content/player-roles.png)
 
 For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist), map pool settings can be seen [there](/docs/website-settings#map-pool-settings), and [there](/docs/the-most-common-tasks#setting-up-player-skills) you can look at for the skill setup.
+
+## Set up voice chat settings
+
+These settings can be set by superusers only. There are three options to set it up:
+
+![voice-chat-settings](/img/content/voice-chat-settings.png)
+
+- **Disabled** - disables voice connect link entirely on the pickup page,
+- **Static link** - the voice chat button redirects to the address defined in the `Static link` field,
+- **Mumble** - allows for defining Mumble server configuration. There are three values to set:
+  - URL - IP/domain name address of the server
+  - Port - port used by the Mumble server
+  - Password (optional) - password needed to log onto the Mumble server
+  - Channel name - defined the root channel name for the pickups, each game server owns one subchannel containing another two subchannels, each one for BLU and RED team. Based on example given in the Site components deployment with three game servers and their perspective game server names: `tf2pickup.fi #1`, `tf2pickup.fi #2`, `tf2pickup.fi #3`, the channel schema should look like this:
+
+```nolanguage
+tf2pickup
+    ├───tf2pickup-fi-1
+    │   ├───BLU
+    │   └───RED
+    ├───tf2pickup-fi-2
+    │   ├───BLU
+    │   └───RED
+    └───tf2pickup-fi-3
+        ├───BLU
+        └───RED
+```
 
 ## Host system updates
 
@@ -200,6 +218,63 @@ docker run -d \
 
 Watchtower will pull images and replace container images automatically. It also deletes old images after being replaced by the new ones, so it will not waste your disk space.
 
+## Blocking automatic updates when using watchtower
+
+:::caution
+Only use version of server and client that are compatible with each other. Mixing server and client version can and will break if not done properly. If you're unsure which version to use, you may always reach out for clarification.
+:::
+
+In some unusual cases you may want to prevent your website from updating. In order to do so, you must change the client and server tag in `docker-compose.yml` to a specific version (by default the tag used is `latest` **even if it's undefined**). For example:
+
+```docker
+services:
+  api:
+    depends_on:
+      - mongodb
+    image: tf2pickuppl/server:latest
+    restart: always
+    ports:
+    - '3000:3000'
+    - '9871:9871/udp'
+    volumes:
+    - './.env:/tf2pickup.pl/.env'
+
+  website:
+    image: tf2pickuppl/tf2pickup.fi:latest
+    restart: always
+    ports:
+     - '4000:80'
+```
+
+Can be switched to:
+
+```docker
+services:
+  api:
+    depends_on:
+      - mongodb
+    image: tf2pickuppl/server:7.0.6
+    restart: always
+    ports:
+    - '3000:3000'
+    - '9871:9871/udp'
+    volumes:
+    - './.env:/tf2pickup.pl/.env'
+
+  website:
+    image: tf2pickuppl/tf2pickup.fi:3.19.4
+    restart: always
+    ports:
+     - '4000:80'
+```
+
+After that, you must restart all containers. You can do this by executing the following commands while being in a `tf2pickup.fi` folder containing both the `.env` and `docker-compose.yml` file:
+
+```bash
+docker-compose down
+docker-compose up -d
+```
+
 ## Game server updates
 
 There are two ways how you can update the game servers:
@@ -289,7 +364,7 @@ In order to restore backups, you have to choose the dump you would like to resto
 ```bash
 gunzip tf2pickup-15Jun2021.gz
 docker exec tf2pickupfi_mongodb_1 '/bin/bash' \
-    -c 'mongorestore -d tf2pickup -u tf2pickup -p yoursuperfunnypassword --archive' < tf2pickup-15Jun2021.dump
+    -c 'mongorestore -d tf2pickup -u tf2pickup -p yoursuperfunnypassword --archive --drop' < tf2pickup-15Jun2021.dump
 ```
 
 ## Firewall settings

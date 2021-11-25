@@ -103,6 +103,14 @@ After that, certificate should be able to be created by using the command (the `
 certbot certonly --non-interactive -d 'tf2pickup.fi' -d '*.tf2pickup.fi' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple --agree-tos --email your-mailbox@you-are-really-using.com
 ```
 
+There is a special case if your domain is a subdomain of `tf2pickup.org` or `tf2pickup.eu`, for instance `br.tf2pickup.org` or `au.tf2pickup.org` which you have to use for (example given is for `br.tf2pickup.org`).
+
+```sh
+certbot --nginx --non-interactive -d 'br.tf2pickup.org' -d 'api.br.tf2pickup.org' --rsa-key-size 4096 --must-staple --agree-tos --email your-mailbox@you-are-really-using.com
+```
+
+For the next certificate request you do not need to use `--agree-tos` and `--email` parameters anymore.
+
 In case of failure most likely you:
 
 - have invalid restricted API key,
@@ -117,6 +125,8 @@ When the certificate is obtained, we suggest you to leave these two commands in 
 0  1   20 * *   certbot certonly --non-interactive -d 'tf2pickup.fi' -d '*.tf2pickup.fi' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple
 5  1   20 * *   systemctl restart nginx
 ```
+
+In that manner, the certificates will renew every 20th day of the month and every 2 months at 1:05 AM server time.
 
 ## Nginx setup
 
