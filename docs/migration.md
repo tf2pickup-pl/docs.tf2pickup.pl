@@ -8,6 +8,31 @@ Before doing any migration **back up your database** in case the whole process g
 
 :::
 
+## Version 9
+
+### Environment
+
+In order for the new statistics module to represent correct times and dates, the correct timezone needs to be set. This is done via the `TZ` environment variable. Take a look [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) to see the list of valid timezones. Example:
+
+```
+TZ=Europe/Warsaw
+```
+
+There is also the new **serveme.tf integration** implemented that needs to be enabled using environment variables. Provided you have serveme.tf premium, grab your API key [here](https://serveme.tf/settings) and make sure it makes its way to your .env file:
+
+```
+# valid endpoints are:
+# serveme.tf
+# na.serveme.tf
+# sea.serveme.tf
+SERVEME_TF_API_ENDPOINT=serveme.tf
+SERVEME_TF_API_KEY=your_serveme_tf_api_key
+```
+
+To configure how your tf2pickup.org instance uses serveme.tf go to the admin panel, click _Game servers_, then _Configure serveme.tf integration_. You will be able to select the preferred region for your future reservations.
+
+![serveme.tf configuration](/img/content/serveme-tf-configuration.png)
+
 
 ## Version 8
 
