@@ -34,6 +34,12 @@ To configure how your tf2pickup.org instance uses serveme.tf go to the admin pan
 ![serveme.tf configuration](/img/content/serveme-tf-configuration.png)
 
 
+### Mumble bot
+
+Version 9 introduces a bot that keeps your Mumble server in order. Follow [this guide](site-components-deployment#mumble-server-setup) to configure it properly.
+Also, as per-gameserver voice channels are no longer used, you can get rid of the `TF2PICKUPORG_VOICE_CHANNEL_NAME` environment variable from your _gameserver\_*.env_ files.
+
+
 ## Version 8
 
 ### Environment
