@@ -60,20 +60,7 @@ These settings can be set by superusers only. There are three options to set it 
   - URL - IP/domain name address of the server
   - Port - port used by the Mumble server
   - Password (optional) - password needed to log onto the Mumble server
-  - Channel name - defined the root channel name for the pickups, each game server owns one subchannel containing another two subchannels, each one for BLU and RED team. Based on example given in the Site components deployment with three game servers and their perspective game server names: `tf2pickup.fi #1`, `tf2pickup.fi #2`, `tf2pickup.fi #3`, the channel schema should look like this:
-
-```nolanguage
-tf2pickup
-    ├───tf2pickup-fi-1
-    │   ├───BLU
-    │   └───RED
-    ├───tf2pickup-fi-2
-    │   ├───BLU
-    │   └───RED
-    └───tf2pickup-fi-3
-        ├───BLU
-        └───RED
-```
+  - Channel name - defines the parent channel for the pickups
 
 ## Host system updates
 

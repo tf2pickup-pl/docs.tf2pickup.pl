@@ -70,6 +70,10 @@ Then, these are the templates for the aforementioned files:
 ```env
 ### Configuration for the Server
 
+# Timezone of the server
+# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+TZ=Europe/Warsaw
+
 # An URL to where this server instance will be accessed
 API_URL=https://api.tf2pickup.fi
 
@@ -128,11 +132,18 @@ DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=admin-ilmoitukset
 TWITCH_CLIENT_ID=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 TWITCH_CLIENT_SECRET=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 
+# serveme.tf integration (optional)
+# valid endpoints are:
+# serveme.tf
+# na.serveme.tf
+# sea.serveme.tf
+SERVEME_TF_API_ENDPOINT=serveme.tf
+# Grab your serveme.tf key here: https://serveme.tf/settings
+SERVEME_TF_API_KEY=your_serveme_tf_api_key
 
 ### Mumble Server Configuration
 
 # Timezone
-MUMBLE_TZ=Europe/Helsinki
 MUMBLE_SUPERUSER_PASSWORD=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
 
@@ -254,12 +265,27 @@ Then, you will see the application list. Find `tf2pickup.fi` and select **Manage
 
 ![twitch-dev-console-tf2pickup.fi-api-settings](/img/content/twitch-dev-console-tf2pickup.fi-api-settings.png)
 
-Pass this secret value to a `TWITCH_CLIENT_SECRET` variable.
+Pass this secret value to the `TWITCH_CLIENT_SECRET` variable.
 
-### Mumble channel setup example
+### Mumble server setup
 
-Here you can find one more example of how the Mumble channels should be set up in practice:
-![mumble-channel-scheme](/img/content/mumble-channel-scheme.png)
+The _tf2pickup.org_ server comes with an integrated bot that manages channels on your Mumble server. It creates a dedicated channel for every game and cleans them up when they are left empty for some time.
+
+In order for the bot to work, you need to give him proper rights to do create, edit and remove channels. The way to do that on Mumble servers is via so-called ACLs (Access Control Lists).
+
+First, set up your Mumble server connection details [using the admin panel](final-touches#set-up-voice-chat-settings).
+After you save the settings, the bot will login and join the selected channel.
+
+![mumble-bot-joins-server](/img/content/mumble-bot-joins-server.png)
+
+To grant him proper privileges, first you need to register the bot. Having done that, edit channel, then select tab named *ACL*, click _Add_ and type bot's username in the lower field.
+Next make sure both _Applies to sub-channels_ and _Applies to this channel_ checkboxes are selected and on the right-hand side of the window click _Allow_ checkbox next to the _Write ACL_ label.
+The channel edit window should look like this:
+
+![mumble-edit-channel-window](/img/content/mumble-channel-edit-window.png)
+
+Press _OK_ to save the changes.
+
 
 ## `gameserver_1.env`
 
@@ -284,12 +310,6 @@ TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
 TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
-
-# Optional variable, overrides the channel name used for this server, which is derived from the 
-# SERVER_HOSTNAME by default (with whitespaces and dots replaced with - etc), in this example
-# the default voice channel name would be tf2pickup-fi-1
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_voice_channel_name
-TF2PICKUPORG_VOICE_CHANNEL_NAME=
 
 # Optional variable, sets server priority for the server, the default value is 1
 # higher value = higher priority
@@ -332,12 +352,6 @@ TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
 TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
 
-# Optional variable, overrides the channel name used for this server, which is derived from the 
-# SERVER_HOSTNAME by default (with whitespaces and dots replaced with - etc), in this example
-# the default voice channel name would be tf2pickup-fi-2
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_voice_channel_name
-TF2PICKUPORG_VOICE_CHANNEL_NAME=
-
 # Optional variable, sets server priority for the server, the default value is 1
 # higher value = higher priority
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_priority
@@ -378,12 +392,6 @@ TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
 TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
-
-# Optional variable, overrides the channel name used for this server, which is derived from the 
-# SERVER_HOSTNAME by default (with whitespaces and dots replaced with - etc), in this example
-# the default voice channel name would be tf2pickup-fi-3
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_voice_channel_name
-TF2PICKUPORG_VOICE_CHANNEL_NAME=
 
 # Optional variable, sets server priority for the server, the default value is 1
 # higher value = higher priority
@@ -440,7 +448,6 @@ services:
       - /etc/letsencrypt/archive/tf2pickup.fi:/cert/archive/tf2pickup.fi:ro
     environment:
       - SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
-      - TZ=${MUMBLE_TZ}
 
   mongodb:
     image: mongo:4.0
