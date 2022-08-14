@@ -18,6 +18,11 @@ We introduced a new environment variable, `WEBSITE_NAME`. It identifies your _tf
 WEBSITE_NAME=tf2pickup.pl
 ```
 
+We also added support for expansion of environment variables, so now you can re-use your `WEBSITE_NAME`, for example:
+
+```
+BOT_NAME=${WEBSITE_NAME}
+```
 
 ### Redis
 
