@@ -55,6 +55,14 @@ In older versions of the tf2pickup.org project there was a typo in the environme
 KEY_STORE_PASSPHRASE=
 ```
 
+### Review privacy policy
+
+To be compliant with the [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) we added a new document - privacy policy. It is stored on the server and can be edited via your admin panel. It is short and contains only necessary information, so please take a look at it and **update the link to your website**, as it defaults to [tf2pickup.pl](https://tf2pickup.pl/).
+
+![privacy policy 1](/img/content/migration-privacy-policy-1.png)
+
+![privacy policy 2](/img/content/migration-privacy-policy-2.png)
+
 
 ## Version 9
 
