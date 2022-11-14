@@ -95,7 +95,7 @@ MONGODB_PASSWORD=yoursuperfunnypassword
 MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-fi-mongo/admin
 
 # Redis URL
-REDIS_URL=redis://localhost:6379
+REDIS_URL=redis://tf2pickup-fi-redis:6379
 
 # logs.tf API key
 # Obtain yours here: https://logs.tf/uploader
@@ -153,7 +153,6 @@ SERVEME_TF_API_KEY=your_serveme_tf_api_key
 
 ### Mumble Server Configuration
 
-# Timezone
 MUMBLE_SUPERUSER_PASSWORD=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
 
@@ -462,50 +461,59 @@ services:
   mongodb:
     image: mongo:4.0
     # you can set the tag to the 'latest', '4.4' or '5.0', however it requires your host CPU to have AVX instructions available
-    # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS not
+    # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS does not
     restart: unless-stopped
     volumes:
-    - database-data:/data/db
+     - database-data:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
     hostname: tf2pickup-fi-mongo
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis-data:/data
+    hostname: tf2pickup-fi-redis
 
   gameserver1:
     image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
-    - ./maps:/home/tf2/server/tf/maps:rw
-    - ./sourcetv1:/home/tf2/server/tf/demos
-    - ./smlogs1:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./maps:/home/tf2/server/tf/maps:rw
+     - ./sourcetv1:/home/tf2/server/tf/demos
+     - ./smlogs1:/home/tf2/server/tf/addons/sourcemod/logs
     env_file:
-    - ./gameserver_1.env
+     - ./gameserver_1.env
 
   gameserver2:
     image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
-    - ./maps:/home/tf2/server/tf/maps:rw
-    - ./sourcetv2:/home/tf2/server/tf/demos
-    - ./smlogs2:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./maps:/home/tf2/server/tf/maps:rw
+     - ./sourcetv2:/home/tf2/server/tf/demos
+     - ./smlogs2:/home/tf2/server/tf/addons/sourcemod/logs
     env_file:
-    - ./gameserver_2.env
+     - ./gameserver_2.env
 
   gameserver3:
     image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
-    - ./maps:/home/tf2/server/tf/maps:rw
-    - ./sourcetv3:/home/tf2/server/tf/demos
-    - ./smlogs3:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./maps:/home/tf2/server/tf/maps:rw
+     - ./sourcetv3:/home/tf2/server/tf/demos
+     - ./smlogs3:/home/tf2/server/tf/addons/sourcemod/logs
     env_file:
-    - ./gameserver_3.env
+     - ./gameserver_3.env
 
 volumes:
   database-data:
+  redis-data:
 ```
 
 ## `docker-compose.yml` for the website only
@@ -542,6 +550,14 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
     hostname: tf2pickup-fi-mongo
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis-data:/data
+    hostname: tf2pickup-fi-redis
 
 volumes:
   database-data:
@@ -588,7 +604,7 @@ version: '3.9'
     - ./gameserver_3.env
 ```
 
-## `data/config.ini`
+## Mumble server `data/config.ini`
 
 ```ini
 # Murmur configuration file.

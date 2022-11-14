@@ -26,7 +26,7 @@ BOT_NAME=${WEBSITE_NAME}
 
 ### Redis
 
-The new version requires a [Redis](https://redis.io/) database; it is used to cache some data and store game logs. Follow [site components deployment](site-components-deployment#redis) documentation to learn how to set it up.
+The new version requires a [Redis](https://redis.io/) database; it is used to cache some data and store game logs. Follow [site components deployment](site-components-deployment#docker-composeyml-for-the-website-only) documentation to learn how to set it up.
 
 ```
 REDIS_URL=redis://localhost:6379
