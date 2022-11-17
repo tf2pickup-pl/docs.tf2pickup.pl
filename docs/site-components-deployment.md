@@ -477,6 +477,7 @@ services:
      - ./maps:/home/tf2/server/tf/maps:rw
      - ./sourcetv1:/home/tf2/server/tf/demos
      - ./smlogs1:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./logs1:/home/tf2/server/tf2/logs
     env_file:
      - ./gameserver_1.env
 
@@ -488,6 +489,7 @@ services:
      - ./maps:/home/tf2/server/tf/maps:rw
      - ./sourcetv2:/home/tf2/server/tf/demos
      - ./smlogs2:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./logs2:/home/tf2/server/tf2/logs
     env_file:
      - ./gameserver_2.env
 
@@ -499,6 +501,7 @@ services:
      - ./maps:/home/tf2/server/tf/maps:rw
      - ./sourcetv3:/home/tf2/server/tf/demos
      - ./smlogs3:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./logs3:/home/tf2/server/tf2/logs
     env_file:
      - ./gameserver_3.env
 
@@ -569,6 +572,7 @@ version: '3.9'
     - ./maps:/home/tf2/server/tf/maps:rw
     - ./sourcetv1:/home/tf2/server/tf/demos
     - ./smlogs1:/home/tf2/server/tf/addons/sourcemod/logs
+    - ./logs1:/home/tf2/server/tf2/logs
     env_file:
     - ./gameserver_1.env
 
@@ -580,6 +584,7 @@ version: '3.9'
     - ./maps:/home/tf2/server/tf/maps:rw
     - ./sourcetv2:/home/tf2/server/tf/demos
     - ./smlogs2:/home/tf2/server/tf/addons/sourcemod/logs
+    - ./logs2:/home/tf2/server/tf2/logs
     env_file:
     - ./gameserver_2.env
 
@@ -591,6 +596,7 @@ version: '3.9'
     - ./maps:/home/tf2/server/tf/maps:rw
     - ./sourcetv3:/home/tf2/server/tf/demos
     - ./smlogs3:/home/tf2/server/tf/addons/sourcemod/logs
+    - ./logs3:/home/tf2/server/tf2/logs
     env_file:
     - ./gameserver_3.env
 ```
