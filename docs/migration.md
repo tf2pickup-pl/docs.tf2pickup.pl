@@ -43,6 +43,14 @@ For the integration to work, you need to grab your API key [here](https://logs.t
 LOGS_TF_API_KEY=your_logs_tf_api_key
 ```
 
+Uploading logs via the backend means that you need to disable log upload on your gameservers; otherwise all the logs are going to be doubled.
+To disable uploading logs to logs.tf on your gameservers empty the `LOGS_TF_APIKEY` env variable:
+
+```
+# gameserver.env
+LOGS_TF_APIKEY=
+```
+
 ### KEY_STORE_PASSPHRASE typo
 
 In older versions of the tf2pickup.org project there was a typo in the environment file that we have fixed in version 9. However, the typo was still allowed alongside the correct variable name. We got rid of the typo in version 10, so make sure you take care of it in your .env file.

@@ -330,9 +330,6 @@ TF2PICKUPORG_PRIORITY=1
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
 
-# Get your logs.tf API key from https://logs.tf/uploader
-LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
-LOGS_TF_PREFIX=tf2pickup.fi
 # Get your demos.tf API key from https://demos.tf/upload
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
@@ -371,9 +368,6 @@ TF2PICKUPORG_PRIORITY=1
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
 
-# Get your logs.tf API key from https://logs.tf/uploader
-LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
-LOGS_TF_PREFIX=tf2pickup.fi
 # Get your demos.tf API key from https://demos.tf/upload
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
@@ -412,9 +406,6 @@ TF2PICKUPORG_PRIORITY=1
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
 
-# Get your logs.tf API key from https://logs.tf/uploader
-LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
-LOGS_TF_PREFIX=tf2pickup.fi
 # Get your demos.tf API key from https://demos.tf/upload
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
