@@ -30,14 +30,22 @@ To launch a game, at least one game server is needed. In order to let the game s
 
 - [SourceMod 1.10](https://www.sourcemod.net/downloads.php) (the latest stable version),
 - [Metamod:Source 1.11](https://www.sourcemm.net/downloads.php?branch=stable) (the latest stable version),
-- [TFTrue Extension](https://tftrue.esport-tools.net/),
 - [demos.tf plugin](https://github.com/demostf/plugin),
 - [DHooks 2 Extension](https://github.com/peace-maker/DHooks2),
 - [tf2-comp-fixes plugin](https://github.com/ldesgoui/tf2-comp-fixes),
-- [cURL SourceMod Extension](https://code.google.com/archive/p/sourcemod-curl-extension/downloads),
-- [ETF2L server configuration files](https://etf2l.org/rules/configs/) "with the latest configs and whitelists",
 - [SrcTV+ Extension](https://github.com/dalegaard/srctvplus) (optional),
 - [TF2Stadium SourceMod Plugin](https://github.com/tf2pickup-org/stadium-sm-plugin),
+- [Supplemental Stats 2](https://github.com/F2/F2s-sourcemod-plugins#supplemental-stats-2-)
+- [Medic Stats](https://github.com/F2/F2s-sourcemod-plugins#medic-stats-)
+- [RestoreScore](https://github.com/F2/F2s-sourcemod-plugins#restorescore-)
+- [LogsTF](https://github.com/F2/F2s-sourcemod-plugins#logstf-)
+- [RecordSTV](https://github.com/F2/F2s-sourcemod-plugins#recordstv-)
+- [WaitForSTV](https://github.com/F2/F2s-sourcemod-plugins#waitforstv-)
+- [FixStvSlot](https://github.com/F2/F2s-sourcemod-plugins#fixstvslot-)
+- [tf2rue](https://github.com/sapphonie/tf2rue)
+- [ETF2L.org configs](https://github.com/ETF2L/gameserver-configs)
+- [RGL.gg configs](https://github.com/RGLgg/server-resources-updater/tree/master/cfg)
+- [StAC-tf2](https://github.com/sapphonie/StAC-tf2)
 
 We provide a [Docker image](https://github.com/tf2pickup-org/tf2-gameserver)
 

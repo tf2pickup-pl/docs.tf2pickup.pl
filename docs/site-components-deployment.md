@@ -74,14 +74,17 @@ Then, these are the templates for the aforementioned files:
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 TZ=Europe/Warsaw
 
+# The name of the website
+WEBSITE_NAME=tf2pickup.pl
+
 # An URL to where this server instance will be accessed
 API_URL=https://api.tf2pickup.fi
 
 # An URL to where the client is hosted
 CLIENT_URL=https://tf2pickup.fi
 
-# The bot name; it can be changed via the web client afterwards
-BOT_NAME=tf2pickup.fi
+# The bot name
+BOT_NAME=${WEBSITE_NAME}
 
 # MongoDB
 # The commented values below are used for creating a database user and establishing a connection with it
@@ -91,6 +94,13 @@ MONGODB_PASSWORD=yoursuperfunnypassword
 # mongodb://username:password@hostname/database-name
 MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-fi-mongo/admin
 
+# Redis URL
+REDIS_URL=redis://tf2pickup-fi-redis:6379
+
+# logs.tf API key
+# Obtain yours here: https://logs.tf/uploader
+LOGS_TF_API_KEY=
+
 # Used to authenticate and add servers to the serverlist.
 GAME_SERVER_SECRET=yoursuperfunnygameserversecret
 
@@ -98,11 +108,11 @@ GAME_SERVER_SECRET=yoursuperfunnygameserversecret
 # Get your key at https://steamcommunity.com/dev/apikey
 STEAM_API_KEY=1234567890ABCDEF1234567890ABCDEF
 
-# A passphare that is used to encrypt the keystore file.
+# A passphrase that is used to encrypt the keystore file.
 # NOTE: For production, get a random password (i.e. from https://passwordsgenerator.net/)
 # and do not change it afterwards. If you change the passphare all JWT tokens will no longer
 # be valid, so all clients will be logged out.
-KEY_STORE_PASSPHARE=XDXDXDXDXDXDXDXDXD
+KEY_STORE_PASSPHRASE=XDXDXDXDXDXDXDXDXD
 
 # SteamID of the super-user
 # NOTE: Use the SteamID64 format.
@@ -143,7 +153,6 @@ SERVEME_TF_API_KEY=your_serveme_tf_api_key
 
 ### Mumble Server Configuration
 
-# Timezone
 MUMBLE_SUPERUSER_PASSWORD=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
 
@@ -321,9 +330,6 @@ TF2PICKUPORG_PRIORITY=1
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
 
-# Get your logs.tf API key from https://logs.tf/uploader
-LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
-LOGS_TF_PREFIX=tf2pickup.fi
 # Get your demos.tf API key from https://demos.tf/upload
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
@@ -362,9 +368,6 @@ TF2PICKUPORG_PRIORITY=1
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
 
-# Get your logs.tf API key from https://logs.tf/uploader
-LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
-LOGS_TF_PREFIX=tf2pickup.fi
 # Get your demos.tf API key from https://demos.tf/upload
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
@@ -403,9 +406,6 @@ TF2PICKUPORG_PRIORITY=1
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
 
-# Get your logs.tf API key from https://logs.tf/uploader
-LOGS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
-LOGS_TF_PREFIX=tf2pickup.fi
 # Get your demos.tf API key from https://demos.tf/upload
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
@@ -452,50 +452,62 @@ services:
   mongodb:
     image: mongo:4.0
     # you can set the tag to the 'latest', '4.4' or '5.0', however it requires your host CPU to have AVX instructions available
-    # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS not
+    # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS does not
     restart: unless-stopped
     volumes:
-    - database-data:/data/db
+     - database-data:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
     hostname: tf2pickup-fi-mongo
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis-data:/data
+    hostname: tf2pickup-fi-redis
 
   gameserver1:
     image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
-    - ./maps:/home/tf2/server/tf/maps:rw
-    - ./sourcetv1:/home/tf2/server/tf/demos
-    - ./smlogs1:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./maps:/home/tf2/server/tf/maps:rw
+     - ./sourcetv1:/home/tf2/server/tf/demos
+     - ./smlogs1:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./logs1:/home/tf2/server/tf2/logs
     env_file:
-    - ./gameserver_1.env
+     - ./gameserver_1.env
 
   gameserver2:
     image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
-    - ./maps:/home/tf2/server/tf/maps:rw
-    - ./sourcetv2:/home/tf2/server/tf/demos
-    - ./smlogs2:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./maps:/home/tf2/server/tf/maps:rw
+     - ./sourcetv2:/home/tf2/server/tf/demos
+     - ./smlogs2:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./logs2:/home/tf2/server/tf2/logs
     env_file:
-    - ./gameserver_2.env
+     - ./gameserver_2.env
 
   gameserver3:
     image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
-    - ./maps:/home/tf2/server/tf/maps:rw
-    - ./sourcetv3:/home/tf2/server/tf/demos
-    - ./smlogs3:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./maps:/home/tf2/server/tf/maps:rw
+     - ./sourcetv3:/home/tf2/server/tf/demos
+     - ./smlogs3:/home/tf2/server/tf/addons/sourcemod/logs
+     - ./logs3:/home/tf2/server/tf2/logs
     env_file:
-    - ./gameserver_3.env
+     - ./gameserver_3.env
 
 volumes:
   database-data:
+  redis-data:
 ```
 
 ## `docker-compose.yml` for the website only
@@ -533,6 +545,14 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
     hostname: tf2pickup-fi-mongo
 
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis-data:/data
+    hostname: tf2pickup-fi-redis
+
 volumes:
   database-data:
 ```
@@ -544,6 +564,7 @@ Feel free to remove reduntant gameservers from the file if there are more than y
 ```docker
 version: '3.9'
 
+services:
   gameserver1:
     image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
@@ -552,6 +573,7 @@ version: '3.9'
     - ./maps:/home/tf2/server/tf/maps:rw
     - ./sourcetv1:/home/tf2/server/tf/demos
     - ./smlogs1:/home/tf2/server/tf/addons/sourcemod/logs
+    - ./logs1:/home/tf2/server/tf2/logs
     env_file:
     - ./gameserver_1.env
 
@@ -563,6 +585,7 @@ version: '3.9'
     - ./maps:/home/tf2/server/tf/maps:rw
     - ./sourcetv2:/home/tf2/server/tf/demos
     - ./smlogs2:/home/tf2/server/tf/addons/sourcemod/logs
+    - ./logs2:/home/tf2/server/tf2/logs
     env_file:
     - ./gameserver_2.env
 
@@ -574,11 +597,12 @@ version: '3.9'
     - ./maps:/home/tf2/server/tf/maps:rw
     - ./sourcetv3:/home/tf2/server/tf/demos
     - ./smlogs3:/home/tf2/server/tf/addons/sourcemod/logs
+    - ./logs3:/home/tf2/server/tf2/logs
     env_file:
     - ./gameserver_3.env
 ```
 
-## `data/config.ini`
+## Mumble server `data/config.ini`
 
 ```ini
 # Murmur configuration file.

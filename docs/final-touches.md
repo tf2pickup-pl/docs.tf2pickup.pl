@@ -18,6 +18,14 @@ After setting up the rules, they will show up in a popup for every user joining 
 
 ![edit-rules](/img/content/accept-site-rules.png)
 
+## Reviewing the privacy policy
+
+Please take a look at the privacy policy document; it is accessible for the users using a link at the bottom of the webpage and can be edited via the admin panel. The only thing you need to change is the link to your website, as by default it is set to [tf2pickup.pl](https://tf2pickup.pl):
+
+![privacy policy 1](/img/content/migration-privacy-policy-1.png)
+
+![privacy policy 2](/img/content/migration-privacy-policy-2.png)
+
 ## Adding game servers to the website
 
 Pickup games require game servers on which it can be set up. In order to do that, you have to define the same game server secret for the server (variable `GAME_SERVER_SECRET` in `.env`) and for game servers (variable `TF2PICKUPORG_SECRET` in `gameserver_x.env` or by defining `sm_tf2pickuporg_secret` value in game server's `server.cfg` configuration file). Server being behind a proxy [may need an internal address value defined](/docs/site-components-deployment#gameserver_1env).
