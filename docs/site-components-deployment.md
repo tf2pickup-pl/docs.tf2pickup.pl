@@ -564,6 +564,7 @@ Feel free to remove reduntant gameservers from the file if there are more than y
 ```docker
 version: '3.9'
 
+services:
   gameserver1:
     image: tf2pickuppl/tf2-gameserver:latest
     network_mode: host
