@@ -28,17 +28,20 @@ channels as well.
 
 To launch a game, at least one game server is needed. In order to let the game server work properly with the server, it is expected to have specific extensions/plugins installed:
 
-- [SourceMod 1.10](https://www.sourcemod.net/downloads.php) (the latest stable version),
-- [Metamod:Source 1.11](https://www.sourcemm.net/downloads.php?branch=stable) (the latest stable version),
-- [demos.tf plugin](https://github.com/demostf/plugin),
-- [DHooks 2 Extension](https://github.com/peace-maker/DHooks2),
-- [tf2-comp-fixes plugin](https://github.com/ldesgoui/tf2-comp-fixes),
-- [SrcTV+ Extension](https://github.com/dalegaard/srctvplus) (optional),
+- [SourceMod 1.12](https://www.sourcemod.net/downloads.php) (the latest stable version)
+- [Metamod:Source 1.12](https://www.sourcemm.net/downloads.php?branch=stable) (the latest stable version)
+- [tf2pickup.org connector plugin](https://github.com/tf2pickup-org/connector/releases)
+- [system2 Extension](https://github.com/dordnung/System2/releases) (tf2pickup.org connector dependency)
+- [tf2stadium-based teams plugin](https://github.com/tf2pickup-org/stadium-sm-plugin)
+- [demos.tf plugin](https://github.com/demostf/plugin)
+- [DHooks 2 Extension](https://github.com/peace-maker/DHooks2)
+- [tf2-comp-fixes plugin](https://github.com/ldesgoui/tf2-comp-fixes)
+- [SrcTV+ Extension](https://github.com/dalegaard/srctvplus) (optional)
 - [TF2Stadium SourceMod Plugin](https://github.com/tf2pickup-org/stadium-sm-plugin),
 - [Supplemental Stats 2](https://github.com/F2/F2s-sourcemod-plugins#supplemental-stats-2-)
 - [Medic Stats](https://github.com/F2/F2s-sourcemod-plugins#medic-stats-)
 - [RestoreScore](https://github.com/F2/F2s-sourcemod-plugins#restorescore-)
-- [LogsTF](https://github.com/F2/F2s-sourcemod-plugins#logstf-)
+- [LogsTF](https://github.com/F2/F2s-sourcemod-plugins#logstf-) (optional since v10, not recommended)
 - [RecordSTV](https://github.com/F2/F2s-sourcemod-plugins#recordstv-)
 - [WaitForSTV](https://github.com/F2/F2s-sourcemod-plugins#waitforstv-)
 - [FixStvSlot](https://github.com/F2/F2s-sourcemod-plugins#fixstvslot-)
@@ -47,11 +50,15 @@ To launch a game, at least one game server is needed. In order to let the game s
 - [RGL.gg configs](https://github.com/RGLgg/server-resources-updater/tree/master/cfg)
 - [StAC-tf2](https://github.com/sapphonie/StAC-tf2)
 
-We provide a [Docker image](https://github.com/tf2pickup-org/tf2-gameserver)
+We provide a [Docker image](https://github.com/tf2pickup-org/tf2-gameserver). If you must use a hosted server, you must install all of these plugins above and disable the following default SourceMod plugins:
+
+- `nextmap.smx`
+- `funvotes.smx`
+- `reservedslots.smx`
 
 The site deployment can be done in one of two ways:
 
 - Bundled - Server, client, game and voice server(s) on one host.
 - Divided - Server and client are both on one host, while game server(s) are on another. This does not exclude hosting game servers on multiple different hosts.
 
-that has all the plugins and configuration. [Here](/docs/site-compoents-deployment) you can find some information how to set them up fast.
+that has all the plugins and configuration. [Here](/docs/site-components-deployment) you can find some information how to set them up fast.
