@@ -145,7 +145,6 @@ should look like this after migration:
 MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@localhost:8001/admin
 ```
 
-
 ### Game Servers
 
 With version 8 of the tf2pickup.org server, a new game server registration mechanism is introduced. Instead of adding them manually via the admin panel, game servers make use of the new [connector plugin](https://github.com/tf2pickup-org/connector). That way, managing game servers is not only easier, but also more stable and less error-prone.
