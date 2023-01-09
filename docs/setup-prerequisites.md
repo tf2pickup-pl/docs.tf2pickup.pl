@@ -4,11 +4,11 @@ title: Setup prerequisites
 
 ## Introduction
 
-Currently all tf2pickup.org instances use reverse proxy server configuration based on [Nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) with [Certbot](https://certbot.eff.org/instructions) for obtaining free certificates from [Let's Encrypt](https://letsencrypt.org/). They are hosted on Debian-based distributions (Ubuntu 20.04, Debian 10), but the deployment is not limited to these Linux distributions only; we support the usage of different reverse proxies, such as [Apache](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html) or [Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy) or different tools for obtaining certificates such us [acme.sh](https://github.com/acmesh-official/acme.sh) or even [win-acme](https://www.win-acme.com/). We have confirmed the website to be working on Windows 10 with Docker containers using [Linux Subsystem for Windows (version 2)](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+Currently all tf2pickup.org instances use reverse proxy server configuration based on [Nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) with [Certbot](https://certbot.eff.org/instructions) for obtaining free certificates from [Let's Encrypt](https://letsencrypt.org/). They are hosted on Debian-based distributions (Ubuntu 22.04, Debian 11), but the deployment is not limited to these Linux distributions only; we support the usage of different reverse proxies, such as [Apache](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html) or [Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy) or different tools for obtaining certificates such us [acme.sh](https://github.com/acmesh-official/acme.sh) or even [win-acme](https://www.win-acme.com/). We have confirmed the website to be working on Windows 10/11 with Docker containers using [Linux Subsystem for Windows (version 2)](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 The following guide should be taken as an example, which is based on:
 
-- Ubuntu 20.04 Linux distribution,
+- Ubuntu 22.04 Linux distribution,
 - Cloudflare as a domain API provider for DNS zone dynamic updates,
 - Certbot as the certificate obtaining tool,
 - Nginx as a reverse proxy,
@@ -295,4 +295,4 @@ nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
 nginx: configuration file /etc/nginx/nginx.conf test is successful
 ```
 
-Otherwise, you should get a list of errors listed with file names and line numbers of the files containing the errors. Fix them and when you manage to get the test to be successful, restart the service by executing `systemctl restart nginx.service` and make sure the Nginx is started after every boot by executing `systemctl enable nginx.service`.
+Otherwise, you should get a list of errors listed with file names and line numbers of the files containing the errors. Fix them and when you manage to get the test to be successful, reload the service by executing `nginx -s reload` and make sure the Nginx is started after every boot by executing `systemctl enable nginx.service`.

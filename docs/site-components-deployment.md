@@ -8,8 +8,8 @@ In order to allow for a quick site setup, we make use of Docker containers. That
 
 - have everything mentioned in the [reverse proxy deployment](/docs/reverse-proxy-deployment) set up,
 - have modern Docker and docker-compose version installed in your system, for docker-compose [use this guide](https://docs.docker.com/compose/install/) and for Docker feel free to use guides for:
-  - [Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04),
-  - [Debian 10](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-debian-10),
+  - [Ubuntu 22.04](https://docs.docker.com/engine/install/ubuntu/),
+  - [Debian 11](https://docs.docker.com/engine/install/debian/),
   - [Arch Linux](https://wiki.archlinux.org/title/docker#Installation),
 - prepare the following files in a separate folder, name it `tf2pickup.fi`, then place inside:
   - `.env` - stores variables needed for setting client, server, database and mumble containers up
@@ -72,10 +72,10 @@ Then, these are the templates for the aforementioned files:
 
 # Timezone of the server
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-TZ=Europe/Warsaw
+TZ=Europe/Helsinki
 
 # The name of the website
-WEBSITE_NAME=tf2pickup.pl
+WEBSITE_NAME=tf2pickup.fi
 
 # An URL to where this server instance will be accessed
 API_URL=https://api.tf2pickup.fi
@@ -417,7 +417,7 @@ If you don't want to use Mumble, feel free to remove the 'mumble-server' part of
 version: '3.9'
 
 services:
-  api:
+  backend:
     depends_on:
       - mongodb
     image: tf2pickuppl/server:latest
@@ -428,7 +428,7 @@ services:
     volumes:
     - './.env:/tf2pickup.pl/.env'
 
-  website:
+  frontend:
     image: tf2pickuppl/tf2pickup.fi:latest
     restart: always
     ports:
@@ -515,7 +515,7 @@ volumes:
 version: '3.9'
 
 services:
-  api:
+  backend:
     depends_on:
       - mongodb
     image: tf2pickuppl/server:latest
@@ -526,7 +526,7 @@ services:
     volumes:
     - './.env:/tf2pickup.pl/.env'
 
-  website:
+  frontend:
     image: tf2pickuppl/tf2pickup.fi:latest
     restart: always
     ports:
