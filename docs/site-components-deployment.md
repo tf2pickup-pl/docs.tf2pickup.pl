@@ -158,7 +158,7 @@ MUMBLE_SUPERUSER_PASSWORD=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 
 ### Setting up Steam API key
 
-This is probably the easiest API key to get from all tasks here - open [Steam Web API Key site](https://steamcommunity.com/dev/apikey), enter `tf2pickup.fi` in the **Domain Name** field, agree for *Steam Web API Terms of Use* and click **Register**.
+This is probably the easiest API key to get from all tasks here - open [Steam Web API Key site](https://steamcommunity.com/dev/apikey), enter `tf2pickup.fi` in the **Domain Name** field, agree for _Steam Web API Terms of Use_ and click **Register**.
 
 ![steam-api-key-register](/img/content/steam-api-key-register.png)
 
@@ -205,11 +205,11 @@ Then go to the bot section, click **Add Bot** and then **Yes, do it!** button on
 
 In the menu you can find a token, which you have to pass in the `DISCORD_BOT_TOKEN` variable. Click **Copy** and note the token in your `.env` file.
 
-You *should* untick the Public Bot option, since you don't really want to let anybody invite this bot anywhere else than your Discord server(s) (even if that would be useless, because the bot would send messages only on a specific server).
+You _should_ untick the Public Bot option, since you don't really want to let anybody invite this bot anywhere else than your Discord server(s) (even if that would be useless, because the bot would send messages only on a specific server).
 
 ![discord-disable-public-invite](/img/content/discord-disable-public-invite.png)
 
-Now you should head over to the OAuth2 section and create a URL allowing you to invite the bot on a server. In the **OAuth2 URL Generator** section under *Scopes* tick `bot` option. That should create a link below. Copy and open it.
+Now you should head over to the OAuth2 section and create a URL allowing you to invite the bot on a server. In the **OAuth2 URL Generator** section under _Scopes_ tick `bot` option. That should create a link below. Copy and open it.
 
 ![discord-bot-generate-invite-link](/img/content/discord-bot-generate-invite-link.png)
 
@@ -287,14 +287,13 @@ After you save the settings, the bot will login and join the selected channel.
 
 ![mumble-bot-joins-server](/img/content/mumble-bot-joins-server.png)
 
-To grant him proper privileges, first you need to register the bot. Having done that, edit channel, then select tab named *ACL*, click _Add_ and type bot's username in the lower field.
+To grant him proper privileges, first you need to register the bot. Having done that, edit channel, then select tab named _ACL_, click _Add_ and type bot's username in the lower field.
 Next make sure both _Applies to sub-channels_ and _Applies to this channel_ checkboxes are selected and on the right-hand side of the window click _Allow_ checkbox next to the _Write ACL_ label.
 The channel edit window should look like this:
 
 ![mumble-edit-channel-window](/img/content/mumble-channel-edit-window.png)
 
 Press _OK_ to save the changes.
-
 
 ## `gameserver_1.env`
 

@@ -14,13 +14,13 @@ Before doing any migration **back up your database** in case the whole process g
 
 We introduced a new environment variable, `WEBSITE_NAME`. It identifies your _tf2pickup.org_ instance uniquely; for now, it will be used by the new [logs.tf](https://logs.tf/) uploader, but more use-cases are surely coming.
 
-```
+```env
 WEBSITE_NAME=tf2pickup.pl
 ```
 
 We also added support for expansion of environment variables, so now you can re-use your `WEBSITE_NAME`, for example:
 
-```
+```env
 BOT_NAME=${WEBSITE_NAME}
 ```
 
@@ -28,7 +28,7 @@ BOT_NAME=${WEBSITE_NAME}
 
 The new version requires a [Redis](https://redis.io/) database; it is used to cache some data and store game logs. Follow [site components deployment](site-components-deployment#docker-composeyml-for-the-website-only) documentation to learn how to set it up.
 
-```
+```env
 REDIS_URL=redis://localhost:6379
 ```
 
@@ -39,14 +39,14 @@ access game server logs directly via the webpage.
 
 For the integration to work, you need to grab your API key [here](https://logs.tf/uploader) and put it in your .env file:
 
-```
+```env
 LOGS_TF_API_KEY=your_logs_tf_api_key
 ```
 
 Uploading logs via the backend means that you need to disable log upload on your gameservers; otherwise all the logs are going to be doubled.
 To disable uploading logs to logs.tf on your gameservers empty the `LOGS_TF_APIKEY` env variable:
 
-```
+```env
 # gameserver.env
 LOGS_TF_APIKEY=
 ```
@@ -55,7 +55,7 @@ LOGS_TF_APIKEY=
 
 In older versions of the tf2pickup.org project there was a typo in the environment file that we have fixed in version 9. However, the typo was still allowed alongside the correct variable name. We got rid of the typo in version 10, so make sure you take care of it in your .env file.
 
-```
+```env
 # Old variable name, wrong
 # KEY_STORE_PASSPHARE=
 
@@ -71,20 +71,19 @@ To be compliant with the [GDPR](https://en.wikipedia.org/wiki/General_Data_Prote
 
 ![privacy policy 2](/img/content/migration-privacy-policy-2.png)
 
-
 ## Version 9
 
 ### Environment
 
 In order for the new statistics module to represent correct times and dates, the correct timezone needs to be set. This is done via the `TZ` environment variable. Take a look [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) to see the list of valid timezones. Example:
 
-```
+```env
 TZ=Europe/Warsaw
 ```
 
 There is also the new **serveme.tf integration** implemented that needs to be enabled using environment variables. Provided you have serveme.tf premium, grab your API key [here](https://serveme.tf/settings) and make sure it makes its way to your .env file:
 
-```
+```env
 # valid endpoints are:
 # serveme.tf
 # na.serveme.tf
@@ -97,12 +96,10 @@ To configure how your tf2pickup.org instance uses serveme.tf go to the admin pan
 
 ![serveme.tf configuration](/img/content/serveme-tf-configuration.png)
 
-
 ### Mumble bot
 
 Version 9 introduces a bot that keeps your Mumble server in order. Follow [this guide](site-components-deployment#mumble-server-setup) to configure it properly.
 Also, as per-gameserver voice channels are no longer used, you can get rid of the `TF2PICKUPORG_VOICE_CHANNEL_NAME` environment variable from your _gameserver\_*.env_ files.
-
 
 ## Version 8
 
@@ -120,13 +117,13 @@ Open your `.env` file and find the following values:
 
 All of these are no longer used. Comment them out for now and add a new variable, named `MONGODB_URI`. If your database username and password were empty, the URI should look like this:
 
-```
+```env
 MONGODB_URI=mongodb://host:port/database
 ```
 
 If you are using database authentication, the URI will look similar to the following:
 
-```
+```env
 MONGODB_URI=mongodb://username:password@host:port/database
 ```
 
@@ -177,9 +174,9 @@ This step applies only if you are hosting your game server without the use of Do
 
 Make sure the following plugins are installed:
 
-- [system2](https://forums.alliedmods.net/attachment.php?attachmentid=188744&d=1618607414)
-- [SteamWorks](https://github.com/KyleSanderson/SteamWorks/releases/download/1.2.3c/package-lin.tgz)
-- [tf2pickup.org connector](https://github.com/tf2pickup-org/connector/releases/download/0.1.0/connector.smx)
+* [system2](https://forums.alliedmods.net/attachment.php?attachmentid=188744&d=1618607414)
+* [SteamWorks](https://github.com/KyleSanderson/SteamWorks/releases/download/1.2.3c/package-lin.tgz)
+* [tf2pickup.org connector](https://github.com/tf2pickup-org/connector/releases/download/0.1.0/connector.smx)
 
 Please keep in mind you need to keep track of any _tf2pickup.org connector_ plugin updates manually.
 
@@ -251,13 +248,13 @@ This step applies only if you are running your tf2pickup.org server container in
 
 Go to your docker-compose.yml file and remove the following line from the `website:` service section:
 
-```
+```env
 network_mode: host
 ```
 
 Also, uncomment the following lines in the same section:
 
-```
+```docker
 ports:
  - '3000:3000'
  - '9871:9871/udp'
@@ -267,7 +264,7 @@ links:
 
 And finally, edit one line in your .env file:
 
-```
+```env
 MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@mongodb:8001/admin
 ```
 
