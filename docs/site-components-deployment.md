@@ -554,6 +554,7 @@ services:
 
 volumes:
   database-data:
+  redis-data:
 ```
 
 ## `docker-compose.yml` for gameservers only
