@@ -15,7 +15,7 @@ Before doing any migration **back up your database** in case the whole process g
 We introduced a new environment variable, `WEBSITE_NAME`. It identifies your _tf2pickup.org_ instance uniquely; for now, it will be used by the new [logs.tf](https://logs.tf/) uploader, but more use-cases are surely coming.
 
 ```env
-WEBSITE_NAME=tf2pickup.pl
+WEBSITE_NAME=tf2pickup.fi
 ```
 
 We also added support for expansion of environment variables, so now you can re-use your `WEBSITE_NAME`, for example:
@@ -29,7 +29,7 @@ BOT_NAME=${WEBSITE_NAME}
 The new version requires a [Redis](https://redis.io/) database; it is used to cache some data and store game logs. Follow [site components deployment](site-components-deployment#docker-composeyml-for-the-website-only) documentation to learn how to set it up.
 
 ```env
-REDIS_URL=redis://localhost:6379
+REDIS_URL=redis://tf2pickup-fi-redis:6379
 ```
 
 ### logs.tf
