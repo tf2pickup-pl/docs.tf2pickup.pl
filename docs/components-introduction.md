@@ -37,7 +37,8 @@ To launch a game, at least one game server is needed. In order to let the game s
 - [DHooks 2 Extension](https://github.com/peace-maker/DHooks2)
 - [tf2-comp-fixes plugin](https://github.com/ldesgoui/tf2-comp-fixes)
 - [SrcTV+ Extension](https://github.com/dalegaard/srctvplus) (optional)
-- [TF2Stadium SourceMod Plugin](https://github.com/tf2pickup-org/stadium-sm-plugin),
+- [TF2Stadium SourceMod Plugin](https://github.com/tf2pickup-org/stadium-sm-plugin)
+- [Updated Pause Plugin](https://github.com/l-Aad-l/updated-pause-plugin/releases)
 - [Supplemental Stats 2](https://github.com/F2/F2s-sourcemod-plugins#supplemental-stats-2-)
 - [Medic Stats](https://github.com/F2/F2s-sourcemod-plugins#medic-stats-)
 - [RestoreScore](https://github.com/F2/F2s-sourcemod-plugins#restorescore-)
@@ -45,6 +46,8 @@ To launch a game, at least one game server is needed. In order to let the game s
 - [RecordSTV](https://github.com/F2/F2s-sourcemod-plugins#recordstv-)
 - [WaitForSTV](https://github.com/F2/F2s-sourcemod-plugins#waitforstv-)
 - [FixStvSlot](https://github.com/F2/F2s-sourcemod-plugins#fixstvslot-)
+- [Improved Match Timer](https://github.com/dewbsku/Improved-Match-Timer)
+- [RGL Server Resources Updater](https://github.com/RGLgg/server-resources-updater/releases)
 - [tf2rue](https://github.com/sapphonie/tf2rue)
 - [ETF2L.org configs](https://github.com/ETF2L/gameserver-configs)
 - [RGL.gg configs](https://github.com/RGLgg/server-resources-updater/tree/master/cfg)
