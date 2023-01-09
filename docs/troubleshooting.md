@@ -39,7 +39,7 @@ services:
 
 The last line enables usage for older versions of the TLS protocol like 1.0 and 1.1.
 
-### Logs are not being sent to logs.tf
+## Logs are not being sent to logs.tf
 
 This problem can happen for reasons beyond our control like logs.tf service failure or it having a very high load at the moment, however from the setup side problems can be the following:
 
@@ -62,3 +62,14 @@ LOGS_TF_API_KEY=your_logs_tf_api_key
 ```
 
 Afterwards, restart your backend container.
+
+## Website works, nobody (even the first existing user) can log in
+
+This means your Steam API key used in the backend configuration is invalid, invalidated or expired. It can be indicated by the following entries in the log:
+
+```dockerlog
+[Nest] 1  - 12/17/2022, 11:14:37 AM    WARN [AuthController] Login error: 403 Error: Check your API key is correct
+[Nest] 1  - 12/17/2022, 6:56:01 PM    WARN [AuthController] Login error: 403 Error: Check your API key is correct
+```
+
+To fix this, update `STEAM_API_KEY` property in `.env` file and restart your backend container.
