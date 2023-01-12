@@ -10,6 +10,24 @@ You may want to scramble the maps if one of the maps is played too often. You ca
 
 ![scramble-maps](/img/content/scramble-maps.png)
 
+## Reassigning game servers to games
+
+Sometimes player may experience technical problems with game servers such us unability to connect or high latencies. In cases like this, you may want to switch game server used for the game. Click `reassign...` to do it.
+
+![pickup-start](/img/content/pickup-start.png)
+
+A list with all available servers will show up. Click on one of them to change.
+
+:::info
+In case no static servers are available, game servers from serveme.tf will show up (when serveme.tf API is set correctly).
+:::
+
+![reassign-server](/img/content/reassign-server.png)
+
+After that, a new server will reconfigure and people will be able to connect to it.
+
+![reassign-server](/img/content/after-server-reassignment.png)
+
 ## Reinitializing games
 
 Sometimes the game server may be stuck during the pickup initialization. In case the pickup starts up for over two minutes, you may want to reinitialize the game. This means that the pickup server will try to reinitialize the game on the same pickup server.
