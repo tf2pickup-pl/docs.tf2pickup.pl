@@ -117,3 +117,7 @@ See [here](/docs/the-most-common-tasks#setting-up-player-skills).
 ## Set up website rules
 
 See [here](/docs/final-touches#adding-site-rules).
+
+## Set up privacy policy
+
+See [here](/docs/final-touches#reviewing-the-privacy-policy).
