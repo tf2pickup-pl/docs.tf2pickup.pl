@@ -82,6 +82,8 @@ These settings can be set by superusers only. There are three options to set it 
   - Password (optional) - password needed to log onto the Mumble server
   - Channel name - defines the parent channel for the pickups
 
+For more details about Mumble bot setup, check [this](/docs/site-components-deployment#mumble-server-setup).
+
 ## Host system updates
 
 Based on the Linux distribution you have (regardless if it's as a normal Linux installation or as a Windows Subsystem for Linux instance) just execute updates in a way suggested by a distribution documentation ([here's an example from Ubuntu](https://ubuntu.com/server/docs/upgrade-introduction) which is the same for Debian, as Ubuntu is a Debian-based distribution). In case you use Windows 10/Windows Server 2019, you may probably end up with Ubuntu too, so updating the system is being done in the same way, however upgrades between distribution versions is done by installing a new version of the Ubuntu application from Microsoft Store.

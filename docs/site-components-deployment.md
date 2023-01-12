@@ -293,7 +293,7 @@ The channel edit window should look like this:
 
 ![mumble-edit-channel-window](/img/content/mumble-channel-edit-window.png)
 
-Press _OK_ to save the changes.
+Press _OK_ to save the changes. The bot is supposed to create channels automatically when a game starts on the website. It will create BLU/RED subchannels in it as well. At the end of the game it will link BLU and RED channels, so both teams can communicate. Bot removes redundant channels after game end, after they are left by everybody.
 
 ## `gameserver_1.env`
 
