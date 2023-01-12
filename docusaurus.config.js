@@ -23,7 +23,6 @@ module.exports = {
           label: 'Docs',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/tf2pickup-org',
           label: 'GitHub',
@@ -72,10 +71,6 @@ module.exports = {
               href: 'https://tf2pickup.org',
             },
             {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
               label: 'GitHub',
               href: 'https://github.com/tf2pickup-org',
             },
@@ -93,11 +88,6 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
             'https://github.com/tf2pickup-org/docs.tf2pickup.org',
-        },
-        blog: {
-          showReadingTime: true,
-          editUrl:
-            'https://github.com/tf2pickup-org/docs.tf2pickup.org/edit/master/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
