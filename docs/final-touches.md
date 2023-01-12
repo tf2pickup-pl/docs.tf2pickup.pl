@@ -30,17 +30,29 @@ Please take a look at the privacy policy document; it is accessible for the user
 
 Pickup games require game servers on which it can be set up. In order to do that, you have to define the same game server secret for the server (variable `GAME_SERVER_SECRET` in `.env`) and for game servers (variable `TF2PICKUPORG_SECRET` in `gameserver_x.env` or by defining `sm_tf2pickuporg_secret` value in game server's `server.cfg` configuration file). Server being behind a proxy [may need an internal address value defined](/docs/site-components-deployment#gameserver_1env).
 
-This mechanism is used since server version 8.x and the game server setup is being done automatically. After discovering newly setup game servers, they will show up on the server list:
+This mechanism is used since server version 8.x and the game server setup is being done automatically. After discovering newly setup game servers, they will show up on the server list, which can be accessed through Admin Panel -> Game servers:
 
-![game-server-status](/img/content/game-server-status.png)
+![game-servers-configuration](/img/content/game-servers-configuration.png)
 
-You can always use **Run diagnostics** button in order to perform server troubleshooting. The site will perform a tests to ensure the game server works correctly.
+If you have any statics servers, they will show up on the list. You can click on any of them in order to see their address and to perform diagnostics. For that click **Run diagnostics** button in order to start. The site will perform tests to ensure the game server works correctly.
 
-![run-diagnostics](/img/content/run-diagnostics.png)
+![game-server-details](/img/content/game-server-details.png)
 
 There you can see the diagnostics status. In this case everything went smooth and things seem to be fine.
 
-![diagnostics-status](/img/content/diagnostics-status.png)
+![game-server-diagnostics](/img/content/game-server-diagnostics.png)
+
+:::info
+serveme.tf servers are being used in pickup games **only** if no static game servers are assigned to the site.
+:::
+
+In case you do not have any static servers connected, _serveme.tf integration settings_ become available:
+
+![configure-serveme-integration](/img/content/configure-serveme-integration.png)
+
+Currently the only setting you can define here is a preferred region for reserved servers, depending to which serveme.tf do you use (European, North American or Oceanic regions).
+
+![change-serveme-preference](/img/content/change-serveme-preference.png)
 
 ## Add admins to the site, set up whitelist, maps and skills
 

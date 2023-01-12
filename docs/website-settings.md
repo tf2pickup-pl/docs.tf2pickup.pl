@@ -6,16 +6,23 @@ title: Website settings
 
 Currently website settings lets you:
 
+- configure game servers (including serveme.tf server preferences),
 - configure map pool,
 - configure whitelist,
 - configure default player skill,
 - configure player restrictions,
 - force create player account,
+- import player skill,
 - show site player skill table,
 - scramble maps available to vote at the moment,
-- edit rules.
+- edit rules,
+- edit privacy policy.
 
 ![admin-panel](/img/content/admin-panel.png)
+
+## Configuring game servers
+
+See [here](/docs/final-touches#adding-game-servers-to-the-website).
 
 ## Map pool settings
 
@@ -34,7 +41,8 @@ Here you can set up a whitelist by defining a whitelist name or its ID from [whi
 Since not all regions of the world participate in ETF2L or have a profile created there, this option allows you to:
 
 - enable/disable user validation against the [ETF2L API](https://api.etf2l.org),
-- define minimum TF2 in-game time spent in order to register to the website.
+- define minimum TF2 in-game time spent in order to register to the website,
+- allow/deny players with no skill assigned.
 
 The ETF2L user validation lets website:
 
@@ -52,7 +60,9 @@ In order to change the requirement, simply click on it, define a new amount of h
 
 ![player-restrictions](/img/content/player-restrictions.png)
 
-![player-restrictions-change](/img/content/player-restrictions-change.png)
+If the last setting is enabled, any used with skill not defined manually by an admin will not be able to join pickup queue and they will be notified about it:
+
+![your-account-needs-review](/img/content/your-account-needs-review.png)
 
 ## Configuring voice server settings
 
