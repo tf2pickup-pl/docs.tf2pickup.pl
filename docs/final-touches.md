@@ -26,6 +26,24 @@ Please take a look at the privacy policy document; it is accessible for the user
 
 ![privacy policy 2](/img/content/migration-privacy-policy-2.png)
 
+## Player action log
+
+:::caution
+This feature is accessible only for accounts with Superuser role set.
+:::
+
+Version 10.x comes up with player action log feature. This lets you see who was accessing the website, when and from what kind of browser a connection was made. It is possible to filter results by entering:
+
+- name,
+- Steam ID (SteamID64 format),
+- IP address,
+- User agent,
+- Action (connection with the website/game server(s)).
+
+All connections with the website and gameservers are logged.
+
+![player-action-log](/img/content/player-action-log.png)
+
 ## Adding game servers to the website
 
 Pickup games require game servers on which it can be set up. In order to do that, you have to define the same game server secret for the server (variable `GAME_SERVER_SECRET` in `.env`) and for game servers (variable `TF2PICKUPORG_SECRET` in `gameserver_x.env` or by defining `sm_tf2pickuporg_secret` value in game server's `server.cfg` configuration file). Server being behind a proxy [may need an internal address value defined](/docs/site-components-deployment#gameserver_1env).
