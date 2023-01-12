@@ -329,6 +329,11 @@ TF2PICKUPORG_PRIORITY=1
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
 
+# Optional variable, used when the tf2pickup.org server has more than one WAN connection which could
+# potentially lead to showing a different public IP address of the server than the one all players connect to
+# can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_public_address
+TF2PICKUPORG_OVERRIDE_PUBLIC_ADDRESS=
+
 # Get your demos.tf API key from https://demos.tf/upload
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 ```
