@@ -54,7 +54,11 @@ In short, the pickup admin team is to define skill range for classes, set them o
 
 [This](https://tf2pickup.fi/game/60cf5a2b6d2b980013b258e0) is an example of a balanced game (it ended up with a score 1:2 for the RED team):
 
-![game-skill-values](/img/content/game-skill-values.png)
+![game-skill-values](/img/content/game-skill-values.gif)
+
+:::important
+Skills are hidden by default in order to prevent admins from leaking values accidentally when sharing their screens.
+:::
 
 If you add up individual player values per team, you will end up with this:
 
@@ -146,7 +150,7 @@ Subbing out players is currently possible **only** by the site admins.
 
 If a player for some reason cannot continue a game or they cannot join the game, you can request a player substitute, so somebody can join to a game in a place of the aformentioned player. You can do that from a game details page.
 
-![game-skill-values](/img/content/game-skill-values.png)
+![game-skill-values](/img/content/game-skill-values.gif)
 
 Click the `Request substitute` button next to a player nickname you want to request a sub for.
 
