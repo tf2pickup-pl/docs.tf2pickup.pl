@@ -52,7 +52,7 @@ This mechanism is used since server version 8.x and the game server setup is bei
 
 ![game-servers-configuration](/img/content/game-servers-configuration.png)
 
-If you have any statics servers, they will show up on the list. You can click on any of them in order to see their address and to perform diagnostics. For that click **Run diagnostics** button in order to start. The site will perform tests to ensure the game server works correctly.
+If you have any static servers, they will show up on the list. You can click on any of them in order to see their address and to perform diagnostics. For that click **Run diagnostics** button in order to start. The site will perform tests to ensure the game server works correctly.
 
 ![game-server-details](/img/content/game-server-details.png)
 
@@ -64,7 +64,7 @@ There you can see the diagnostics status. In this case everything went smooth an
 serveme.tf servers are being used in pickup games **only** if no static game servers are assigned to the site.
 :::
 
-In case you do not have any static servers connected, _serveme.tf integration settings_ become available:
+In case you do not have any static servers connected, _serveme.tf integration settings_ becomes available:
 
 ![configure-serveme-integration](/img/content/configure-serveme-integration.png)
 

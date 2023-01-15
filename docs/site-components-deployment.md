@@ -312,26 +312,26 @@ STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
 
 # Website API address, must match API_URL from .env file
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
+# Can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
 TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
 
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
+# Can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
 TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
 
 # Optional variable, sets server priority for the server, the default value is 1
 # higher value = higher priority
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_priority
+# Can be set in a server.cfg manually by a variable sm_tf2pickuporg_priority
 TF2PICKUPORG_PRIORITY=1
 
 # Optional variable, used when the tf2pickup.org server is behind a proxy
 # the value is an IP address of the game server, for example 177.54.144.126
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
+# Can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
 
 # Optional variable, used when the tf2pickup.org server has more than one WAN connection which could
-# potentially lead to showing a different public IP address of the server than the one all players connect to
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_public_address
+# potentially lead to showing a different public IP address of the server than the one all players connect to.
+# Can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_public_address
 TF2PICKUPORG_OVERRIDE_PUBLIC_ADDRESS=
 
 # Get your demos.tf API key from https://demos.tf/upload

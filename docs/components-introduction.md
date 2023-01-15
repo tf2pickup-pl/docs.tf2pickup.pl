@@ -28,8 +28,8 @@ channels as well.
 
 To launch a game, at least one game server is needed. In order to let the game server work properly with the server, it is expected to have specific extensions/plugins installed:
 
-- [SourceMod 1.12](https://www.sourcemod.net/downloads.php) (the latest stable version)
-- [Metamod:Source 1.12](https://www.sourcemm.net/downloads.php?branch=stable) (the latest stable version)
+- [SourceMod 1.11](https://www.sourcemod.net/downloads.php) (the latest stable version)
+- [Metamod:Source 1.11](https://www.sourcemm.net/downloads.php?branch=stable) (the latest stable version)
 - [tf2pickup.org connector plugin](https://github.com/tf2pickup-org/connector/releases)
 - [SteamWorks extension](https://github.com/KyleSanderson/SteamWorks/releases)
 - [system2 Extension](https://github.com/dordnung/System2/releases) (tf2pickup.org connector dependency)
@@ -54,7 +54,7 @@ To launch a game, at least one game server is needed. In order to let the game s
 - [RGL.gg configs](https://github.com/RGLgg/server-resources-updater/tree/master/cfg)
 - [StAC-tf2](https://github.com/sapphonie/StAC-tf2)
 
-We provide a [Docker image](https://github.com/tf2pickup-org/tf2-gameserver). If you must use a hosted server, you must install all of these plugins above and disable the following default SourceMod plugins:
+We provide a [Docker image](https://github.com/tf2pickup-org/tf2-gameserver) that has all the plugins and configuration. [Here](/docs/site-components-deployment) you can find some information how to set them up fast. If you want to use a hosted gameserver, you must install all of these plugins above and disable the following default SourceMod plugins:
 
 - `nextmap.smx`
 - `funvotes.smx`
@@ -64,5 +64,3 @@ The site deployment can be done in one of two ways:
 
 - Bundled - Server, client, game and voice server(s) on one host.
 - Divided - Server and client are both on one host, while game server(s) are on another. This does not exclude hosting game servers on multiple different hosts.
-
-that has all the plugins and configuration. [Here](/docs/site-components-deployment) you can find some information how to set them up fast.
