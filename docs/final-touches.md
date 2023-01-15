@@ -102,6 +102,49 @@ These settings can be set by superusers only. There are three options to set it 
 
 For more details about Mumble bot setup, check [this](/docs/site-components-deployment#mumble-server-setup).
 
+### Importing skills
+
+In order to prepare better for the site launch, you can prepare a list of players in CSV (comma separated values) containing players' Steam IDs and skills they are supposed to have. In that case, when they register on the website, they should have skills set already as values defined during the import.
+
+CSV syntax should be as following for each gamemode:
+
+- 9v9 (Highlander)
+
+```csv
+steamid64,scout,soldier,pyro,demoman,heavy,engineer,medic,sniper,spy
+```
+
+- 6v6
+
+```csv
+steamid64,scout,soldier,demoman,medic
+```
+
+- Ultiduo
+
+```csv
+steamid64,soldier,medic
+```
+
+- BBall
+
+```csv
+steamid64,soldier
+```
+
+An example list for Highlander is:
+
+```csv
+76561198011558250,1,2,3,4,5,6,7,8,9
+76561198074409147,2,4,5,6,5,6,7,6,11
+```
+
+:::important
+In order to avoid problems, make sure your file is saved as UTF-8 coded text file.
+:::
+
+To import skills, open `Import player skill` settings, put a CSV formatted file into a proper field and click **Upload**.
+
 ## Host system updates
 
 Based on the Linux distribution you have (regardless if it's as a normal Linux installation or as a Windows Subsystem for Linux instance) just execute updates in a way suggested by a distribution documentation ([here's an example from Ubuntu](https://ubuntu.com/server/docs/upgrade-introduction) which is the same for Debian, as Ubuntu is a Debian-based distribution). In case you use Windows 10/Windows Server 2019, you may probably end up with Ubuntu too, so updating the system is being done in the same way, however upgrades between distribution versions is done by installing a new version of the Ubuntu application from Microsoft Store.
