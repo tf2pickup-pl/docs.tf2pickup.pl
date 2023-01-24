@@ -64,7 +64,7 @@ There you can see the diagnostics status. In this case everything went smooth an
 serveme.tf servers are being used in pickup games **only** if no static game servers are assigned to the site.
 :::
 
-In case you do not have any static servers connected, _serveme.tf integration settings_ becomes available:
+In you have a valid serveme.tf API key set in your `.env` file, _serveme.tf integration settings_ becomes available:
 
 ![configure-serveme-integration](/img/content/configure-serveme-integration.png)
 
