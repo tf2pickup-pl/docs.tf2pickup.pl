@@ -32,7 +32,7 @@ Please take a look at the privacy policy document; it is accessible for the user
 This feature is accessible only for accounts with Superuser role set.
 :::
 
-Version 10.x comes up with player action log feature. This lets you see who was accessing the website, when and from what kind of browser a connection was made. It is possible to filter results by entering:
+Version 10.x comes up with player action log feature. It lets you see who accessed the website, when and what the user agent of user's browser was. It is possible to filter results by entering:
 
 - name,
 - Steam ID (SteamID64 format),
@@ -40,7 +40,7 @@ Version 10.x comes up with player action log feature. This lets you see who was 
 - User agent,
 - Action (connection with the website/game server(s)).
 
-All connections with the website and gameservers are logged.
+All connections to the website and gameservers are logged.
 
 ![player-action-log](/img/content/player-action-log.png)
 
@@ -52,7 +52,7 @@ This mechanism is used since server version 8.x and the game server setup is bei
 
 ![game-servers-configuration](/img/content/game-servers-configuration.png)
 
-If you have any static servers, they will show up on the list. You can click on any of them in order to see their address and to perform diagnostics. For that click **Run diagnostics** button in order to start. The site will perform tests to ensure the game server works correctly.
+If you have any static servers, they will show up on the list. You can click on any of them in order to see their address and to perform diagnostics. In order to do that, click the **Run diagnostics** button. The site will perform tests to ensure the game server works correctly.
 
 ![game-server-details](/img/content/game-server-details.png)
 
@@ -64,11 +64,11 @@ There you can see the diagnostics status. In this case everything went smooth an
 serveme.tf servers are being used in pickup games **only** if no static game servers are assigned to the site.
 :::
 
-In you have a valid serveme.tf API key set in your `.env` file, _serveme.tf integration settings_ becomes available:
+Provided you have a valid serveme.tf API key set in your `.env` file, _serveme.tf integration settings_ becomes available:
 
 ![configure-serveme-integration](/img/content/configure-serveme-integration.png)
 
-Currently the only setting you can define here is a preferred region for reserved servers, depending to which serveme.tf do you use (European, North American or Oceanic regions).
+Currently the only setting you can define at this point is the preferred region of the reserved servers.
 
 ![change-serveme-preference](/img/content/change-serveme-preference.png)
 

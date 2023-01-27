@@ -12,7 +12,7 @@ You may want to scramble the maps if one of the maps is played too often. You ca
 
 ## Reassigning game servers to games
 
-Sometimes player may experience technical problems with game servers such us unability to connect or high latencies. In cases like this, you may want to switch game server used for the game. Click `reassign...` to do it.
+Sometimes player may experience technical problems with game servers such as unability to connect or high latencies. In cases like this, you may want to switch game server used for the game. Click `reassign...` to do it.
 
 ![pickup-start](/img/content/pickup-start.png)
 

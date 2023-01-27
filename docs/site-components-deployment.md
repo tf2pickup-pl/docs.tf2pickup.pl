@@ -205,7 +205,7 @@ Then go to the bot section, click **Add Bot** and then **Yes, do it!** button on
 
 In the menu you can find a token, which you have to pass in the `DISCORD_BOT_TOKEN` variable. Click **Copy** and note the token in your `.env` file.
 
-You _should_ untick the Public Bot option, since you don't really want to let anybody invite this bot anywhere else than your Discord server(s) (even if that would be useless, because the bot would send messages only on a specific server).
+You _should_ untick the Public Bot option, since you don't really want to let anybody invite this bot anywhere else than your Discord server(s) (even though it would be useless, as the bot sends connects to the specified discord server only).
 
 ![discord-disable-public-invite](/img/content/discord-disable-public-invite.png)
 
@@ -293,7 +293,7 @@ The channel edit window should look like this:
 
 ![mumble-edit-channel-window](/img/content/mumble-channel-edit-window.png)
 
-Press _OK_ to save the changes. The bot is supposed to create channels automatically when a game starts on the website. It will create BLU/RED subchannels in it as well. At the end of the game it will link BLU and RED channels, so both teams can communicate. Bot removes redundant channels after game end, after they are left by everybody.
+Press _OK_ to save the changes. The bot is supposed to create channels automatically when a game starts on the website. It will create BLU/RED subchannels in it as well. At the end of the game it will link BLU and RED channels, so both teams can communicate. The bot removes leftover channels after a game ends, provided they are empty of users.
 
 ## `gameserver_1.env`
 
