@@ -29,6 +29,7 @@ module.exports = {
         'site-components-deployment',
         'final-touches',
         'migration',
+        'troubleshooting',
       ],
     },
     {

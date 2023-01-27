@@ -32,6 +32,18 @@ title: Site overview
 
 ![player-profile](/img/content/player-profile.png)
 
+### Stats
+
+![stats](/img/content/stats.png)
+
+### Hall of fame
+
+![hall-of-fame](/img/content/hall-of-fame.png)
+
+### Player action log
+
+![player-action-log](/img/content/player-action-log.png)
+
 ### Rules page
 
 ![rules-page](/img/content/rules-page.png)

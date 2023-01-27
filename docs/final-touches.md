@@ -26,21 +26,51 @@ Please take a look at the privacy policy document; it is accessible for the user
 
 ![privacy policy 2](/img/content/migration-privacy-policy-2.png)
 
+## Player action log
+
+:::caution
+This feature is accessible only for accounts with Superuser role set.
+:::
+
+Version 10.x comes up with player action log feature. It lets you see who accessed the website, when and what the user agent of user's browser was. It is possible to filter results by entering:
+
+- name,
+- Steam ID (SteamID64 format),
+- IP address,
+- User agent,
+- Action (connection with the website/game server(s)).
+
+All connections to the website and gameservers are logged.
+
+![player-action-log](/img/content/player-action-log.png)
+
 ## Adding game servers to the website
 
 Pickup games require game servers on which it can be set up. In order to do that, you have to define the same game server secret for the server (variable `GAME_SERVER_SECRET` in `.env`) and for game servers (variable `TF2PICKUPORG_SECRET` in `gameserver_x.env` or by defining `sm_tf2pickuporg_secret` value in game server's `server.cfg` configuration file). Server being behind a proxy [may need an internal address value defined](/docs/site-components-deployment#gameserver_1env).
 
-This mechanism is used since server version 8.x and the game server setup is being done automatically. After discovering newly setup game servers, they will show up on the server list:
+This mechanism is used since server version 8.x and the game server setup is being done automatically. After discovering newly setup game servers, they will show up on the server list, which can be accessed through Admin Panel -> Game servers:
 
-![game-server-status](/img/content/game-server-status.png)
+![game-servers-configuration](/img/content/game-servers-configuration.png)
 
-You can always use **Run diagnostics** button in order to perform server troubleshooting. The site will perform a tests to ensure the game server works correctly.
+If you have any static servers, they will show up on the list. You can click on any of them in order to see their address and to perform diagnostics. In order to do that, click the **Run diagnostics** button. The site will perform tests to ensure the game server works correctly.
 
-![run-diagnostics](/img/content/run-diagnostics.png)
+![game-server-details](/img/content/game-server-details.png)
 
 There you can see the diagnostics status. In this case everything went smooth and things seem to be fine.
 
-![diagnostics-status](/img/content/diagnostics-status.png)
+![game-server-diagnostics](/img/content/game-server-diagnostics.png)
+
+:::info
+serveme.tf servers are being used in pickup games **only** if no static game servers are assigned to the site.
+:::
+
+Provided you have a valid serveme.tf API key set in your `.env` file, _serveme.tf integration settings_ becomes available:
+
+![configure-serveme-integration](/img/content/configure-serveme-integration.png)
+
+Currently the only setting you can define at this point is the preferred region of the reserved servers.
+
+![change-serveme-preference](/img/content/change-serveme-preference.png)
 
 ## Add admins to the site, set up whitelist, maps and skills
 
@@ -69,6 +99,51 @@ These settings can be set by superusers only. There are three options to set it 
   - Port - port used by the Mumble server
   - Password (optional) - password needed to log onto the Mumble server
   - Channel name - defines the parent channel for the pickups
+
+For more details about Mumble bot setup, check [this](/docs/site-components-deployment#mumble-server-setup).
+
+### Importing skills
+
+In order to prepare better for the site launch, you can prepare a list of players in CSV (comma separated values) containing players' Steam IDs and skills they are supposed to have. In that case, when they register on the website, they should have skills set already as values defined during the import.
+
+CSV syntax should be as following for each gamemode:
+
+- 9v9 (Highlander)
+
+```csv
+steamid64,scout,soldier,pyro,demoman,heavy,engineer,medic,sniper,spy
+```
+
+- 6v6
+
+```csv
+steamid64,scout,soldier,demoman,medic
+```
+
+- Ultiduo
+
+```csv
+steamid64,soldier,medic
+```
+
+- BBall
+
+```csv
+steamid64,soldier
+```
+
+An example list for Highlander is:
+
+```csv
+76561198011558250,1,2,3,4,5,6,7,8,9
+76561198074409147,2,4,5,6,5,6,7,6,11
+```
+
+:::important
+In order to avoid problems, make sure your file is saved as UTF-8 coded text file.
+:::
+
+To import skills, open `Import player skill` settings, put a CSV formatted file into a proper field and click **Upload**.
 
 ## Host system updates
 

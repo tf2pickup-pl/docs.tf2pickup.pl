@@ -8,8 +8,8 @@ In order to allow for a quick site setup, we make use of Docker containers. That
 
 - have everything mentioned in the [reverse proxy deployment](/docs/reverse-proxy-deployment) set up,
 - have modern Docker and docker-compose version installed in your system, for docker-compose [use this guide](https://docs.docker.com/compose/install/) and for Docker feel free to use guides for:
-  - [Ubuntu 20.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04),
-  - [Debian 10](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-debian-10),
+  - [Ubuntu 22.04](https://docs.docker.com/engine/install/ubuntu/),
+  - [Debian 11](https://docs.docker.com/engine/install/debian/),
   - [Arch Linux](https://wiki.archlinux.org/title/docker#Installation),
 - prepare the following files in a separate folder, name it `tf2pickup.fi`, then place inside:
   - `.env` - stores variables needed for setting client, server, database and mumble containers up
@@ -72,10 +72,10 @@ Then, these are the templates for the aforementioned files:
 
 # Timezone of the server
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-TZ=Europe/Warsaw
+TZ=Europe/Helsinki
 
 # The name of the website
-WEBSITE_NAME=tf2pickup.pl
+WEBSITE_NAME=tf2pickup.fi
 
 # An URL to where this server instance will be accessed
 API_URL=https://api.tf2pickup.fi
@@ -158,7 +158,7 @@ MUMBLE_SUPERUSER_PASSWORD=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 
 ### Setting up Steam API key
 
-This is probably the easiest API key to get from all tasks here - open [Steam Web API Key site](https://steamcommunity.com/dev/apikey), enter `tf2pickup.fi` in the **Domain Name** field, agree for *Steam Web API Terms of Use* and click **Register**.
+This is probably the easiest API key to get from all tasks here - open [Steam Web API Key site](https://steamcommunity.com/dev/apikey), enter `tf2pickup.fi` in the **Domain Name** field, agree for _Steam Web API Terms of Use_ and click **Register**.
 
 ![steam-api-key-register](/img/content/steam-api-key-register.png)
 
@@ -205,11 +205,11 @@ Then go to the bot section, click **Add Bot** and then **Yes, do it!** button on
 
 In the menu you can find a token, which you have to pass in the `DISCORD_BOT_TOKEN` variable. Click **Copy** and note the token in your `.env` file.
 
-You *should* untick the Public Bot option, since you don't really want to let anybody invite this bot anywhere else than your Discord server(s) (even if that would be useless, because the bot would send messages only on a specific server).
+You _should_ untick the Public Bot option, since you don't really want to let anybody invite this bot anywhere else than your Discord server(s) (even though it would be useless, as the bot sends connects to the specified discord server only).
 
 ![discord-disable-public-invite](/img/content/discord-disable-public-invite.png)
 
-Now you should head over to the OAuth2 section and create a URL allowing you to invite the bot on a server. In the **OAuth2 URL Generator** section under *Scopes* tick `bot` option. That should create a link below. Copy and open it.
+Now you should head over to the OAuth2 section and create a URL allowing you to invite the bot on a server. In the **OAuth2 URL Generator** section under _Scopes_ tick `bot` option. That should create a link below. Copy and open it.
 
 ![discord-bot-generate-invite-link](/img/content/discord-bot-generate-invite-link.png)
 
@@ -287,14 +287,13 @@ After you save the settings, the bot will login and join the selected channel.
 
 ![mumble-bot-joins-server](/img/content/mumble-bot-joins-server.png)
 
-To grant him proper privileges, first you need to register the bot. Having done that, edit channel, then select tab named *ACL*, click _Add_ and type bot's username in the lower field.
+To grant him proper privileges, first you need to register the bot. Having done that, edit channel, then select tab named _ACL_, click _Add_ and type bot's username in the lower field.
 Next make sure both _Applies to sub-channels_ and _Applies to this channel_ checkboxes are selected and on the right-hand side of the window click _Allow_ checkbox next to the _Write ACL_ label.
 The channel edit window should look like this:
 
 ![mumble-edit-channel-window](/img/content/mumble-channel-edit-window.png)
 
-Press _OK_ to save the changes.
-
+Press _OK_ to save the changes. The bot is supposed to create channels automatically when a game starts on the website. It will create BLU/RED subchannels in it as well. At the end of the game it will link BLU and RED channels, so both teams can communicate. The bot removes leftover channels after a game ends, provided they are empty of users.
 
 ## `gameserver_1.env`
 
@@ -313,22 +312,27 @@ STV_NAME=tf2pickup.fi TV
 STV_TITLE=tf2pickup.fi Source TV
 
 # Website API address, must match API_URL from .env file
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
+# Can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
 TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
 
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
+# Can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
 TF2PICKUPORG_SECRET=yoursuperfunnygameserversecret
 
 # Optional variable, sets server priority for the server, the default value is 1
 # higher value = higher priority
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_priority
+# Can be set in a server.cfg manually by a variable sm_tf2pickuporg_priority
 TF2PICKUPORG_PRIORITY=1
 
 # Optional variable, used when the tf2pickup.org server is behind a proxy
 # the value is an IP address of the game server, for example 177.54.144.126
-# can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
+# Can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_internal_address
 TF2PICKUPORG_OVERRIDE_INTERNAL_ADDRESS=
+
+# Optional variable, used when the tf2pickup.org server has more than one WAN connection which could
+# potentially lead to showing a different public IP address of the server than the one all players connect to.
+# Can be set in a server.cfg manually by a variable sm_tf2pickuporg_override_public_address
+TF2PICKUPORG_OVERRIDE_PUBLIC_ADDRESS=
 
 # Get your demos.tf API key from https://demos.tf/upload
 DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
@@ -418,7 +422,7 @@ If you don't want to use Mumble, feel free to remove the 'mumble-server' part of
 version: '3.9'
 
 services:
-  api:
+  backend:
     depends_on:
       - mongodb
     image: tf2pickuppl/server:latest
@@ -429,7 +433,7 @@ services:
     volumes:
     - './.env:/tf2pickup.pl/.env'
 
-  website:
+  frontend:
     image: tf2pickuppl/tf2pickup.fi:latest
     restart: always
     ports:
@@ -516,7 +520,7 @@ volumes:
 version: '3.9'
 
 services:
-  api:
+  backend:
     depends_on:
       - mongodb
     image: tf2pickuppl/server:latest
@@ -527,7 +531,7 @@ services:
     volumes:
     - './.env:/tf2pickup.pl/.env'
 
-  website:
+  frontend:
     image: tf2pickuppl/tf2pickup.fi:latest
     restart: always
     ports:
@@ -555,6 +559,7 @@ services:
 
 volumes:
   database-data:
+  redis-data:
 ```
 
 ## `docker-compose.yml` for gameservers only
