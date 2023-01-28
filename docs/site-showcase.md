@@ -16,10 +16,6 @@ title: Site showcase
 
 ![hl.tf2pickup.pl](/img/content/hl.tf2pickup.pl.png)
 
-### [tf2pickup.fr](https://tf2pickup.fr)
-
-![tf2pickup.fr](/img/content/tf2pickup.fr.png)
-
 ### [tf2pickup.cz](https://tf2pickup.cz)
 
 ![tf2pickup.cz](/img/content/tf2pickup.cz.png)
@@ -73,6 +69,10 @@ title: Site showcase
 ![sib.tf2pickup.ru](/img/content/sib.tf2pickup.ru.png)
 
 ## Discontinued websites
+
+### [tf2pickup.fr](https://tf2pickup.fr)
+
+![tf2pickup.fr](/img/content/tf2pickup.fr.png)
 
 ### [yu.tf2pickup.eu](https://yu.tf2pickup.eu)
 
