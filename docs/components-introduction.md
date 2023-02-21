@@ -33,7 +33,6 @@ To launch a game, at least one game server is needed. In order to let the game s
 - [tf2pickup.org connector plugin](https://github.com/tf2pickup-org/connector/releases)
 - [SteamWorks extension](https://github.com/KyleSanderson/SteamWorks/releases)
 - [system2 Extension](https://github.com/dordnung/System2/releases) (tf2pickup.org connector dependency)
-- [tf2stadium-based teams plugin](https://github.com/tf2pickup-org/stadium-sm-plugin)
 - [demos.tf plugin](https://github.com/demostf/plugin)
 - [DHooks 2 Extension](https://github.com/peace-maker/DHooks2)
 - [tf2-comp-fixes plugin](https://github.com/ldesgoui/tf2-comp-fixes)
