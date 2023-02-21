@@ -4,11 +4,19 @@ title: Setup prerequisites
 
 ## Introduction
 
-Currently all tf2pickup.org instances use reverse proxy server configuration based on [Nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) with [Certbot](https://certbot.eff.org/instructions) for obtaining free certificates from [Let's Encrypt](https://letsencrypt.org/). They are hosted on Debian-based distributions (Ubuntu 22.04, Debian 11), but the deployment is not limited to these Linux distributions only; we support the usage of different reverse proxies, such as [Apache](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html) or [Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy) or different tools for obtaining certificates such us [acme.sh](https://github.com/acmesh-official/acme.sh) or even [win-acme](https://www.win-acme.com/). We have confirmed the website to be working on Windows 10/11 with Docker containers using [Linux Subsystem for Windows (version 2)](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+:::caution
+At the time of writing, one of the dependencies used by tf2pickup.org backend [does not support OpenSSL v3](https://github.com/Dexus/pem/issues/316) which is shipped by default in Ubuntu 22.04 (and some other modern Linux distributions), thus we recommend starting the project on Ubuntu 20.04. Starting it for the first time on Ubuntu 22.04 will fail.
+If you need to run pickups on Ubuntu 22.04, you must do one of these options:
+
+- start the project on Ubuntu 20.04, then upgrade to 22.04,
+- [downgrade OpenSSL from v3 to 1.1.x on your system](https://askubuntu.com/questions/1403837/how-do-i-use-openssl-1-1-1-in-ubuntu-22-04).
+:::
+
+Currently all tf2pickup.org instances use reverse proxy server configuration based on [Nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) with [Certbot](https://certbot.eff.org/instructions) for obtaining free certificates from [Let's Encrypt](https://letsencrypt.org/). They are hosted on Debian-based distributions (Ubuntu 20.04, Debian 11), but the deployment is not limited to these Linux distributions only; we support the usage of different reverse proxies, such as [Apache](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html) or [Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy) or different tools for obtaining certificates such us [acme.sh](https://github.com/acmesh-official/acme.sh) or even [win-acme](https://www.win-acme.com/). We have confirmed the website to be working on Windows 10/11 with Docker containers using [Linux Subsystem for Windows (version 2)](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 The following guide should be taken as an example, which is based on:
 
-- Ubuntu 22.04 Linux distribution,
+- Ubuntu 20.04 Linux distribution,
 - Cloudflare as a domain API provider for DNS zone dynamic updates,
 - Certbot as the certificate obtaining tool,
 - Nginx as a reverse proxy,
