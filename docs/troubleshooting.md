@@ -175,23 +175,23 @@ db.players.updateOne({ _id: ObjectId("6139fc04d086910013755593") }, { $set: { st
 db.players.updateOne({ steamId: '76561198011558250' }, { $set: { steamId: '0', name: '_' }})
 ```
 
-## Adding or updating game details
+### Adding or updating game details
 
 In some unusual cases you might want to update a log/demo link, change map name for a specific game.
 
-### Updating map name
+#### Updating map name
 
 ```query
 db.games.updateOne({ number: 231 }, { $set: { map: 'koth_product_final' } })
 ```
 
-### Updating logs.tf log link
+#### Updating logs.tf log link
 
 ```query
 db.games.updateOne({ number: 237 }, { $set: { logsUrl: 'https://logs.tf/3305099' } })
 ```
 
-### Updating demos.tf demo link
+#### Updating demos.tf demo link
 
 ```query
 db.games.updateOne({ number: 237 }, { $set: { demoUrl: 'https://demos.tf/903543' } })
