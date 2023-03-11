@@ -149,6 +149,18 @@ This could be because of multiple reasons:
 [Nest] 1  - 01/19/2023, 10:16:06 PM    WARN [AuthController] Login error: Failed to verify assertion (message: Invalid signature)
 ```
 
+or
+
+```logs
+[Nest] 1  - 03/03/2023, 1:17:19 AM    WARN [AuthController] Login error: Failed to verify assertion (message: Invalid assertion response from provider)
+```
+
+- duplicate player name
+
+```logs
+[Nest] 1  - 03/09/2023, 11:32:36 PM    WARN [AuthController] Login error: MongoServerError: E11000 duplicate key error collection: admin.players index: name_1 dup key: { : "supra" }
+```
+
 ## Database queries
 
 :::warning
