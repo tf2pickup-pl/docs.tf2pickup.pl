@@ -190,10 +190,10 @@ e5ffd4447a8d   containrrr/watchtower               "/watchtower --clean…"   2 
 For instance, let's say you want to upgrade a `tf2pickupfi_client_1` container. This one is exposing its port TCP 80 to a host port TCP 4000 (both on IPv4 and IPv6 stacks). That means, in order to upgrade that single container, you will have to execute:
 
 ```bash
-docker pull tf2pickuppl/tf2pickup.fi
+docker pull ghcr.io/tf2pickup-org/tf2pickup.fi
 docker rename tf2pickupfi_client_1 tf2pickupfi_client_1_old
 docker stop tf2pickupfi_client_1_old
-docker run -d -p 4000:80 --name tf2pickupfi_client_1 --restart always --volumes-from tf2pickupfi_client_1_old tf2pickuppl/tf2pickup.fi
+docker run -d -p 4000:80 --name tf2pickupfi_client_1 --restart always --volumes-from tf2pickupfi_client_1_old ghcr.io/tf2pickup-org/tf2pickup.fi
 docker rm tf2pickupfi_client_1_old
 ```
 
@@ -301,7 +301,7 @@ services:
   api:
     depends_on:
       - mongodb
-    image: tf2pickuppl/server:latest
+    image: ghcr.io/tf2pickup-org/server:latest
     restart: always
     ports:
     - '3000:3000'
@@ -310,7 +310,7 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   website:
-    image: tf2pickuppl/tf2pickup.fi:latest
+    image: ghcr.io/tf2pickup-org/tf2pickup.fi:latest
     restart: always
     ports:
      - '4000:80'
@@ -323,7 +323,7 @@ services:
   api:
     depends_on:
       - mongodb
-    image: tf2pickuppl/server:7.0.6
+    image: ghcr.io/tf2pickup-org/server:7.0.6
     restart: always
     ports:
     - '3000:3000'
@@ -332,7 +332,7 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   website:
-    image: tf2pickuppl/tf2pickup.fi:3.19.4
+    image: ghcr.io/tf2pickup-org/tf2pickup.fi:3.19.4
     restart: always
     ports:
      - '4000:80'
