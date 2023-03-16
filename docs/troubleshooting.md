@@ -36,7 +36,7 @@ services:
     container_name: 'tf2pickup-it-server'
     depends_on:
       - mongodb
-    image: tf2pickuppl/server:stable
+    image: ghcr.io/tf2pickup-org/server:stable
     restart: always
     ports:
      - '18001:3000'

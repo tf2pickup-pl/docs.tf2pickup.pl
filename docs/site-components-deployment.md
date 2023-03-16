@@ -425,7 +425,7 @@ services:
   backend:
     depends_on:
       - mongodb
-    image: tf2pickuppl/server:latest
+    image: ghcr.io/tf2pickup-org/server:latest
     restart: always
     ports:
     - '3000:3000'
@@ -434,7 +434,7 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   frontend:
-    image: tf2pickuppl/tf2pickup.fi:latest
+    image: ghcr.io/tf2pickup-org/tf2pickup.fi:latest
     restart: always
     ports:
      - '4000:80'
@@ -474,7 +474,7 @@ services:
     hostname: tf2pickup-fi-redis
 
   gameserver1:
-    image: tf2pickuppl/tf2-gameserver:latest
+    image: ghcr.io/tf2pickup-org/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
@@ -486,7 +486,7 @@ services:
      - ./gameserver_1.env
 
   gameserver2:
-    image: tf2pickuppl/tf2-gameserver:latest
+    image: ghcr.io/tf2pickup-org/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
@@ -498,7 +498,7 @@ services:
      - ./gameserver_2.env
 
   gameserver3:
-    image: tf2pickuppl/tf2-gameserver:latest
+    image: ghcr.io/tf2pickup-org/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
@@ -523,7 +523,7 @@ services:
   backend:
     depends_on:
       - mongodb
-    image: tf2pickuppl/server:latest
+    image: ghcr.io/tf2pickup-org/server:latest
     restart: always
     ports:
     - '3000:3000'
@@ -532,7 +532,7 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   frontend:
-    image: tf2pickuppl/tf2pickup.fi:latest
+    image: ghcr.io/tf2pickup-org/tf2pickup.fi:latest
     restart: always
     ports:
      - '4000:80'
@@ -571,7 +571,7 @@ version: '3.9'
 
 services:
   gameserver1:
-    image: tf2pickuppl/tf2-gameserver:latest
+    image: ghcr.io/tf2pickup-org/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
@@ -583,7 +583,7 @@ services:
     - ./gameserver_1.env
 
   gameserver2:
-    image: tf2pickuppl/tf2-gameserver:latest
+    image: ghcr.io/tf2pickup-org/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
@@ -595,7 +595,7 @@ services:
     - ./gameserver_2.env
 
   gameserver3:
-    image: tf2pickuppl/tf2-gameserver:latest
+    image: ghcr.io/tf2pickup-org/tf2-gameserver:latest
     network_mode: host
     restart: always
     volumes:
