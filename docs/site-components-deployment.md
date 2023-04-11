@@ -8,7 +8,7 @@ In order to allow for a quick site setup, we make use of Docker containers. That
 
 - have everything mentioned in the [reverse proxy deployment](/docs/setup-prerequisites) set up,
 - have modern Docker and docker-compose version installed in your system, for docker-compose [use this guide](https://docs.docker.com/compose/install/) and for Docker feel free to use guides for:
-  - [Ubuntu 20.04](https://docs.docker.com/engine/install/ubuntu/),
+  - [Ubuntu 22.04](https://docs.docker.com/engine/install/ubuntu/),
   - [Debian 11](https://docs.docker.com/engine/install/debian/),
   - [Arch Linux](https://wiki.archlinux.org/title/docker#Installation),
 - prepare the following files in a separate folder, name it `tf2pickup.fi`, then place inside:
