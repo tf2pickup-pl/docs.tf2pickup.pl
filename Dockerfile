@@ -1,0 +1,26 @@
+FROM node:18 AS build
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Deployment step
+
+FROM busybox:1.36 as deploy
+
+RUN adduser -D static
+USER static
+WORKDIR /home/static
+
+COPY --from=build /usr/src/app/build/ ./
+
+LABEL org.opencontainers.image.version="1.0.0" \
+      org.opencontainers.image.title="docs-tf2pickup-org" \
+      org.opencontainers.image.base.name="ghcr.io/tf2pickup-org/:1.0.0" \
+      org.opencontainers.image.description="tf2pickup.org documentation" \
+      org.opencontainers.image.source="https://github.com/tf2pickup-org/docs.tf2pickup.org"
+
+EXPOSE 31000
+
+CMD ["busybox", "httpd", "-f", "-v", "-p", "3100"]
