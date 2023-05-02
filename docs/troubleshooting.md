@@ -208,3 +208,26 @@ db.games.updateOne({ number: 237 }, { $set: { logsUrl: 'https://logs.tf/3305099'
 ```query
 db.games.updateOne({ number: 237 }, { $set: { demoUrl: 'https://demos.tf/903543' } })
 ```
+
+## Switching database name from `admin` to `tf2pickup`
+
+Initially we were suggesting to connect to the `admin` database in MongoDB in order to store site data [which is considered a bad practice](https://stackoverflow.com/questions/76106029/is-using-admin-database-in-mongodb-a-bad-practice-if-i-use-only-one-database-ins). In order to move out the data from the container you must:
+
+- change `MONGODB_DATABASE` to `tf2pickup` and `MONGODB_URI` at the end of the string from `/admin` to `/tf2pickup` in your `.env` file:
+
+```env
+MONGODB_DATABASE=tf2pickup
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-fi-mongo/tf2pickup
+```
+
+- ensure you have a database backup with current data,
+- shut down the website by running `docker compose down`,
+- remove your data volume if it was not done in the previous step by running `docker volume rm tf2pickup-fi_mongodb_1_redis-data` (you can find your volume name by running `docker volume ls`),
+- start your stack only with `mongodb` service in order to restore the data from backup by running `docker compose up -d mongodb`,
+- assuming your backup name is called `tf2pickup-2023-05-01.dump.gz` and it's in your compose folder, run the following command:
+
+```sh
+docker exec -i tf2pickup-fi_mongodb_1 bash -c "mongorestore --drop -vvvvv --nsFrom "admin.*" --nsTo "tf2pickup.*" --archive -u tf2pickup -p yoursuperfunnypassword --authenticationDatabase tf2pickup --nsExclude admin.system.version --nsExclude admin.system.users --gzip" < tf2pickup-2023-05-01.dump.gz
+```
+
+After that, you can start the remaining applications by running `docker compose up -d`.

@@ -161,12 +161,10 @@ If you set up containers by using our `docker-compose.yml` sample, there are two
 
 #### By `docker-compose pull`
 
-The manual way expects you to download (`pull`) images for your containers and then restart and replace old container images with the new ones. You can do so by executing commands in the folder with the configuration files ([tips are from there](https://stackoverflow.com/questions/31466428/how-to-restart-a-single-container-with-docker-compose)):
+The manual way expects you to download (`pull`) images for your containers and then restart and replace old container images with the new ones. You can do so by executing command:
 
 ```bash
-docker-compose pull
-docker-compose stop
-docker compose up -d
+docker compose up -d --pull always
 ```
 
 #### Per container upgrade
@@ -177,24 +175,24 @@ For example, here is our list of containers:
 
 ```bash
 tf2pickup@tf2pickup:~$ docker ps -a
-CONTAINER ID   IMAGE                               COMMAND                  CREATED        STATUS        PORTS                                                                                  NAMES
-314aa034dbaa   portainer/portainer-ce:latest       "/portainer"             33 hours ago   Up 15 hours   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp, 0.0.0.0:9000->9000/tcp, :::9000->9000/tcp   portainer
-d8885d9c1660   mongo:4.0                           "docker-entrypoint.s…"   33 hours ago   Up 15 hours   0.0.0.0:8001->27017/tcp, :::8001->27017/tcp                                            tf2pickupfi_mongodb_1
-213e9ca18159   tf2pickuppl/tf2-gameserver:latest   "./entrypoint.sh +sv…"   2 days ago     Up 15 hours                                                                                          tf2pickupfi_gameserver2_1
-27b4baca2ed1   tf2pickuppl/tf2-gameserver:latest   "./entrypoint.sh +sv…"   2 days ago     Up 15 hours                                                                                          tf2pickupfi_gameserver1_1
-e5ffd4447a8d   containrrr/watchtower               "/watchtower --clean…"   2 weeks ago    Up 15 hours   8080/tcp                                                                               watchtower
-02c53d082927   tf2pickuppl/server                  "docker-entrypoint.s…"   2 weeks ago    Up 15 hours                                                                                          tf2pickup
-906a368fe18d   tf2pickuppl/tf2pickup.fi            "/docker-entrypoint.…"   2 weeks ago    Up 15 hours   0.0.0.0:4000->80/tcp, :::4000->80/tcp                                                  tf2pickupfi_client_1
+CONTAINER ID   IMAGE                                         COMMAND                  CREATED        STATUS        PORTS                                                                                  NAMES
+314aa034dbaa   portainer/portainer-ce:latest                 "/portainer"             33 hours ago   Up 15 hours   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp, 0.0.0.0:9000->9000/tcp, :::9000->9000/tcp   portainer
+d8885d9c1660   mongo:4.0                                     "docker-entrypoint.s…"   33 hours ago   Up 15 hours   0.0.0.0:8001->27017/tcp, :::8001->27017/tcp                                            tf2pickup-fi_mongodb_1
+213e9ca18159   ghcr.io/tf2pickup-org/tf2-gameserver:latest   "./entrypoint.sh +sv…"   2 days ago     Up 15 hours                                                                                          tf2pickup-fi_gameserver2_1
+27b4baca2ed1   ghcr.io/tf2pickup-org/tf2-gameserver:latest   "./entrypoint.sh +sv…"   2 days ago     Up 15 hours                                                                                          tf2pickup-fi_gameserver1_1
+e5ffd4447a8d   containrrr/watchtower                         "/watchtower --clean…"   2 weeks ago    Up 15 hours   8080/tcp                                                                               watchtower
+02c53d082927   ghcr.io/tf2pickup-org/server                  "docker-entrypoint.s…"   2 weeks ago    Up 15 hours                                                                                          tf2pickup
+906a368fe18d   ghcr.io/tf2pickup-org/tf2pickup.fi            "/docker-entrypoint.…"   2 weeks ago    Up 15 hours   0.0.0.0:4000->80/tcp, :::4000->80/tcp                                                  tf2pickup-fi_client_1
 ```
 
-For instance, let's say you want to upgrade a `tf2pickupfi_client_1` container. This one is exposing its port TCP 80 to a host port TCP 4000 (both on IPv4 and IPv6 stacks). That means, in order to upgrade that single container, you will have to execute:
+For instance, let's say you want to upgrade a `tf2pickup-fi_client_1` container. This one is exposing its port TCP 80 to a host port TCP 4000 (both on IPv4 and IPv6 stacks). That means, in order to upgrade that single container, you will have to execute:
 
 ```bash
 docker pull ghcr.io/tf2pickup-org/tf2pickup.fi
-docker rename tf2pickupfi_client_1 tf2pickupfi_client_1_old
-docker stop tf2pickupfi_client_1_old
-docker run -d -p 4000:80 --name tf2pickupfi_client_1 --restart always --volumes-from tf2pickupfi_client_1_old ghcr.io/tf2pickup-org/tf2pickup.fi
-docker rm tf2pickupfi_client_1_old
+docker rename tf2pickup-fi_client_1 tf2pickup-fi_client_1_old
+docker stop tf2pickup-fi_client_1_old
+docker run -d -p 4000:80 --name tf2pickup-fi_client_1 --restart always --volumes-from tf2pickup-fi_client_1_old ghcr.io/tf2pickup-org/tf2pickup.fi
+docker rm tf2pickup-fi_client_1_old
 ```
 
 #### By one-time watchtower upgrade
@@ -221,11 +219,11 @@ docker run --rm \
     -v /var/run/docker.sock:/var/run/docker.sock \
     containrrr/watchtower \
     --run-once \
-    tf2pickupfi_gameserver1_1 \
-    tf2pickupfi_gameserver2_1 \
-    tf2pickupfi_mongodb_1 \
-    tf2pickup \
-    tf2pickupfi_client_1
+    tf2pickup-fi_gameserver1_1 \
+    tf2pickup-fi_gameserver2_1 \
+    tf2pickup-fi_mongodb_1 \
+    tf2pickup-fi-server_1 \
+    tf2pickup-fi_client_1
 ```
 
 :::
@@ -298,10 +296,10 @@ In some unusual cases you may want to prevent your website from updating. In ord
 
 ```docker
 services:
-  api:
+  backend:
     depends_on:
       - mongodb
-    image: ghcr.io/tf2pickup-org/server:latest
+    image: ghcr.io/tf2pickup-org/server:stable
     restart: always
     ports:
     - '3000:3000'
@@ -309,8 +307,8 @@ services:
     volumes:
     - './.env:/tf2pickup.pl/.env'
 
-  website:
-    image: ghcr.io/tf2pickup-org/tf2pickup.fi:latest
+  frontend:
+    image: ghcr.io/tf2pickup-org/tf2pickup.fi:stable
     restart: always
     ports:
      - '4000:80'
@@ -320,7 +318,7 @@ Can be switched to:
 
 ```docker
 services:
-  api:
+  backend:
     depends_on:
       - mongodb
     image: ghcr.io/tf2pickup-org/server:7.0.6
@@ -331,18 +329,17 @@ services:
     volumes:
     - './.env:/tf2pickup.pl/.env'
 
-  website:
+  frontend:
     image: ghcr.io/tf2pickup-org/tf2pickup.fi:3.19.4
     restart: always
     ports:
      - '4000:80'
 ```
 
-After that, you must restart all containers. You can do this by executing the following commands while being in a `tf2pickup.fi` folder containing both the `.env` and `docker-compose.yml` file:
+After that, you must restart all containers. You can do this by executing the following commands while being in a `tf2pickup-fi` folder containing both the `.env` and `docker-compose.yml` file:
 
 ```bash
-docker-compose down
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Game server updates
@@ -374,8 +371,9 @@ TODAY=`date +"%d%b%Y"`
 ################## Update below values  ########################
 
 export LC_ALL=C
-DB_BACKUP_PATH='/home/tf2pickup/tf2pickup.fi/backup' ## Make sure you create this folder before script execution
-MONGODB_CONTAINER_NAME='tf2pickupfi_mongodb_1' # MongoDB container name in the tf2pickup stack
+DB_BACKUP_PATH='/home/tf2pickup/tf2pickup-fi/backup' ## Make sure you create this folder before script execution
+MONGODB_CONTAINER_NAME='tf2pickup-fi_mongodb_1' # MongoDB container name in the tf2pickup stack
+MONGODB_DATABASE='tf2pickup' # MongoDB database name passed in the .env file
 MONGODB_USERNAME='tf2pickup' # MongoDB username passed in the .env file
 MONGODB_PASSWORD='yoursuperfunnypassword' # MongoDB password passed in the .env file
 BACKUP_RETAIN_DAYS=7   ## Number of days to keep local backup copy
@@ -384,9 +382,14 @@ BACKUP_RETAIN_DAYS=7   ## Number of days to keep local backup copy
 
 mkdir -p ${DB_BACKUP_PATH}/${TODAY}
 
-/usr/bin/docker exec -i ${MONGODB_CONTAINER_NAME} '/bin/bash' \
-     -c "mongodump --quiet --archive -u ${MONGODB_USERNAME} -p ${MONGODB_PASSWORD}" \
-     | gzip > ${DB_BACKUP_PATH}/${TODAY}/tf2pickup-${TODAY}.dump.gz
+/usr/bin/docker exec -i ${MONGODB_CONTAINER_NAME} /bin/bash -c "mongodump \
+        --quiet \
+        --archive \
+        -u ${MONGODB_USERNAME} \
+        -p ${MONGODB_PASSWORD} \
+        --authenticationDatabase ${MONGODB_DATABASE} \
+        --db ${MONGODB_DATABASE} \
+        --gzip" > ${DB_BACKUP_PATH}/${TODAY}/tf2pickup-${TODAY}.dump.gz
 
 if [ $? -eq 0 ]; then
   echo "tf2pickup Database backup successfully completed"
@@ -396,17 +399,8 @@ else
 fi
 
 ##### Remove backups older than {BACKUP_RETAIN_DAYS} days  #####
+find ${DB_BACKUP_PATH} -daystart -mtime +${BACKUP_RETAIN_DAYS} -delete
 
-DBDELDATE=`date +"%d%b%Y" --date="${BACKUP_RETAIN_DAYS} days ago"`
-
-if [ ! -z ${DB_BACKUP_PATH} ]; then
-      cd ${DB_BACKUP_PATH}
-      if [ ! -z ${DBDELDATE} ] && [ -d ${DBDELDATE} ]; then
-            rm -rf ${DBDELDATE}
-      fi
-fi
-
-### End of script ####
 ```
 
 These backups are done by a `tf2pickup` user, the same on which the config files and the backup folder is owned by. Make sure the `tf2pickup` is in the `docker` group, so it could execute commands against docker. Don't forget to add execution permission for the script by using `chmod o+x pickup-backup.sh` assuming `pickup-backup.sh` is a script filename. Then, you can also add a cronjob for the `tf2pickup` user by executing `crontab -e` as this user and adding a line with absolute path to the script:
@@ -422,19 +416,23 @@ Lastly, you have to replicate those backups on external storage. You can do it m
 If you have a local Linux host and you are able to set up a cronjob, you can use this command as the command syncing files from remote folder to your local one (assuming location `/home/mylocaluser/tf2pickup-backups` exist):
 
 ```bash
-rsync -a -e "ssh -p 22" "tf2pickup@tf2pickup.fi:/home/tf2pickup/tf2pickup.fi/backup/" "/home/mylocaluser/tf2pickup-backups" --info=progress2
+rsync -a -e "ssh -p 22" "tf2pickup@tf2pickup.fi:/home/tf2pickup/tf2pickup-fi/backup/" "/home/mylocaluser/tf2pickup-backups" --info=progress2
 ```
 
 This is probably the easiest way to replicate backups and it's called rsync over SSH.
 
 ### Restore
 
-In order to restore backups, you have to choose the dump you would like to restore. Let's assume the filename of the backup archive is `tf2pickup-15Jun2021.gz`. In that case you need to execute:
+In order to restore backups, you have to choose the dump you would like to restore. Let's assume the filename of the backup archive is `tf2pickup-2023-05-01.dump.gz`. In that case you need to execute:
 
 ```bash
-gunzip tf2pickup-15Jun2021.gz
-docker exec tf2pickupfi_mongodb_1 '/bin/bash' \
-    -c 'mongorestore -d tf2pickup -u tf2pickup -p yoursuperfunnypassword --archive --drop' < tf2pickup-15Jun2021.dump
+docker exec tf2pickup-fi_mongodb_1 '/bin/bash' -c \
+    "mongorestore \
+    -u tf2pickup \
+    -p yoursuperfunnypassword \
+    --authenticationDatabase tf2pickup \
+    --db tf2pickup \
+    --archive  --gzip --drop" < tf2pickup-2023-05-01.dump.gz
 ```
 
 ## Firewall settings

@@ -11,13 +11,13 @@ In order to allow for a quick site setup, we make use of Docker containers. That
   - [Ubuntu 22.04](https://docs.docker.com/engine/install/ubuntu/),
   - [Debian 11](https://docs.docker.com/engine/install/debian/),
   - [Arch Linux](https://wiki.archlinux.org/title/docker#Installation),
-- prepare the following files in a separate folder, name it `tf2pickup.fi`, then place inside:
+- prepare the following files in a separate folder, name it `tf2pickup-fi`, then place inside:
   - `.env` - stores variables needed for setting client, server, database and mumble containers up
   - `gameserver_1.env` - stores settings for the first game server _(optional)_
   - `gameserver_2.env` - stores settings for the second game server _(optional)_
   - `gameserver_3.env` - stores settings for the second game server _(optional)_
   - `docker-compose.yml` - contains all container settings
-  - `data/config.ini` - contains all mumble server settings excluding SuperUser account password _(optional)_
+  - `redis.conf` - contains Redis configuration
   - `maps/` folder - it should contain all maps available for the game servers, `.bsp` extension,
   - `sourcetv1`, `sourcetv2`, `sourcetv3` folders - they will contain SourceTV demos from the pickup game servers.
 
@@ -26,7 +26,7 @@ Files `gameserver_{1,2,3}.env` are useful if you want to host game servers on th
 The same rule goes for the Mumble server - if you want to run it outside Docker, aka use a local system installation, just don't provide needed configs for it and comment the part of the `docker-compose.yml` file for it.
 
 ```sh
-root@tf2pickup:~# ls /home/tf2pickup/tf2pickup.fi/maps/ -al
+root@tf2pickup:~# ls /home/tf2pickup/tf2pickup-fi/maps/ -al
 total 1259216
 drwxr-xr-x 2 tf2pickup tf2pickup      4096 Jun  8 22:35 .
 drwxrwxr-x 4 tf2pickup tf2pickup      4096 Jun  9 21:09 ..
@@ -88,14 +88,18 @@ BOT_NAME=${WEBSITE_NAME}
 
 # MongoDB
 # The commented values below are used for creating a database user and establishing a connection with it
+MONGODB_ROOT_USER=admin
+MONGODB_ROOT_PASSWORD=yoursuperfunnyrootpassword
 MONGODB_USERNAME=tf2pickup
+MONGODB_DATABASE=tf2pickup
 MONGODB_PASSWORD=yoursuperfunnypassword
 # MONGODB_URI syntax:
 # mongodb://username:password@hostname/database-name
-MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-fi-mongo/admin
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-fi-mongo/tf2pickup
 
 # Redis URL
-REDIS_URL=redis://tf2pickup-fi-redis:6379
+REDIS_PASSWORD=yoursuperfunnyredispassword
+REDIS_URL=redis://:yoursuperfunnyredispassword@tf2pickup-fi-redis:6379
 
 # logs.tf API key
 # Obtain yours here: https://logs.tf/uploader
@@ -152,8 +156,37 @@ SERVEME_TF_API_ENDPOINT=serveme.tf
 SERVEME_TF_API_KEY=your_serveme_tf_api_key
 
 ### Mumble Server Configuration
-
+# SuperUser account password
 MUMBLE_SUPERUSER_PASSWORD=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
+# Regular expression used to validate user names.
+# (Note that you have to escape backslashes with \ )
+MUMBLE_CONFIG_USERNAME=[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+
+# Regular expression used to validate channel names.
+# (Note that you have to escape backslashes with \ )
+MUMBLE_CONFIG_CHANNELNAME=[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+
+# This setting is the DNS hostname where your server can be reached.
+# It only needs to be set if you want your server to be addressed in the server list by its hostname instead of by IP,
+# but if it's set it must resolve on the internet or registration will fail.
+MUMBLE_CONFIG_REGISTER_HOSTNAME=tf2pickup.fi
+# Specifies the "name" of your server in the public server list and specifies the name of the root channel.
+MUMBLE_CONFIG_REGISTER_NAME=tf2pickup.fi
+# Welcome message sent to clients when they connect.
+MUMBLE_CONFIG_WELCOME_TEXT=Tervetuloa <A href=\"https://tf2pickup.fi/\">tf2pickup.fi</A> mumbleen.<br>Suomi TF2 discord: <A href=\"https://discord.gg/T6PfVC3bqQ\">linkki</A><br>
+# Location for custom SSL certificate/key. If your certificate and key is in one file, specify MUMBLE_CONFIG_SSL_KEY only.
+MUMBLE_CONFIG_SSL_CERT=/etc/letsencrypt/live/tf2pickup.fi/fullchain.pem
+MUMBLE_CONFIG_SSL_KEY=/etc/letsencrypt/live/tf2pickup.fi/privkey.pem
+# allows you to specify a PEM-encoded file with Diffie-Hellman parameters, 
+# which will be used as the default Diffie-Hellman parameters for all virtual servers.
+# If a file is not specified, each Murmur virtual server will auto-generate its own unique set of 2048-bit Diffie-Hellman parameters on first launch.
+MUMBLE_CONFIG_SSLDHPARAMS=@ffdhe4096
+# Specifies a percentage of users on the server supporting the Opus codec before the entire server mandates Opus is used. 
+# It defaults to 100, so that any non-Opus supporting client connecting will cause the entire server to fall back to CELT.
+MUMBLE_CONFIG_OPUSTHRESHOLD=0
+# Maximum bandwidth (in bits per second) clients are allowed
+# to send speech at.
+MUMBLE_CONFIG_BANDWIDTH=130000
+# Maximum number of concurrent clients allowed.
+MUMBLE_CONFIG_USERS=420
 ```
 
 ### Setting up Steam API key
@@ -418,14 +451,20 @@ DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDX
 
 If you don't want to use Mumble, feel free to remove the 'mumble-server' part of the file.
 
+:::caution
+Examples below use **[rapidfort/mongodb](https://hub.docker.com/r/rapidfort/mongodb)** and **[rapidfort/redis](https://hub.docker.com/r/rapidfort/redis)** images, which are hardened non-root images.  
+Using them is optional - you are also fine with the official images for these containers, however environment variables are named differently.
+:::
+
 ```docker
-version: '3.9'
+version: '3.8'
 
 services:
   backend:
     depends_on:
       - mongodb
-    image: ghcr.io/tf2pickup-org/server:latest
+      - redis
+    image: ghcr.io/tf2pickup-org/server:stable
     restart: always
     ports:
     - '3000:3000'
@@ -434,43 +473,65 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   frontend:
-    image: ghcr.io/tf2pickup-org/tf2pickup.fi:latest
+    image: ghcr.io/tf2pickup-org/tf2pickup.fi:stable
     restart: always
     ports:
      - '4000:80'
 
   mumble-server:
-    image: phlak/mumble:latest
+    image: mumble-voip/mumble-server:latest
     ports:
       - '64738:64738/tcp'
       - '64738:64738/udp'
-    restart: unless-stopped
+    restart: always
     volumes:
       - ./data:/etc/mumble
       - /etc/localtime:/etc/localtime:ro
       - /etc/letsencrypt/live/tf2pickup.fi:/cert/live/tf2pickup.fi:ro
       - /etc/letsencrypt/archive/tf2pickup.fi:/cert/archive/tf2pickup.fi:ro
     environment:
-      - SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
+      - MUMBLE_SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
+      - MUMBLE_CONFIG_USERNAME=${MUMBLE_CONFIG_USERNAME}
+      - MUMBLE_CONFIG_CHANNELNAME=${MUMBLE_CONFIG_CHANNELNAME}
+      - MUMBLE_CONFIG_REGISTER_HOSTNAME=${MUMBLE_CONFIG_REGISTER_HOSTNAME}
+      - MUMBLE_CONFIG_REGISTER_NAME=${MUMBLE_CONFIG_REGISTER_NAME}
+      - MUMBLE_CONFIG_WELCOME_TEXT=${MUMBLE_CONFIG_WELCOME_TEXT}
+      - MUMBLE_CONFIG_SSL_CERT=${MUMBLE_CONFIG_SSL_CERT}
+      - MUMBLE_CONFIG_SSL_KEY=${MUMBLE_CONFIG_SSL_KEY}
+      - MUMBLE_CONFIG_SSLDHPARAMS=${MUMBLE_CONFIG_SSLDHPARAMS}
+      - MUMBLE_CONFIG_OPUSTHRESHOLD=${MUMBLE_CONFIG_OPUSTHRESHOLD}
+      - MUMBLE_CONFIG_BANDWIDTH=${MUMBLE_CONFIG_BANDWIDTH}
+      - MUMBLE_CONFIG_USERS=${MUMBLE_CONFIG_USERS}
+    env_file:
+      - ./.env
 
   mongodb:
-    image: mongo:4.0
-    # you can set the tag to the 'latest', '4.4' or '5.0', however it requires your host CPU to have AVX instructions available
-    # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS does not
-    restart: unless-stopped
+    image: rapidfort/mongodb:4.4
+    # you can set the tag to the 'latest', '5.0' or '6.0', however it requires your host CPU to have AVX instructions available
+    # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS not
+    restart: always
     volumes:
-     - database-data:/data/db
+    - database-data:/bitnami/mongodb
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+      - MONGODB_ROOT_USER=${MONGODB_ROOT_USER}
+      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+    env_file:
+      - ./.env
     hostname: tf2pickup-fi-mongo
 
   redis:
-    image: redis:7-alpine
-    restart: unless-stopped
-    command: redis-server --save 60 1 --loglevel warning
+    image: rapidfort/redis:7.0
+    restart: always
     volumes:
-      - redis-data:/data
+      - redis-data:/bitnami/redis/data
+      - ./redis.conf:/opt/bitnami/redis/etc/redis.conf
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    env_file:
+      - ./.env
     hostname: tf2pickup-fi-redis
 
   gameserver1:
@@ -517,13 +578,14 @@ volumes:
 ## `docker-compose.yml` for the website only
 
 ```docker
-version: '3.9'
+version: '3.8'
 
 services:
   backend:
     depends_on:
       - mongodb
-    image: ghcr.io/tf2pickup-org/server:latest
+      - redis
+    image: ghcr.io/tf2pickup-org/server:stable
     restart: always
     ports:
     - '3000:3000'
@@ -532,29 +594,38 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   frontend:
-    image: ghcr.io/tf2pickup-org/tf2pickup.fi:latest
+    image: ghcr.io/tf2pickup-org/tf2pickup.fi:stable
     restart: always
     ports:
      - '4000:80'
 
   mongodb:
-    image: mongo:4.0
-    # you can set the tag to the 'latest', '4.4' or '5.0', however it requires your host CPU to have AVX instructions available
+    image: rapidfort/mongodb:4.4
+    # you can set the tag to the 'latest', '5.0' or '6.0', however it requires your host CPU to have AVX instructions available
     # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS not
-    restart: unless-stopped
+    restart: always
     volumes:
-    - database-data:/data/db
+    - database-data:/bitnami/mongodb
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+      - MONGODB_ROOT_USER=${MONGODB_ROOT_USER}
+      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+    env_file:
+      - ./.env
     hostname: tf2pickup-fi-mongo
 
   redis:
-    image: redis:7-alpine
-    restart: unless-stopped
-    command: redis-server --save 60 1 --loglevel warning
+    image: rapidfort/redis:7.0
+    restart: always
     volumes:
-      - redis-data:/data
+      - redis-data:/bitnami/redis/data
+      - ./redis.conf:/opt/bitnami/redis/etc/redis.conf
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    env_file:
+      - ./.env
     hostname: tf2pickup-fi-redis
 
 volumes:
@@ -567,7 +638,7 @@ volumes:
 Feel free to remove reduntant gameservers from the file if there are more than you actually need.
 
 ```docker
-version: '3.9'
+version: '3.8'
 
 services:
   gameserver1:
@@ -607,74 +678,70 @@ services:
     - ./gameserver_3.env
 ```
 
-## Mumble server `data/config.ini`
+## Redis configuration file `redis.conf`
 
-```ini
-# Murmur configuration file.
-#
-# General notes:
-# * Settings in this file are default settings and many of them can be overridden
-#   with virtual server specific configuration via the Ice or DBus interface.
-# * Due to the way this configuration file is read some rules have to be
-#   followed when specifying variable values (as in variable = value):
-#     * Make sure to quote the value when using commas in strings or passwords.
-#        NOT variable = super,secret BUT variable = "super,secret"
-#     * Make sure to escape special characters like '\' or '"' correctly
-#        NOT variable = """ BUT variable = "\""
-#        NOT regex = \w* BUT regex = \\w*
-
-# Path to database. If blank, will search for
-# murmur.sqlite in default locations or create it if not found.
-database=/etc/mumble/murmur.sqlite
-registerName=tf2pickup.fi
-icesecretwrite=
-# How many login attempts do we tolerate from one IP
-# inside a given timeframe before we ban the connection?
-# Note that this is global (shared between all virtual servers), and that
-# it counts both successfull and unsuccessfull connection attempts.
-# Set either Attempts or Timeframe to 0 to disable.
-autobanAttempts = 10
-autobanTimeframe = 120
-autobanTime = 300
-# Specifies the file Murmur should log to. By default, Murmur
-# logs to the file 'murmur.log'. If you leave this field blank
-# on Unix-like systems, Murmur will force itself into foreground
-# mode which logs to the console.
-logfile=/etc/mumble/mumble-server.log
-# The below will be used as defaults for new configured servers.
-# If you're just running one server (the default), it's easier to
-# configure it here than through D-Bus or Ice.
-#
-# Welcome message sent to clients when they connect.
-welcometext="Tervetuloa <A href=\"https://tf2pickup.fi/\">tf2pickup.fi</A> mumbleen.<br>Suomi TF2 discord: <A href=\"https://discord.gg/T6PfVC3bqQ\">linkki</A><br>"
-# Port to bind TCP and UDP sockets to.
-port=64738
-# Specific IP or hostname to bind to.
-# If this is left blank (default), Murmur will bind to all available addresses.
-#host=
-# Password to join server.
-serverpassword=
-# Maximum bandwidth (in bits per second) clients are allowed
-# to send speech at.
-bandwidth=130000
-# Maximum number of concurrent clients allowed.
-users=150
-# Regular expression used to validate channel names.
-# (Note that you have to escape backslashes with \ )
-#channelname=[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+
-# Regular expression used to validate user names.
-# (Note that you have to escape backslashes with \ )
-#username=[-=\\w\\[\\]\\{\\}\\(\\)\\@\\|\\.]+
-uname=mumble
-# If this options is enabled, only clients which have a certificate are allowed
-# to connect.
-#certrequired=False
-sslCert=/cert/live/tf2pickup.fi/fullchain.pem
-sslKey=/cert/live/tf2pickup.fi/privkey.pem
-sslDHParams=@ffdhe4096
-[Ice]
-Ice.Warn.UnknownProperties=1
-Ice.MessageSizeMax=65536
+```conf
+bind 0.0.0.0 ::
+port 6379
+tcp-backlog 511
+timeout 0
+tcp-keepalive 300
+daemonize yes
+pidfile /opt/bitnami/redis/tmp/redis.pid
+loglevel notice
+logfile ""
+databases 16
+always-show-logo no
+set-proc-title yes
+proc-title-template "{title} {listen-addr} {server-mode}"
+save 1 60
+stop-writes-on-bgsave-error yes
+rdbcompression yes
+rdbchecksum yes
+dbfilename dump.rdb
+rdb-del-sync-files no
+dir /bitnami/redis/data
+replica-serve-stale-data yes
+replica-read-only yes
+repl-diskless-sync yes
+repl-diskless-sync-delay 5
+repl-diskless-sync-max-replicas 0
+repl-diskless-load disabled
+replica-priority 100
+acllog-max-len 128
+requirepass yoursuperfunnyredispassword
+oom-score-adj no
+oom-score-adj-values 0 200 800
+disable-thp yes
+appendonly yes
+appendfilename "appendonly.aof"
+appenddirname "appendonlydir"
+appendfsync everysec
+no-appendfsync-on-rewrite no
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+aof-load-truncated yes
+aof-use-rdb-preamble yes
+aof-timestamp-enabled no
+latency-monitor-threshold 0
+hash-max-listpack-entries 512
+hash-max-listpack-value 64
+list-max-listpack-size -2
+list-compress-depth 0
+set-max-intset-entries 512
+zset-max-listpack-entries 128
+zset-max-listpack-value 64
+hll-sparse-max-bytes 3000
+stream-node-max-bytes 4096
+stream-node-max-entries 100
+activerehashing yes
+client-output-buffer-limit normal 0 0 0
+client-output-buffer-limit replica 256mb 64mb 60
+client-output-buffer-limit pubsub 32mb 8mb 60
+hz 10
+dynamic-hz yes
+aof-rewrite-incremental-fsync yes
+rdb-save-incremental-fsync yes
 ```
 
 ## Giving `tf2pickup` user access to Docker commands
@@ -688,43 +755,54 @@ This one is simple, all you have to do is to add `tf2pickup` user to the group c
 # gpasswd -a tf2pickup docker
 ```
 
-## `docker-compose up -d`
+## First site start
 
-In order to create and start all containers needed for letting site working, you just have to enter the `tf2pickup.fi` folder with all files prepared for a launch and execute `docker-compose up -d`. Each time you would like to stop the application stack, you are supposed to execute command `docker-compose stop` and `docker-compose start -d` when you start the stack. Containers have a `restart always` policy meaning the containers will always restart on fail, so it will also always start on a system boot as long as `docker.service` service is also starting on system boot.
+Since [RapidFort](https://hub.docker.com/u/rapidfort) images are based on [Bitnami](https://hub.docker.com/u/bitnami) images, they do not use root user (UID 0) in order to control the service within the container. These services are supposed to run as a user with UID 1001 (you can overwrite the ID in `docker-compose.yml`), so in order to let service work you must set a right permissions for their respective data folders and `redis.conf` configuration file.
 
-## Using Mumble outside Docker stack
+When you have all the configuration files mentioned above ready to go, change `docker-compose.yml` in the following way:
 
-When doing it, you may end up with Mumble server service crashing, since it won't have needed permissions and files ownership for the `mumble-server` service user to let it read the certificate contents. We suggest you to use this in order to change them. You can save it as `mumble-certs.sh`, give it execution rights, run it manually and then leave it in crontab in the same way like you renew the certificates through `certbot`, so every time you get a certificate, the Mumble server will refresh the file permissions/ownership and refresh the Mumble server without restarting it.
+```docker
+  mongodb:
+    command: sleep infinity
+    image: rapidfort/mongodb:4.4
+    restart: always
+    volumes:
+    - database-data:/bitnami/mongodb
+    environment:
+      - MONGODB_ROOT_USER=${MONGODB_ROOT_USER}
+      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
+      - MONGODB_DATABASE=${MONGODB_DATABASE}
+      - MONGODB_USERNAME=${MONGODB_USERNAME}
+      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
+    env_file:
+      - ./.env
+    hostname: tf2pickup-fi-mongo
 
-- `mumble-certs.sh`:
+  redis:
+    command: sleep infinity
+    image: rapidfort/redis:7.0
+    restart: always
+    volumes:
+      - redis-data:/bitnami/redis/data
+      - ./redis.conf:/opt/bitnami/redis/etc/redis.conf
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+    env_file:
+      - ./.env
+    hostname: tf2pickup-fi-redis
+```
+
+The difference is within a parameter `command`. After that, start them two with `docker compose up -d mongodb redis`. Then change the permissions:
 
 ```sh
-#!/usr/bin/env sh
-sudo chmod 755 /etc/letsencrypt/archive/
-sudo chmod 755 /etc/letsencrypt/live/
-sudo chgrp mumble-server -- /etc/letsencrypt/archive/tf2pickup.fi/privkey*.pem
-sudo chmod 640 -- /etc/letsencrypt/archive/tf2pickup.fi/privkey*.pem
-exec pkill -USR1 -F /run/mumble-server/mumble-server.pid
+docker exec -i -u 0 tf2pickup-fi_mongo_1 chown -R 1001:1001 /bitnami/mongodb
+docker exec -i -u 0 tf2pickup-fi_client_1 chown -R 1001:1001 /bitnami/redis/data
 ```
 
-You can find an example how to set up the crontab jobs (in order to edit it, use `crontab -e` command as `root`) below:
-
-```cron
-0  1   20 * *   certbot certonly --non-interactive -d tf2pickup.fi -d '*.tf2pickup.fi' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple
-0  1   25 * *   systemctl restart nginx
-0  1   25 * *   sh /etc/mumble-certs.sh
-```
-
-Moreover, `/etc/mumble-server.ini` should have values for the `sslCert` and `sslKey` changed from:
+Then, set 1001:1001 permissions for `redis.conf` file:
 
 ```sh
-sslCert=/cert/live/tf2pickup.fi/fullchain.pem
-sslKey=/cert/live/tf2pickup.fi/privkey.pem
+sudo chown 1001:1001 redis.conf
 ```
 
-to:
-
-```sh
-sslCert=/etc/letsencrypt/live/tf2pickup.fi/fullchain.pem
-sslKey=/etc/letsencrypt/live/tf2pickup.fi/privkey.pem
-```
+When permissions are set, remove the `command` parameter lines from `docker-compose.yml` and and run `docker compose up -d` in order to start the entire stack. Each time you would like to stop the application stack, you are supposed to execute command `docker compose stop` and `docker compose start -d` when you start the stack. Containers have a `restart always` policy meaning the containers will always restart on fail, so it will also always start on a system boot as long as `docker.service` service is also starting on system boot.
