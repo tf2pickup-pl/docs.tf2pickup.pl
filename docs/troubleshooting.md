@@ -222,7 +222,7 @@ MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-fi-mongo/tf2pic
 
 - ensure you have a database backup with current data,
 - shut down the website by running `docker compose down`,
-- remove your data volume if it was not done in the previous step by running `docker volume rm tf2pickup-fi_mongodb_1_redis-data` (you can find your volume name by running `docker volume ls`),
+- remove your data volume if it was not done in the previous step by running `docker volume rm tf2pickup-fi_mongodb_1_database-data` (you can find your volume name by running `docker volume ls`),
 - start your stack only with `mongodb` service in order to restore the data from backup by running `docker compose up -d mongodb`,
 - assuming your backup name is called `tf2pickup-2023-05-01.dump.gz` and it's in your compose folder, run the following command:
 
