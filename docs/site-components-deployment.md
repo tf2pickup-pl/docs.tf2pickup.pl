@@ -171,8 +171,15 @@ MUMBLE_CONFIG_REGISTER_HOSTNAME=tf2pickup.fi
 # Specifies the "name" of your server in the public server list and specifies the name of the root channel.
 MUMBLE_CONFIG_REGISTER_NAME=tf2pickup.fi
 # Welcome message sent to clients when they connect.
-MUMBLE_CONFIG_WELCOME_TEXT=Tervetuloa <A href=\"https://tf2pickup.fi/\">tf2pickup.fi</A> mumbleen.<br>Suomi TF2 discord: <A href=\"https://discord.gg/T6PfVC3bqQ\">linkki</A><br>
+#MUMBLE_CONFIG_WELCOMETEXT=Tervetuloa <A href=\"https://tf2pickup.fi/\">tf2pickup.fi</A> mumbleen.<br>Suomi TF2 discord: <A href=\"https://discord.gg/T6PfVC3bqQ\">linkki</A><br>
+# Instead, you can put the welcome message in a file and format it properly and this variable defines it's location.
+MUMBLE_CONFIG_WELCOMETEXTFILE=/welcome_text.txt
 # Location for custom SSL certificate/key. If your certificate and key is in one file, specify MUMBLE_CONFIG_SSL_KEY only.
+# If you use certbot for getting certificates, you might need to give your service user permissions to the folder with certificates:
+# setfacl -R -m u:tf2pickup:rx,d:tf2pickup:rx /etc/letsencrypt/live
+# setfacl -R -m u:tf2pickup:rx,d:tf2pickup:rx /etc/letsencrypt/archive
+# IMPORTANT: this will give your service user access to ALL folders containing certificates, so if you have other certificates there you do not want to be access by the tf2pickup user
+# consider using acme.sh for obtaining SSL certificates instead
 MUMBLE_CONFIG_SSL_CERT=/etc/letsencrypt/live/tf2pickup.fi/fullchain.pem
 MUMBLE_CONFIG_SSL_KEY=/etc/letsencrypt/live/tf2pickup.fi/privkey.pem
 # allows you to specify a PEM-encoded file with Diffie-Hellman parameters, 
@@ -187,6 +194,10 @@ MUMBLE_CONFIG_OPUSTHRESHOLD=0
 MUMBLE_CONFIG_BANDWIDTH=130000
 # Maximum number of concurrent clients allowed.
 MUMBLE_CONFIG_USERS=420
+# Disable text message size limit
+MUMBLE_CONFIG_TEXTMESSAGELENGTH=0
+# Disable image size limit
+MUMBLE_CONFIG_IMAGEMESSAGELENGTH=0
 ```
 
 ### Setting up Steam API key
@@ -479,29 +490,34 @@ services:
      - '4000:80'
 
   mumble-server:
-    image: mumble-voip/mumble-server:latest
+    image: mumblevoip/mumble-server:latest
     ports:
       - '64738:64738/tcp'
       - '64738:64738/udp'
     restart: always
     volumes:
-      - ./data:/etc/mumble
+      - mumble-data:/data
       - /etc/localtime:/etc/localtime:ro
       - /etc/letsencrypt/live/tf2pickup.fi:/cert/live/tf2pickup.fi:ro
       - /etc/letsencrypt/archive/tf2pickup.fi:/cert/archive/tf2pickup.fi:ro
+      - ./welcome_text.txt:/welcome_text.txt:ro
     environment:
       - MUMBLE_SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
       - MUMBLE_CONFIG_USERNAME=${MUMBLE_CONFIG_USERNAME}
       - MUMBLE_CONFIG_CHANNELNAME=${MUMBLE_CONFIG_CHANNELNAME}
       - MUMBLE_CONFIG_REGISTER_HOSTNAME=${MUMBLE_CONFIG_REGISTER_HOSTNAME}
       - MUMBLE_CONFIG_REGISTER_NAME=${MUMBLE_CONFIG_REGISTER_NAME}
-      - MUMBLE_CONFIG_WELCOME_TEXT=${MUMBLE_CONFIG_WELCOME_TEXT}
+#      - MUMBLE_CONFIG_WELCOMETEXT=${MUMBLE_CONFIG_WELCOMETEXT}
+      - MUMBLE_CONFIG_WELCOMETEXTFILE=${MUMBLE_CONFIG_WELCOMETEXTFILE}
       - MUMBLE_CONFIG_SSL_CERT=${MUMBLE_CONFIG_SSL_CERT}
       - MUMBLE_CONFIG_SSL_KEY=${MUMBLE_CONFIG_SSL_KEY}
       - MUMBLE_CONFIG_SSLDHPARAMS=${MUMBLE_CONFIG_SSLDHPARAMS}
       - MUMBLE_CONFIG_OPUSTHRESHOLD=${MUMBLE_CONFIG_OPUSTHRESHOLD}
       - MUMBLE_CONFIG_BANDWIDTH=${MUMBLE_CONFIG_BANDWIDTH}
       - MUMBLE_CONFIG_USERS=${MUMBLE_CONFIG_USERS}
+      - MUMBLE_CONFIG_PORT=${MUMBLE_CONFIG_PORT}
+      - MUMBLE_CONFIG_TEXTMESSAGELENGTH=${MUMBLE_CONFIG_TEXTMESSAGELENGTH}
+      - MUMBLE_CONFIG_IMAGEMESSAGELENGTH=${MUMBLE_CONFIG_IMAGEMESSAGELENGTH}
     env_file:
       - ./.env
 
@@ -573,6 +589,7 @@ services:
 volumes:
   database-data:
   redis-data:
+  mumble-data:
 ```
 
 ## `docker-compose.yml` for the website only
