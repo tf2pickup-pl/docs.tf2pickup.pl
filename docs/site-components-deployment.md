@@ -191,7 +191,7 @@ MUMBLE_CONFIG_SSLDHPARAMS=@ffdhe4096
 MUMBLE_CONFIG_OPUSTHRESHOLD=0
 # Maximum bandwidth (in bits per second) clients are allowed
 # to send speech at.
-MUMBLE_CONFIG_BANDWIDTH=130000
+MUMBLE_CONFIG_BANDWIDTH=1300000
 # Maximum number of concurrent clients allowed.
 MUMBLE_CONFIG_USERS=420
 # Disable text message size limit
