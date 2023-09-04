@@ -43,7 +43,7 @@ Our team is small, but we will try our best to help you with everything, includi
 
 #### Do I need to rent a server for hosting pickups?
 
-There are a few [components](docs/components-introduction) that need to run somewhere, so yes, you need a server for that.
+There are a few [components](docs/components-introduction) that need to run somewhere, so yes, you need a server for that. You can utilize [serveme.tf](https://serveme.tf) service in order to rent server for your pickup games automatically in case you do not require custom plugins for your gamemode.
 
 ---
 
@@ -60,14 +60,12 @@ As of now, only Mumble is supported. There are plans to [support voice on Discor
 
 ---
 
-#### Can I use serveme.tf servers?
-
-Yes, but there is no automatic reservation system implemented yet, so you would need to manually add a game server for each match.
-[There are plans to rent serveme.tf servers automatically](https://w.supra.tf/b/xYYTewYR5RcvfHBZ8/tf2pickup-pl/KJNnPPxzEf3jxEp5s).
-
----
-
 #### Will there ever be a website for international/regional pickups (wider than national)? If yes, when?
 
-We have a glimpse of a plan to launch European pickups, but there are quite a lot of things that need to be sorted out first.
-We do not plan on running any other pickup service on our own.
+Yes! We have a couple of services running which are supposed to be international due to main use of English language:
+
+- [tf2pickup.eu](https://tf2pickup.eu) (European 6v6 Pickups)
+- [hl.tf2pickup.eu](https://hl.tf2pickup.eu) (European Highlander Pickups)
+- [ultiduo.tf2pickup.eu](https://ultiduo.tf2pickup.eu) (European Ultiduo Pickups)
+- [bball.tf2pickup.eu](https://bball.tf2pickup.eu) (European BBall Pickups)
+- [hl.tf2pickup.us](https://hl.tf2pickup.us) (North American Highlander Pickups)
