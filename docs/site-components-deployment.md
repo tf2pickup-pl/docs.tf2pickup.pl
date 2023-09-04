@@ -2,16 +2,16 @@
 title: Site components deployment
 ---
 
-In order to allow for a quick site setup, we make use of Docker containers. That lets us set up the website (client and server with its database), gameservers and optionally a Mumble server. In order to start looking into deploying your own tf2pickup.org instance, you have to have all files specified below. Examples are based on [tf2pickup.fi](https://tf2pickup.fi) website, domain and their Discord server.
+In order to allow for a quick site setup, we make use of Docker containers. That lets us set up the website (client and server with its database), gameservers and optionally a Mumble server. In order to start looking into deploying your own tf2pickup.org instance, you have to have all files specified below. Examples are based on [tf2pickup.eu](https://tf2pickup.eu) website, domain and their Discord server.
 
 ## Prerequisites
 
 - have everything mentioned in the [reverse proxy deployment](/docs/setup-prerequisites) set up,
 - have modern Docker and docker-compose version installed in your system, for docker-compose [use this guide](https://docs.docker.com/compose/install/) and for Docker feel free to use guides for:
   - [Ubuntu 22.04](https://docs.docker.com/engine/install/ubuntu/),
-  - [Debian 11](https://docs.docker.com/engine/install/debian/),
+  - [Debian 12](https://docs.docker.com/engine/install/debian/),
   - [Arch Linux](https://wiki.archlinux.org/title/docker#Installation),
-- prepare the following files in a separate folder, name it `tf2pickup-fi`, then place inside:
+- prepare the following files in a separate folder, name it `tf2pickup-eu`, then place inside:
   - `.env` - stores variables needed for setting client, server, database and mumble containers up
   - `gameserver_1.env` - stores settings for the first game server _(optional)_
   - `gameserver_2.env` - stores settings for the second game server _(optional)_
@@ -26,7 +26,7 @@ Files `gameserver_{1,2,3}.env` are useful if you want to host game servers on th
 The same rule goes for the Mumble server - if you want to run it outside Docker, aka use a local system installation, just don't provide needed configs for it and comment the part of the `docker-compose.yml` file for it.
 
 ```sh
-root@tf2pickup:~# ls /home/tf2pickup/tf2pickup-fi/maps/ -al
+root@tf2pickup:~# ls /home/tf2pickup/tf2pickup-eu/maps/ -al
 total 1259216
 drwxr-xr-x 2 tf2pickup tf2pickup      4096 Jun  8 22:35 .
 drwxrwxr-x 4 tf2pickup tf2pickup      4096 Jun  9 21:09 ..
@@ -72,16 +72,16 @@ Then, these are the templates for the aforementioned files:
 
 # Timezone of the server
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-TZ=Europe/Helsinki
+TZ=Europe/Warsaw
 
 # The name of the website
-WEBSITE_NAME=tf2pickup.fi
+WEBSITE_NAME=tf2pickup.eu
 
 # An URL to where this server instance will be accessed
-API_URL=https://api.tf2pickup.fi
+API_URL=https://api.tf2pickup.eu
 
 # An URL to where the client is hosted
-CLIENT_URL=https://tf2pickup.fi
+CLIENT_URL=https://tf2pickup.eu
 
 # The bot name
 BOT_NAME=${WEBSITE_NAME}
@@ -95,11 +95,11 @@ MONGODB_DATABASE=tf2pickup
 MONGODB_PASSWORD=yoursuperfunnypassword
 # MONGODB_URI syntax:
 # mongodb://username:password@hostname/database-name
-MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-fi-mongo/tf2pickup
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-eu-mongo/tf2pickup
 
 # Redis URL
 REDIS_PASSWORD=yoursuperfunnyredispassword
-REDIS_URL=redis://:yoursuperfunnyredispassword@tf2pickup-fi-redis:6379
+REDIS_URL=redis://:yoursuperfunnyredispassword@tf2pickup-eu-redis:6379
 
 # logs.tf API key
 # Obtain yours here: https://logs.tf/uploader
@@ -129,7 +129,7 @@ QUEUE_CONFIG=6v6
 # The log relay uses one UDP port to receive logs from the TF2 game servers. These are used
 # to determine when the match starts, ends, when users connect, etc.
 # It should be the same address as API_URL, but without the https schema.
-LOG_RELAY_ADDRESS=api.tf2pickup.fi
+LOG_RELAY_ADDRESS=api.tf2pickup.eu
 LOG_RELAY_PORT=9871
 
 # Discord (optional)
@@ -142,7 +142,7 @@ DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=admin-ilmoitukset
 
 # twitch.tv integration (optional)
 # https://dev.twitch.tv/console, while setting up a new app,
-# use OAuth Redirect URL: https://api.tf2pickup.fi/twitch/auth/return
+# use OAuth Redirect URL: https://api.tf2pickup.eu/twitch/auth/return
 TWITCH_CLIENT_ID=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 TWITCH_CLIENT_SECRET=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 
@@ -167,11 +167,11 @@ MUMBLE_CONFIG_CHANNELNAME=[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+
 # This setting is the DNS hostname where your server can be reached.
 # It only needs to be set if you want your server to be addressed in the server list by its hostname instead of by IP,
 # but if it's set it must resolve on the internet or registration will fail.
-MUMBLE_CONFIG_REGISTER_HOSTNAME=tf2pickup.fi
+MUMBLE_CONFIG_REGISTER_HOSTNAME=tf2pickup.eu
 # Specifies the "name" of your server in the public server list and specifies the name of the root channel.
-MUMBLE_CONFIG_REGISTER_NAME=tf2pickup.fi
+MUMBLE_CONFIG_REGISTER_NAME=tf2pickup.eu
 # Welcome message sent to clients when they connect.
-#MUMBLE_CONFIG_WELCOMETEXT=Tervetuloa <A href=\"https://tf2pickup.fi/\">tf2pickup.fi</A> mumbleen.<br>Suomi TF2 discord: <A href=\"https://discord.gg/T6PfVC3bqQ\">linkki</A><br>
+#MUMBLE_CONFIG_WELCOMETEXT=Tervetuloa <A href=\"https://tf2pickup.eu/\">tf2pickup.eu</A> mumbleen.<br>Suomi TF2 discord: <A href=\"https://discord.gg/T6PfVC3bqQ\">linkki</A><br>
 # Instead, you can put the welcome message in a file and format it properly and this variable defines it's location.
 MUMBLE_CONFIG_WELCOMETEXTFILE=/welcome_text.txt
 # Location for custom SSL certificate/key. If your certificate and key is in one file, specify MUMBLE_CONFIG_SSL_KEY only.
@@ -180,8 +180,8 @@ MUMBLE_CONFIG_WELCOMETEXTFILE=/welcome_text.txt
 # setfacl -R -m u:tf2pickup:rx,d:tf2pickup:rx /etc/letsencrypt/archive
 # IMPORTANT: this will give your service user access to ALL folders containing certificates, so if you have other certificates there you do not want to be access by the tf2pickup user
 # consider using acme.sh for obtaining SSL certificates instead
-MUMBLE_CONFIG_SSL_CERT=/etc/letsencrypt/live/tf2pickup.fi/fullchain.pem
-MUMBLE_CONFIG_SSL_KEY=/etc/letsencrypt/live/tf2pickup.fi/privkey.pem
+MUMBLE_CONFIG_SSL_CERT=/etc/letsencrypt/live/tf2pickup.eu/fullchain.pem
+MUMBLE_CONFIG_SSL_KEY=/etc/letsencrypt/live/tf2pickup.eu/privkey.pem
 # allows you to specify a PEM-encoded file with Diffie-Hellman parameters, 
 # which will be used as the default Diffie-Hellman parameters for all virtual servers.
 # If a file is not specified, each Murmur virtual server will auto-generate its own unique set of 2048-bit Diffie-Hellman parameters on first launch.
@@ -202,7 +202,7 @@ MUMBLE_CONFIG_IMAGEMESSAGELENGTH=0
 
 ### Setting up Steam API key
 
-This is probably the easiest API key to get from all tasks here - open [Steam Web API Key site](https://steamcommunity.com/dev/apikey), enter `tf2pickup.fi` in the **Domain Name** field, agree for _Steam Web API Terms of Use_ and click **Register**.
+This is probably the easiest API key to get from all tasks here - open [Steam Web API Key site](https://steamcommunity.com/dev/apikey), enter `tf2pickup.eu` in the **Domain Name** field, agree for _Steam Web API Terms of Use_ and click **Register**.
 
 ![steam-api-key-register](/img/content/steam-api-key-register.png)
 
@@ -312,9 +312,9 @@ Go to the [Twitch Developers console](https://dev.twitch.tv/console) and registe
 
 ![twitch-dev-console-register-your-application](/img/content/twitch-dev-console-register-your-application.png)
 
-Define application name as `tf2pickup.fi` with OAuth Redirect URLs as `https://api.tf2pickup.fi/twitch/auth/return`. Choose any category - the best one for that purpose would be `Website Integration`. After defining that verify that you are not a bot and save.
+Define application name as `tf2pickup.eu` with OAuth Redirect URLs as `https://api.tf2pickup.eu/twitch/auth/return`. Choose any category - the best one for that purpose would be `Website Integration`. After defining that verify that you are not a bot and save.
 
-Then, you will see the application list. Find `tf2pickup.fi` and select **Manage**. You will be able to see the **Client ID**, the value used in `TWITCH_CLIENT_ID` variable. The Client Secret will be hidden, press New Secret and confirm it in the popup. The Client Secret will show up like on the screenshot below:
+Then, you will see the application list. Find `tf2pickup.eu` and select **Manage**. You will be able to see the **Client ID**, the value used in `TWITCH_CLIENT_ID` variable. The Client Secret will be hidden, press New Secret and confirm it in the popup. The Client Secret will show up like on the screenshot below:
 
 ![twitch-dev-console-tf2pickup.fi-api-settings](/img/content/twitch-dev-console-tf2pickup.fi-api-settings.png)
 
@@ -350,14 +350,14 @@ STEAM_PORT=27018
 STV_PORT=27020
 
 RCON_PASSWORD=funny_rcon_password
-SERVER_HOSTNAME="tf2pickup.fi #1"
+SERVER_HOSTNAME="tf2pickup.eu #1"
 SERVER_PASSWORD=some_random_password
-STV_NAME=tf2pickup.fi TV
-STV_TITLE=tf2pickup.fi Source TV
+STV_NAME=tf2pickup.eu TV
+STV_TITLE=tf2pickup.eu Source TV
 
 # Website API address, must match API_URL from .env file
 # Can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
-TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.eu
 
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
 # Can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
@@ -393,14 +393,14 @@ STEAM_PORT=27028
 STV_PORT=27030
 
 RCON_PASSWORD=funny_rcon_password
-SERVER_HOSTNAME="tf2pickup.fi #2"
+SERVER_HOSTNAME="tf2pickup.eu #2"
 SERVER_PASSWORD=some_random_password
-STV_NAME=tf2pickup.fi TV
-STV_TITLE=tf2pickup.fi Source TV
+STV_NAME=tf2pickup.eu TV
+STV_TITLE=tf2pickup.eu Source TV
 
 # Website API address, must match API_URL from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
-TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.eu
 
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
@@ -431,14 +431,14 @@ STEAM_PORT=27038
 STV_PORT=27040
 
 RCON_PASSWORD=funny_rcon_password
-SERVER_HOSTNAME="tf2pickup.fi #3"
+SERVER_HOSTNAME="tf2pickup.eu #3"
 SERVER_PASSWORD=some_random_password
-STV_NAME=tf2pickup.fi TV
-STV_TITLE=tf2pickup.fi Source TV
+STV_NAME=tf2pickup.eu TV
+STV_TITLE=tf2pickup.eu Source TV
 
 # Website API address, must match API_URL from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
-TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.eu
 
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
@@ -484,7 +484,7 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   frontend:
-    image: ghcr.io/tf2pickup-org/tf2pickup.fi:stable
+    image: ghcr.io/tf2pickup-org/tf2pickup.eu:stable
     restart: always
     ports:
      - '4000:80'
@@ -498,8 +498,8 @@ services:
     volumes:
       - mumble-data:/data
       - /etc/localtime:/etc/localtime:ro
-      - /etc/letsencrypt/live/tf2pickup.fi:/cert/live/tf2pickup.fi:ro
-      - /etc/letsencrypt/archive/tf2pickup.fi:/cert/archive/tf2pickup.fi:ro
+      - /etc/letsencrypt/live/tf2pickup.eu:/cert/live/tf2pickup.eu:ro
+      - /etc/letsencrypt/archive/tf2pickup.eu:/cert/archive/tf2pickup.eu:ro
       - ./welcome_text.txt:/welcome_text.txt:ro
     environment:
       - MUMBLE_SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
@@ -536,7 +536,7 @@ services:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-mongo
+    hostname: tf2pickup-eu-mongo
 
   redis:
     image: rapidfort/redis:7.0
@@ -548,7 +548,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-redis
+    hostname: tf2pickup-eu-redis
 
   gameserver1:
     image: ghcr.io/tf2pickup-org/tf2-gameserver:latest
@@ -611,7 +611,7 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   frontend:
-    image: ghcr.io/tf2pickup-org/tf2pickup.fi:stable
+    image: ghcr.io/tf2pickup-org/tf2pickup.eu:stable
     restart: always
     ports:
      - '4000:80'
@@ -631,7 +631,7 @@ services:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-mongo
+    hostname: tf2pickup-eu-mongo
 
   redis:
     image: rapidfort/redis:7.0
@@ -643,7 +643,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-redis
+    hostname: tf2pickup-eu-redis
 
 volumes:
   database-data:
@@ -793,7 +793,7 @@ When you have all the configuration files mentioned above ready to go, change `d
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-mongo
+    hostname: tf2pickup-eu-mongo
 
   redis:
     command: sleep infinity
@@ -806,14 +806,14 @@ When you have all the configuration files mentioned above ready to go, change `d
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-redis
+    hostname: tf2pickup-eu-redis
 ```
 
 The difference is within a parameter `command`. After that, start them two with `docker compose up -d mongodb redis`. Then change the permissions:
 
 ```sh
-docker exec -i -u 0 tf2pickup-fi_mongo_1 chown -R 1001:1001 /bitnami/mongodb
-docker exec -i -u 0 tf2pickup-fi_client_1 chown -R 1001:1001 /bitnami/redis/data
+docker exec -i -u 0 tf2pickup-eu_mongo_1 chown -R 1001:1001 /bitnami/mongodb
+docker exec -i -u 0 tf2pickup-eu_client_1 chown -R 1001:1001 /bitnami/redis/data
 ```
 
 Then, set 1001:1001 permissions for `redis.conf` file:

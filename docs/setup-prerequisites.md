@@ -4,7 +4,7 @@ title: Setup prerequisites
 
 ## Introduction
 
-Currently all tf2pickup.org instances use reverse proxy server configuration based on [Nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) with [Certbot](https://certbot.eff.org/instructions) for obtaining free certificates from [Let's Encrypt](https://letsencrypt.org/). They are hosted on Debian-based distributions (Ubuntu 22.04, Debian 11), but the deployment is not limited to these Linux distributions only; we support the usage of different reverse proxies, such as [Apache](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html) or [Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy) or different tools for obtaining certificates such us [acme.sh](https://github.com/acmesh-official/acme.sh) or even [win-acme](https://www.win-acme.com/). We have confirmed the website to be working on Windows 10/11 with Docker containers using [Linux Subsystem for Windows (version 2)](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
+Currently all tf2pickup.org instances use reverse proxy server configuration based on [Nginx](https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/) with [Certbot](https://certbot.eff.org/instructions) for obtaining free certificates from [Let's Encrypt](https://letsencrypt.org/). They are hosted on Debian-based distributions (Ubuntu 22.04, Debian 12), but the deployment is not limited to these Linux distributions only; we support the usage of different reverse proxies, such as [Apache](https://httpd.apache.org/docs/2.4/howto/reverse_proxy.html) or [Caddy](https://caddyserver.com/docs/quick-starts/reverse-proxy) or different tools for obtaining certificates such us [acme.sh](https://github.com/acmesh-official/acme.sh) or even [win-acme](https://www.win-acme.com/). We have confirmed the website to be working on Windows 10/11 with Docker containers using [Linux Subsystem for Windows (version 2)](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
 
 The following guide should be taken as an example, which is based on:
 
@@ -12,15 +12,15 @@ The following guide should be taken as an example, which is based on:
 - Cloudflare as a domain API provider for DNS zone dynamic updates,
 - Certbot as the certificate obtaining tool,
 - Nginx as a reverse proxy,
-- tf2pickup.org client and server hosted as containers on ports TCP 3000 for the server and TCP 4000 for the client.
+- tf2pickup.org client and server hosted as containers on ports TCP 3000 for the server and TCP 4000 for the client. Ports can be customized.
 
-Following these instructions should lead to configuration assessed as [A+ in Qualsys SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=tf2pickup.fi) and [A+ in Mozilla Observatory](https://observatory.mozilla.org/analyze/tf2pickup.fi) tests. Most of the configuration examples given are based on configuration from the [tf2pickup.fi](https://tf2pickup.fi) website.
+Following these instructions should lead to configuration assessed as [A+ in Qualsys SSL Labs](https://www.ssllabs.com/ssltest/analyze.html?d=tf2pickup.eu) and [A+ in Mozilla Observatory](https://observatory.mozilla.org/analyze/tf2pickup.eu) tests. Most of the configuration examples given are based on configuration from the [tf2pickup.eu](https://tf2pickup.eu) website.
 
 ## Host recommendations
 
 We do not have any specific info what are the specific requirements for the whole setup, since it can be run with game servers and client/server on separate hosts. However, based on our experience, we suggest to get a machine (regardless whether it is a VPS or a dedicated server) with at least 4 vCPU (virtual CPU cores, preferably dedicated cores), 8 GB of RAM and at least 80 GB of SSD-based storage. Apparently 40 GB is probably enough to run the site with 2 game servers and mumble, but in most cases that disk size or even doubled one will be bundled with previous specs in an offer. Having a **static** IPv4 is a must, IPv6 address is optional. There are different options for host network speed and we suggest to get an offer with 1 Gbit/s both sides. Obviously the site will run with less, but having worse networking speed such as 250 Mbit/s both sides will greatly decrease the download speed for any host updates/game server updates.
 
-Our sites are run on different hostings, namely [OVH](https://ovh.com) (~~Strasbourg 🇫🇷~~, Gravelines 🇫🇷), [Hetzner](https://hetzner.com) (Nuremberg 🇩🇪, Helsinki 🇫🇮), [Netcup](https://netcup.eu) (Nuremberg 🇩🇪), [MyDevil](https://www.mydevil.net/) (Warsaw 🇵🇱), [Amazon Web Services](https://aws.amazon.com/) (Paris 🇫🇷), [Wedos](https://wedos.cz) (Hluboká nad Vltavou 🇨🇿).
+Our sites are run on different hostings, namely [OVH](https://ovh.com) (~~Strasbourg 🇫🇷~~, Gravelines 🇫🇷), [Hetzner](https://hetzner.com) (Nuremberg 🇩🇪, Helsinki 🇫🇮), [Netcup](https://netcup.eu) (Nuremberg 🇩🇪), [MyDevil](https://www.mydevil.net/) (Warsaw 🇵🇱) and many others.
 
 ## Domain name setup
 
@@ -39,11 +39,11 @@ A pickup domain should contain at least two `A` entries, but this configuration 
 
 | Entry type |        Name        |            Content            | Priority |
 |:----------:|:------------------:|:-----------------------------:|:--------:|
-|     `A`    |   `tf2pickup.fi`   |       host IPv4 address       |    n/d   |
-|   `AAAA`   |   `tf2pickup.fi`   |       host IPv6 address       |    n/d   |
-|     `A`    | `api.tf2pickup.fi` |       host IPv4 address       |    n/d   |
-|   `AAAA`   | `api.tf2pickup.fi` |       host IPv6 address       |    n/d   |
-|    `CAA`   | `api.tf2pickup.fi` | `0 issuewild letsencrypt.org` |    n/d   |
+|     `A`    |   `tf2pickup.eu`   |       host IPv4 address       |    n/d   |
+|   `AAAA`   |   `tf2pickup.eu`   |       host IPv6 address       |    n/d   |
+|     `A`    | `api.tf2pickup.eu` |       host IPv4 address       |    n/d   |
+|   `AAAA`   | `api.tf2pickup.eu` |       host IPv6 address       |    n/d   |
+|    `CAA`   | `api.tf2pickup.eu` | `0 issuewild letsencrypt.org` |    n/d   |
 
 Usage of AAAA entries is optional. If you do not want to handle IPv6 on Docker, feel free to actually not use these. We encourage to use [CAA entry](https://support.dnsimple.com/articles/caa-record/) alongside Let's Encrypt certificates. Since most of the sites host the tf2pickup.org client, server with Mumble and the TF2 game server, we suggest not to use DNS proxying since at some point it is meaningless - it is used to hide the IP address of the host, whereas we cannot do it for the game servers, for it would add too much overhead and create latency issues.
 
@@ -100,7 +100,7 @@ Before getting certificates, a Cloudflare API token must be prepared for that ba
 After that, certificate should be able to be created by using the command (the `--agree-tos` and `-email` parameters must be given on a first certificate):
 
 ```sh
-certbot certonly --non-interactive -d 'tf2pickup.fi' -d '*.tf2pickup.fi' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple --agree-tos --email your-mailbox@you-are-really-using.com
+certbot certonly --non-interactive -d 'tf2pickup.eu' -d '*.tf2pickup.eu' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple --agree-tos --email your-mailbox@you-are-really-using.com
 ```
 
 There is a special case if your domain is a subdomain of `tf2pickup.org` or `tf2pickup.eu`, for instance `br.tf2pickup.org` or `au.tf2pickup.org` which you have to use for (example given is for `br.tf2pickup.org`).
@@ -122,7 +122,7 @@ In case of failure most likely you:
 When the certificate is obtained, we suggest you to leave these two commands in the root crontab file (opened by a command `crontab -e` as root):
 
 ```crontab
-0  1   20 * *   certbot certonly --non-interactive -d 'tf2pickup.fi' -d '*.tf2pickup.fi' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple
+0  1   20 * *   certbot certonly --non-interactive -d 'tf2pickup.eu' -d '*.tf2pickup.eu' --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare --rsa-key-size 4096 --must-staple
 5  1   20 * *   systemctl restart nginx
 ```
 
@@ -206,7 +206,7 @@ http {
 }
 ```
 
-``/etc/nginx/nginx/sites-available/tf2pickup.fi``:
+``/etc/nginx/nginx/sites-available/tf2pickup.eu``:
 
 ```nginx
 map $http_upgrade $connection_upgrade {
@@ -216,22 +216,22 @@ map $http_upgrade $connection_upgrade {
 server {
         listen 80;
         #listen [::]:80; #IPv6 specific entry
-        server_name tf2pickup.fi;
-        return 302 https://tf2pickup.fi$request_uri;
+        server_name tf2pickup.eu;
+        return 302 https://tf2pickup.eu$request_uri;
 }
 server {
-        access_log /var/log/nginx/tf2pickup.fi-access.log;
-        error_log /var/log/nginx/tf2pickup.fi-error.log;
+        access_log /var/log/nginx/tf2pickup.eu-access.log;
+        error_log /var/log/nginx/tf2pickup.eu-error.log;
         listen 443 ssl http2;
         #listen [::]:443 ssl http2; #IPv6 specific entry
-        server_name tf2pickup.fi;
-        ssl_certificate /etc/letsencrypt/live/tf2pickup.fi/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/tf2pickup.fi/privkey.pem;
+        server_name tf2pickup.eu;
+        ssl_certificate /etc/letsencrypt/live/tf2pickup.eu/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/tf2pickup.eu/privkey.pem;
         ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
         ssl_stapling on;
         ssl_stapling_verify on;
         ssl_session_cache shared:ssl_session_cache:10m;
-        ssl_trusted_certificate /etc/letsencrypt/live/tf2pickup.fi/chain.pem;
+        ssl_trusted_certificate /etc/letsencrypt/live/tf2pickup.eu/chain.pem;
         location / {
                 proxy_pass http://127.0.0.1:4000;
                 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
@@ -243,7 +243,7 @@ server {
 }
 ```
 
-``/etc/nginx/nginx/sites-available/api.tf2pickup.fi``:
+``/etc/nginx/nginx/sites-available/api.tf2pickup.eu``:
 
 ```nginx
 map $http_upgrade $connection_upgrade {
@@ -253,22 +253,22 @@ map $http_upgrade $connection_upgrade {
 server {
         listen 80;
         #listen [::]:80; #IPv6 specific entry
-        server_name api.tf2pickup.fi;
-        return 302 https://api.tf2pickup.fi$request_uri;
+        server_name api.tf2pickup.eu;
+        return 302 https://api.tf2pickup.eu$request_uri;
 }
 server {
-        access_log /var/log/nginx/api.tf2pickup.fi-access.log;
-        error_log /var/log/nginx/api.tf2pickup.fi-error.log;
+        access_log /var/log/nginx/api.tf2pickup.eu-access.log;
+        error_log /var/log/nginx/api.tf2pickup.eu-error.log;
         listen 443 ssl http2;
         #listen [::]:443 ssl http2; #IPv6 specific entry
-        server_name api.tf2pickup.fi;
-        ssl_certificate /etc/letsencrypt/live/tf2pickup.fi/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/tf2pickup.fi/privkey.pem;
+        server_name api.tf2pickup.eu;
+        ssl_certificate /etc/letsencrypt/live/tf2pickup.eu/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/tf2pickup.eu/privkey.pem;
         ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
         ssl_stapling on;
         ssl_stapling_verify on;
         ssl_session_cache shared:ssl_session_cache:10m;
-        ssl_trusted_certificate /etc/letsencrypt/live/tf2pickup.fi/chain.pem;
+        ssl_trusted_certificate /etc/letsencrypt/live/tf2pickup.eu/chain.pem;
         location / {
                 proxy_pass http://127.0.0.1:3000;
                 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload";
@@ -283,8 +283,8 @@ server {
 After placing those files, make sure to create symlinks to them in the `/etc/nginx/sites-enabled`:
 
 ```sh
-# ln -s /etc/nginx/sites-available/api.tf2pickup.fi /etc/nginx/sites-enabled/api.tf2pickup.fi
-# ln -s /etc/nginx/sites-available/tf2pickup.fi /etc/nginx/sites-enabled/tf2pickup.fi
+# ln -s /etc/nginx/sites-available/api.tf2pickup.eu /etc/nginx/sites-enabled/api.tf2pickup.eu
+# ln -s /etc/nginx/sites-available/tf2pickup.eu /etc/nginx/sites-enabled/tf2pickup.eu
 ```
 
 When that is done, nginx should use these configs. Execute `nginx -t` in order to check if all configuration files are valid. You should expect the following output:

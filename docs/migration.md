@@ -15,7 +15,7 @@ Before doing any migration **back up your database** in case the whole process g
 We introduced a new environment variable, `WEBSITE_NAME`. It identifies your _tf2pickup.org_ instance uniquely; for now, it will be used by the new [logs.tf](https://logs.tf/) uploader, but more use-cases are surely coming.
 
 ```env
-WEBSITE_NAME=tf2pickup.fi
+WEBSITE_NAME=tf2pickup.eu
 ```
 
 We also added support for expansion of environment variables, so now you can re-use your `WEBSITE_NAME`, for example:
@@ -29,7 +29,7 @@ BOT_NAME=${WEBSITE_NAME}
 The new version requires a [Redis](https://redis.io/) database; it is used to cache some data and store game logs. Follow [site components deployment](site-components-deployment#docker-composeyml-for-the-website-only) documentation to learn how to set it up.
 
 ```env
-REDIS_URL=redis://tf2pickup-fi-redis:6379
+REDIS_URL=redis://tf2pickup-eu-redis:6379
 ```
 
 ### logs.tf
@@ -200,7 +200,7 @@ This step applies only if you are using the _tf2-gameserver_ docker image to hos
 Add the following two variables to your `gameserver_{1,2}.env` files:
 
 ```env
-TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.eu
 TF2PICKUPORG_SECRET=UMx2s3xv
 ```
 
@@ -227,7 +227,7 @@ This step applies only if you are hosting your game server without the use of Do
 Add the following two variables to your `server.cfg` file:
 
 ```cfg
-sm_tf2pickuporg_api_address "https://api.tf2pickup.fi"
+sm_tf2pickuporg_api_address "https://api.tf2pickup.eu"
 sm_tf2pickuporg_secret "UMx2s3xv"
 ```
 

@@ -52,7 +52,7 @@ This is probably the most important task of every single pickup admin. Pickup ga
 
 In short, the pickup admin team is to define skill range for classes, set them on every single player and observe game results after setting those skills up. If the games were unbalanced, admins should review the game, see who made an inpact in the game result and adjust skill values, so the next game will be more balanced. The best results are achieved when the games are close or even if they end up in a draw.
 
-[This](https://tf2pickup.fi/game/60cf5a2b6d2b980013b258e0) is an example of a balanced game (it ended up with a score 1:2 for the RED team):
+[This](https://tf2pickup.eu/game/64f6404b9aaf0e6e4bf41322) is an example of a balanced game (it ended up with a score 1:2 for the RED team):
 
 ![game-skill-values](/img/content/game-skill-values.gif)
 
@@ -64,13 +64,13 @@ If you add up individual player values per team, you will end up with this:
 
 |  | BLU | RED |
 |:-:|:-:|:-:|
-|  | 165 | 40 |
-|  | 210 | 180 |
-|  | 145 | 150 |
-|  | 120 | 115 |
-|  | 110 | 180 |
-|  | 90 | 170 |
-| Result | 840 | 835 |
+|  | 11 | 11 |
+|  | 10 | 7 |
+|  | 7 | 13,5 |
+|  | 12 | 11 |
+|  | 15 | 12 |
+|  | 3 | 3 |
+| Result | 58 | 57,5 |
 
 This is pretty much the expected result.
 
