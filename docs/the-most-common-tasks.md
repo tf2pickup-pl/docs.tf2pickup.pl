@@ -8,13 +8,13 @@ Here you can find a list of the tasks admins perform on the site:
 
 You may want to scramble the maps if one of the maps is played too often. You can do so by clicking this button:
 
-![scramble-maps](/img/content/scramble-maps.png)
+![scramble-maps](/img/content/common-tasks/scramble-maps.png)
 
 ## Reassigning game servers to games
 
 Sometimes player may experience technical problems with game servers such as unability to connect or high latencies. In cases like this, you may want to switch game server used for the game. Click `reassign...` to do it.
 
-![pickup-start](/img/content/pickup-start.png)
+![pickup-start](/img/content/common-tasks/pickup-start.png)
 
 A list with all available servers will show up. Click on one of them to change.
 
@@ -22,11 +22,11 @@ A list with all available servers will show up. Click on one of them to change.
 In case no static servers are available, game servers from serveme.tf will show up (when serveme.tf API is set correctly).
 :::
 
-![reassign-server](/img/content/reassign-server.png)
+![reassign-server](/img/content/common-tasks/reassign-server.png)
 
 After that, a new server will reconfigure and people will be able to connect to it.
 
-![reassign-server](/img/content/after-server-reassignment.png)
+![reassign-server](/img/content/common-tasks/after-server-reassignment.png)
 
 ## Reinitializing games
 
@@ -34,7 +34,7 @@ Sometimes the game server may be stuck during the pickup initialization. In case
 
 In cases like this just click the `reinitialize server` button.
 
-![reinitializing-the-game](/img/content/reinitializing-the-game.png)
+![reinitializing-the-game](/img/content/common-tasks/reinitializing-the-game.png)
 
 ## Force closing games
 
@@ -54,7 +54,7 @@ In short, the pickup admin team is to define skill range for classes, set them o
 
 [This](https://tf2pickup.eu/game/64f6404b9aaf0e6e4bf41322) is an example of a balanced game (it ended up with a score 1:2 for the RED team):
 
-![game-skill-values](/img/content/game-skill-values.gif)
+![game-skill-values](/img/content/common-tasks/game-skill-values.gif)
 
 :::important
 Skills are hidden by default in order to prevent admins from leaking values accidentally when sharing their screens.
@@ -80,39 +80,39 @@ If you won't assign skill for a player - they will get skill values defined in a
 
 In order to define skill for a certain player, go to a player page and click `edit`:
 
-![player-profile](/img/content/player-profile.png)
+![player-profile](/img/content/overview/player-profile.png)
 
 This is how skill definition looks like for a certain player on 6v6:
 
-![set-skills-for-a-player](/img/content/set-skills-for-a-player.png)
+![set-skills-for-a-player](/img/content/common-tasks/set-skills-for-a-player.png)
 
 There you can see a skill definition view for Highlander (9v9):
 
-![set-skills-for-a-player-in-highlander](/img/content/set-skills-for-a-player-in-highlander.png)
+![set-skills-for-a-player-in-highlander](/img/content/common-tasks/set-skills-for-a-player-in-highlander.png)
 
 ### Defining default skill values
 
 In order to define player skills, go to the admin panel and choose `Default player skill`.
 
-![define-default-player-skill-values](/img/content/define-default-player-skill-values.png)
+![define-default-player-skill-values](/img/content/common-tasks/define-default-player-skill-values.png)
 
 Then, define values for classes available and save it.
 
-![set-default-player-skill](/img/content/set-default-player-skill.png)
+![set-default-player-skill](/img/content/common-tasks/set-default-player-skill.png)
 
 Here is how it looks like for Highlander site:
 
-![set-default-player-skill-for-highlander](/img/content/set-default-player-skill-for-highlander.png)
+![set-default-player-skill-for-highlander](/img/content/common-tasks/set-default-player-skill-for-highlander.png)
 
 ### Reviewing skill values
 
 If you want to review skill values for all users on the website, go to the admin panel and choose `Player skill table`.
 
-![define-default-player-skill-values](/img/content/define-default-player-skill-values.png)
+![define-default-player-skill-values](/img/content/common-tasks/define-default-player-skill-values.png)
 
 You can sort all columns (containing nicknames and skill values) ascending/descending, just by clicking on the column names.
 
-![skill-table](/img/content/skill-table.png)
+![skill-table](/img/content/common-tasks/skill-table.png)
 
 ## Edit nicknames
 
@@ -122,25 +122,25 @@ Editing nicknames is pretty easy. All you need do is to open a player profile, c
 
 In some cases you have to ban someone from playing pickups, mostly due to breaking site rules. In order to ban someone, open up their profile and click `bans` and `add ban` in the next menu.
 
-![find-profile-to-ban](/img/content/find-profile-to-ban.png)
+![find-profile-to-ban](/img/content/common-tasks/find-profile-to-ban.png)
 
 Then, define a ban reason and the ban length. Click `add ban` after that.
 
-![add-player-ban](/img/content/add-player-ban.png)
+![add-player-ban](/img/content/common-tasks/add-player-ban.png)
 
 In that way the player is banned. You can see the ban history of a certain user in that menu.
 
-![player-bans-menu](/img/content/player-bans-menu.png)
+![player-bans-menu](/img/content/common-tasks/player-bans-menu.png)
 
 This is what the banned user sees when banned:
 
-![ban-from-player-perspective](/img/content/ban-from-player-perspective.png)
+![ban-from-player-perspective](/img/content/common-tasks/ban-from-player-perspective.png)
 
 ### Revoke player ban
 
 Revoking a ban on a player is pretty easy. All you have to do is to click `revoke` on an active ban from the ban history list of a certain user.
 
-![revoke-player-ban](/img/content/revoke-player-ban.png)
+![revoke-player-ban](/img/content/common-tasks/revoke-player-ban.png)
 
 ## Subbing out players
 
@@ -150,22 +150,22 @@ Subbing out players is currently possible **only** by the site admins.
 
 If a player for some reason cannot continue a game or they cannot join the game, you can request a player substitute, so somebody can join to a game in a place of the aformentioned player. You can do that from a game details page.
 
-![game-skill-values](/img/content/game-skill-values.gif)
+![game-skill-values](/img/content/common-tasks/game-skill-values.gif)
 
 Click the `Request substitute` button next to a player nickname you want to request a sub for.
 
-![request-substitute-button](/img/content/request-substitute-button.png)
+![request-substitute-button](/img/content/common-tasks/request-substitute-button.png)
 
 Then, the notification the website will show up with a Discord notification on a specific channel.
 
-![substitute-needed-notification](/img/content/substitute-needed-notification.png)
+![substitute-needed-notification](/img/content/common-tasks/substitute-needed-notification.png)
 
-![sub-needed](/img/content/sub-needed.png)
+![sub-needed](/img/content/overview/sub-needed.png)
 
 After opening up a link, you can see a free spot where you can join in and you can see who is in the team. Click on an empty spot to join it.
 
-![request-substitute-free-spot](/img/content/request-substitute-free-spot.png)
+![request-substitute-free-spot](/img/content/common-tasks/request-substitute-free-spot.png)
 
 Upon joining, the connect link to a server will show up. Moreover, the replacement player will not have a skill value shown up next to their nickname in order to mark that this player was a sub and his skill did not count to a team skill calculations.
 
-![request-substitute-free-spot](/img/content/request-substitute-after-joining.png)
+![request-substitute-free-spot](/img/content/common-tasks/request-substitute-after-joining.png)

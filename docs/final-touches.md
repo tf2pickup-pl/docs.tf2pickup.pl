@@ -10,21 +10,21 @@ You definitely want to define what things are allowed and what not, and because 
 We discourage you from using inline HTML formatting, since it's buggy.
 :::
 
-![edit-rules](/img/content/edit-rules.png)
+![edit-rules](/img/content/final-touches/edit-rules.png)
 
 After setting up the rules, they will show up in a popup for every user joining the site for the very first time (right with Mumble requirement notification):
 
-![edit-rules](/img/content/i-have-mumble.png)
+![edit-rules](/img/content/final-touches/i-have-mumble.png)
 
-![edit-rules](/img/content/accept-site-rules.png)
+![edit-rules](/img/content/final-touches/accept-site-rules.png)
 
 ## Reviewing the privacy policy
 
 Please take a look at the privacy policy document; it is accessible for the users using a link at the bottom of the webpage and can be edited via the admin panel. The only thing you need to change is the link to your website, as by default it is set to [tf2pickup.pl](https://tf2pickup.pl):
 
-![privacy policy 1](/img/content/migration-privacy-policy-1.png)
+![privacy policy 1](/img/content/final-touches/migration-privacy-policy-1.png)
 
-![privacy policy 2](/img/content/migration-privacy-policy-2.png)
+![privacy policy 2](/img/content/final-touches/migration-privacy-policy-2.png)
 
 ## Player action log
 
@@ -42,7 +42,7 @@ Version 10.x comes up with player action log feature. It lets you see who access
 
 All connections to the website and gameservers are logged.
 
-![player-action-log](/img/content/player-action-log.png)
+![player-action-log](/img/content/overview/player-action-log.png)
 
 ## Adding game servers to the website
 
@@ -50,15 +50,15 @@ Pickup games require game servers on which it can be set up. In order to do that
 
 This mechanism is used since server version 8.x and the game server setup is being done automatically. After discovering newly setup game servers, they will show up on the server list, which can be accessed through Admin Panel -> Game servers:
 
-![game-servers-configuration](/img/content/game-servers-configuration.png)
+![game-servers-configuration](/img/content/final-touches/game-servers-configuration.png)
 
 If you have any static servers, they will show up on the list. You can click on any of them in order to see their address and to perform diagnostics. In order to do that, click the **Run diagnostics** button. The site will perform tests to ensure the game server works correctly.
 
-![game-server-details](/img/content/game-server-details.png)
+![game-server-details](/img/content/final-touches/game-server-details.png)
 
 There you can see the diagnostics status. In this case everything went smooth and things seem to be fine.
 
-![game-server-diagnostics](/img/content/game-server-diagnostics.png)
+![game-server-diagnostics](/img/content/final-touches/game-server-diagnostics.png)
 
 :::info
 serveme.tf servers are being used in pickup games **only** if no static game servers are assigned to the site.
@@ -66,23 +66,23 @@ serveme.tf servers are being used in pickup games **only** if no static game ser
 
 Provided you have a valid serveme.tf API key set in your `.env` file, _serveme.tf integration settings_ becomes available:
 
-![configure-serveme-integration](/img/content/configure-serveme-integration.png)
+![configure-serveme-integration](/img/content/final-touches/configure-serveme-integration.png)
 
 Currently the only setting you can define at this point is the preferred region of the reserved servers.
 
-![change-serveme-preference](/img/content/change-serveme-preference.png)
+![change-serveme-preference](/img/content/final-touches/change-serveme-preference.png)
 
 ## Add admins to the site, set up whitelist, maps and skills
 
 After the site start, you may want to add admins in order to make site moderation easier and faster. To do that, you have to open up the player profile, choose **roles** button and choose a right role for them:
 
-![run-diagnostics](/img/content/player-profile.png)
+![run-diagnostics](/img/content/overview/player-profile.png)
 
 - no role - default player role, no administrative access,
 - admin - lets player set up everything on the website excluding managing game servers and player roles on the site,
 - super user - unlimited administrative privileges, the user defined in the `.env` configuration has this role always assigned in.
 
-![run-diagnostics](/img/content/player-roles.png)
+![run-diagnostics](/img/content/final-touches/player-roles.png)
 
 For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist), map pool settings can be seen [there](/docs/website-settings#map-pool-settings), and [there](/docs/the-most-common-tasks#setting-up-player-skills) you can look at for the skill setup.
 
@@ -90,7 +90,7 @@ For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist
 
 These settings can be set by superusers only. There are three options to set it up:
 
-![voice-chat-settings](/img/content/voice-chat-settings.png)
+![voice-chat-settings](/img/content/final-touches/voice-chat-settings.png)
 
 - **Disabled** - disables voice connect link entirely on the pickup page,
 - **Static link** - the voice chat button redirects to the address defined in the `Static link` field,
@@ -594,4 +594,4 @@ Since most of the setups are based on Linux installations, their hosts can be co
 ## HSTS Preload
 
 In order to get the highest score in the site configuration tests, HSTS Preload should be configured for the domain. The Nginx configuration files meet the requirements for it and most of the browsers add the domains to their preload list automatically, but this is not the case for Chromium-based browsers, such as Google Chrome. For them, you are supposed to [register the site](https://hstspreload.org). The process is straightforward - you just have to enter the domain name, check boxes approving your domain ownership and accepting the service terms. After doing so, the website will check if your domain is eligible for the submission on the list and if yes, your domain will be added in a matter of a few days.
-![hsts preload example](/img/content/hsts-preload.png)
+![hsts preload example](/img/content/final-touches/hsts-preload.png)

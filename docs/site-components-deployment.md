@@ -204,11 +204,11 @@ MUMBLE_CONFIG_IMAGEMESSAGELENGTH=0
 
 This is probably the easiest API key to get from all tasks here - open [Steam Web API Key site](https://steamcommunity.com/dev/apikey), enter `tf2pickup.eu` in the **Domain Name** field, agree for _Steam Web API Terms of Use_ and click **Register**.
 
-![steam-api-key-register](/img/content/steam-api-key-register.png)
+![steam-api-key-register](/img/content/site-components-deployment/steam-api-key-register.png)
 
 Then, copy and pass **Key** value to a `STEAM_API_KEY` variable.
 
-![steam-api-key-registered](/img/content/steam-api-key-registered.png)
+![steam-api-key-registered](/img/content/site-components-deployment/steam-api-key-registered.png)
 
 ### Setting up Discord bot with channels
 
@@ -233,33 +233,33 @@ Discord integration enables:
   - tf2pickup server starts.
 
 In order to create a bot, you have to enter the [Discord Developer Portal](https://discord.com/developers/applications) in the Applications section. Then, click **New Application**.
-![discord-create-new-application](/img/content/discord-create-new-application.png)
+![discord-create-new-application](/img/content/discord-server-setup/discord-create-new-application.png)
 
 Add a name for the bot and click **Create**.
 
-![discord-name-new-application](/img/content/discord-name-new-application.png)
+![discord-name-new-application](/img/content/discord-server-setup/discord-name-new-application.png)
 
 After that set the avatar for the application:
 
-![discord-bot-add-flag](/img/content/discord-bot-add-flag.png)
+![discord-bot-add-flag](/img/content/discord-server-setup/discord-bot-add-flag.png)
 
 Then go to the bot section, click **Add Bot** and then **Yes, do it!** button on the notification.
 
-![discord-add-new-bot](/img/content/discord-add-new-bot.png)
+![discord-add-new-bot](/img/content/discord-server-setup/discord-add-new-bot.png)
 
 In the menu you can find a token, which you have to pass in the `DISCORD_BOT_TOKEN` variable. Click **Copy** and note the token in your `.env` file.
 
 You _should_ untick the Public Bot option, since you don't really want to let anybody invite this bot anywhere else than your Discord server(s) (even though it would be useless, as the bot sends connects to the specified discord server only).
 
-![discord-disable-public-invite](/img/content/discord-disable-public-invite.png)
+![discord-disable-public-invite](/img/content/discord-server-setup/discord-disable-public-invite.png)
 
 Now you should head over to the OAuth2 section and create a URL allowing you to invite the bot on a server. In the **OAuth2 URL Generator** section under _Scopes_ tick `bot` option. That should create a link below. Copy and open it.
 
-![discord-bot-generate-invite-link](/img/content/discord-bot-generate-invite-link.png)
+![discord-bot-generate-invite-link](/img/content/discord-server-setup/discord-bot-generate-invite-link.png)
 
 There you should choose the server on which your community is. You have to have `Manage Server` permissions in order to add the bot on it. Choose the server you want from the dropdown list and click **Authorize**.
 
-![discord-invite-bot](/img/content/discord-invite-bot.png)
+![discord-invite-bot](/img/content/discord-server-setup/discord-invite-bot.png)
 
 After adding the bot you should configure the channels for it. Administration notifications should be sent on a channel available only for the site staff. We suggest to set permissions in a way where the staff have `View Channel` and `Read Message History` permissions and the bot has the following ones:
 
@@ -273,15 +273,15 @@ The bot should have the same permissions on a channel supposed to be a place for
 
 The Discord server name is `Suomi TF2` and the pickup public notifications channel is `tf2pickupfi-yleinen`.
 
-![tf2pickupfi-yleinen](/img/content/tf2pickupfi-yleinen.png)
+![tf2pickupfi-yleinen](/img/content/site-components-deployment/tf2pickupfi-yleinen.png)
 
 You should also create a role for pinging players when the substitute is needed. In this example this role is called `Mixaajat`.
 
-![sub-needed](/img/content/sub-needed.png)
+![sub-needed](/img/content/overview/sub-needed.png)
 
 The admin notifications channel is called `admin-ilmoitukset`.
 
-![discord-admin-notifications-1](/img/content/discord-admin-notifications-1.png)
+![discord-admin-notifications-1](/img/content/overview/discord-admin-notifications-1.png)
 
 Therefore, you should define the rest of Discord Bot variables just like shown below:
 
@@ -302,21 +302,21 @@ This step is optional. Follow these steps only if you want to let people show up
 
 Setting it enables site users to integrate their tf2pickup accounts with Twitch, letting access their Twitch profiles through a Twitch link in an icon.
 
-![player-profile](/img/content/player-profile.png)
+![player-profile](/img/content/overview/player-profile.png)
 
 Moreover, it will show up all Twitch streams on a left site of the main page.
 
-![tf2pickup.fi](/img/content/tf2pickup.fi.png)
+![tf2pickup.eu](/img/content/showcase/tf2pickup.eu.png)
 
 Go to the [Twitch Developers console](https://dev.twitch.tv/console) and register your new application by clicking **Register Your Application**:
 
-![twitch-dev-console-register-your-application](/img/content/twitch-dev-console-register-your-application.png)
+![twitch-dev-console-register-your-application](/img/content/site-components-deployment/twitch-dev-console-register-your-application.png)
 
 Define application name as `tf2pickup.eu` with OAuth Redirect URLs as `https://api.tf2pickup.eu/twitch/auth/return`. Choose any category - the best one for that purpose would be `Website Integration`. After defining that verify that you are not a bot and save.
 
 Then, you will see the application list. Find `tf2pickup.eu` and select **Manage**. You will be able to see the **Client ID**, the value used in `TWITCH_CLIENT_ID` variable. The Client Secret will be hidden, press New Secret and confirm it in the popup. The Client Secret will show up like on the screenshot below:
 
-![twitch-dev-console-tf2pickup.fi-api-settings](/img/content/twitch-dev-console-tf2pickup.fi-api-settings.png)
+![twitch-dev-console-tf2pickup.fi-api-settings](/img/content/site-components-deployment/twitch-dev-console-tf2pickup.fi-api-settings.png)
 
 Pass this secret value to the `TWITCH_CLIENT_SECRET` variable.
 
@@ -329,13 +329,13 @@ In order for the bot to work, you need to give him proper rights to do create, e
 First, set up your Mumble server connection details [using the admin panel](final-touches#set-up-voice-chat-settings).
 After you save the settings, the bot will login and join the selected channel.
 
-![mumble-bot-joins-server](/img/content/mumble-bot-joins-server.png)
+![mumble-bot-joins-server](/img/content/site-components-deployment/mumble-bot-joins-server.png)
 
 To grant him proper privileges, first you need to register the bot. Having done that, edit channel, then select tab named _ACL_, click _Add_ and type bot's username in the lower field.
 Next make sure both _Applies to sub-channels_ and _Applies to this channel_ checkboxes are selected and on the right-hand side of the window click _Allow_ checkbox next to the _Write ACL_ label.
 The channel edit window should look like this:
 
-![mumble-edit-channel-window](/img/content/mumble-channel-edit-window.png)
+![mumble-edit-channel-window](/img/content/site-components-deployment/mumble-channel-edit-window.png)
 
 Press _OK_ to save the changes. The bot is supposed to create channels automatically when a game starts on the website. It will create BLU/RED subchannels in it as well. At the end of the game it will link BLU and RED channels, so both teams can communicate. The bot removes leftover channels after a game ends, provided they are empty of users.
 

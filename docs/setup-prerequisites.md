@@ -29,11 +29,11 @@ We encourage you to purchase domains in [OVH](https://www.ovh.com/world/domains/
 In order to move a domain zone from the current site to Cloudflare, you are supposed to create an account on Cloudflare and add the domain you own. After that, you will be asked to change the nameserver (NS) entries for servers given by the Cloudflare. There are always two entries given and they should replace current entries in the domain zone.
 
 In this specific case there were 4 NS entries and the domain owner had to change them to 2 NS entries, which are `annabel.ns.cloudflare.com` and `bradley.ns.cloudflare.com`:
-![DNS nameservers list in OVH settings](/img/content/change-dns-nameservers.png).
+![DNS nameservers list in OVH settings](/img/content/setup-prerequisites/change-dns-nameservers.png).
 Those changes are applied immediately **only on current NS servers** meaning the change is going to be propagated in a time between a few minutes to even 48 hours. After propagation site owner should get an email about it and the change should look like that:
-![DNS nameservers list in OVH settings with change applied](/img/content/change-dns-nameservers-with-change-applied.png)
+![DNS nameservers list in OVH settings with change applied](/img/content/setup-prerequisites/change-dns-nameservers-with-change-applied.png)
 In that way all zone settings should be applicable from Cloudflare like on an image below:
-![DNS nameservers list in OVH settings with change applied](/img/content/dns-zone-cloudflare.png)
+![DNS nameservers list in OVH settings with change applied](/img/content/setup-prerequisites/dns-zone-cloudflare.png)
 
 A pickup domain should contain at least two `A` entries, but this configuration is the most recommended:
 
@@ -51,20 +51,20 @@ We suggest to change the following settings in Cloudflare:
 
 ### SSL/TLS -> Edge Certificates
 
-![always use https](/img/content/cloudflare-always-use-https.png)
+![always use https](/img/content/setup-prerequisites/cloudflare-always-use-https.png)
 
 Note, we recommend to apply HSTS settings changes **after** the site deployment in order to avoid accessibility issues when certificates are not used on the website yet.
 
-![hsts settings](/img/content/cloudflare-hsts-settings.png)
-![hsts settings details](/img/content/cloudflare-hsts-settings-details.png)
-![tls and https](/img/content/cloudflare-tls-and-https.png)
-![certificate transparency](/img/content/cloudflare-certificate-transparency.png)
+![hsts settings](/img/content/setup-prerequisites/cloudflare-hsts-settings.png)
+![hsts settings details](/img/content/setup-prerequisites/cloudflare-hsts-settings-details.png)
+![tls and https](/img/content/setup-prerequisites/cloudflare-tls-and-https.png)
+![certificate transparency](/img/content/setup-prerequisites/cloudflare-certificate-transparency.png)
 
 ### Network
 
-![cloudflare https settings](/img/content/cloudflare-https-settings.png)
-![cloudflare network misc 1](/img/content/cloudflare-network-misc-1.png)
-![cloudflare network misc 2](/img/content/cloudflare-network-misc-2.png)
+![cloudflare https settings](/img/content/setup-prerequisites/cloudflare-https-settings.png)
+![cloudflare network misc 1](/img/content/setup-prerequisites/cloudflare-network-misc-1.png)
+![cloudflare network misc 2](/img/content/setup-prerequisites/cloudflare-network-misc-2.png)
 
 ## SSL setup with Certbot
 
