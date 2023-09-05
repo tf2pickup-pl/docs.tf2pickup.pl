@@ -40,7 +40,7 @@ Here you can set up a whitelist by defining a whitelist name or its ID from [whi
 
 Since not all regions of the world participate in ETF2L or have a profile created there, this option allows you to:
 
-- enable/disable user validation against the [ETF2L API](https://api.etf2l.org),
+- enable/disable user validation against the [ETF2L API](https://api-v2.etf2l.org),
 - define minimum TF2 in-game time spent in order to register to the website,
 - allow/deny players with no skill assigned.
 
