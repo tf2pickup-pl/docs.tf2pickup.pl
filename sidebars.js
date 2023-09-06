@@ -17,6 +17,8 @@ module.exports = {
         'admin-responsibilities-and-powers',
         'the-most-common-tasks',
         'website-settings',
+        'player-settings',
+        'player-registration-issues',
       ],
     },
     {
