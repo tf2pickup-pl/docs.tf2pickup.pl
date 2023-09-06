@@ -6,7 +6,7 @@ Here you can find a list of the tasks admins perform on the site:
 
 ## Scramble maps
 
-You may want to scramble the maps if one of the maps is played too often. You can do so by clicking this button:
+You may want to scramble the maps if one of the maps is played too often. You can do so by clicking this button in the Admin panel:
 
 ![scramble-maps](/img/content/common-tasks/scramble-maps.png)
 
@@ -64,13 +64,13 @@ If you add up individual player values per team, you will end up with this:
 
 |  | BLU | RED |
 |:-:|:-:|:-:|
-|  | 11 | 11 |
-|  | 10 | 7 |
-|  | 7 | 13,5 |
-|  | 12 | 11 |
-|  | 15 | 12 |
-|  | 3 | 3 |
-| Result | 58 | 57,5 |
+|  | 12 | 6 |
+|  | 14,5 | 16 |
+|  | 2 | 10 |
+|  | 5 | 10 |
+|  | 10 | 11 |
+|  | 9 | 1,5 |
+| Result | 52,5 | 54,5 |
 
 This is pretty much the expected result.
 
@@ -140,7 +140,7 @@ This is what the banned user sees when banned:
 
 Revoking a ban on a player is pretty easy. All you have to do is to click `revoke` on an active ban from the ban history list of a certain user.
 
-![revoke-player-ban](/img/content/common-tasks/revoke-player-ban.png)
+![player-bans-menu](/img/content/common-tasks/player-bans-menu.png)
 
 ## Subbing out players
 
@@ -149,8 +149,6 @@ Subbing out players is currently possible **only** by the site admins.
 :::
 
 If a player for some reason cannot continue a game or they cannot join the game, you can request a player substitute, so somebody can join to a game in a place of the aformentioned player. You can do that from a game details page.
-
-![game-skill-values](/img/content/common-tasks/game-skill-values.gif)
 
 Click the `Request substitute` button next to a player nickname you want to request a sub for.
 

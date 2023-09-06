@@ -48,6 +48,10 @@ title: Site overview
 
 ![rules-page](/img/content/overview/rules-page.png)
 
+### Admin panel
+
+![admin-panel](/img/content/overview/admin-panel.png)
+
 ## Discord notifications
 
 ### Pickup gather notification
@@ -62,6 +66,4 @@ title: Site overview
 
 ### Admin discord notifications
 
-![discord-admin-notifications-1](/img/content/overview/discord-admin-notifications-1.png)
-
-![discord-admin-notifications-2](/img/content/overview/discord-admin-notifications-2.png)
+![discord-admin-notifications](/img/content/overview/discord-admin-notifications.png)

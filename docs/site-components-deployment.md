@@ -271,25 +271,25 @@ After adding the bot you should configure the channels for it. Administration no
 
 The bot should have the same permissions on a channel supposed to be a place for the pickup gather up and substitute notifications. After that, you should define the rest of the Discord Bot related variables. You should look at the following things:
 
-The Discord server name is `Suomi TF2` and the pickup public notifications channel is `tf2pickupfi-yleinen`.
+The Discord server name is `tf2pickup.eu` and the pickup public notifications channel is `#pickup-notifications`.
 
 ![tf2pickupfi-yleinen](/img/content/site-components-deployment/tf2pickupfi-yleinen.png)
 
-You should also create a role for pinging players when the substitute is needed. In this example this role is called `Mixaajat`.
+You should also create a role for pinging players when the substitute is needed. In this example this role is called `ringer`.
 
 ![sub-needed](/img/content/overview/sub-needed.png)
 
-The admin notifications channel is called `admin-ilmoitukset`.
+The admin notifications channel is called `#pickup-notifications`.
 
-![discord-admin-notifications-1](/img/content/overview/discord-admin-notifications-1.png)
+![discord-admin-notifications-1](/img/content/overview/discord-admin-notifications.png)
 
 Therefore, you should define the rest of Discord Bot variables just like shown below:
 
 ```env
-DISCORD_GUILD=Suomi TF2
-DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=tf2pickupfi-yleinen
-DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=Mixaajat
-DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=admin-ilmoitukset
+DISCORD_GUILD=tf2pickup.eu
+DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=come-play-with-us
+DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=ringer
+DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=pickup-notifications
 ```
 
 ### Setting up Twitch stream integration
