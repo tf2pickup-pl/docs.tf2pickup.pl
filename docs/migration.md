@@ -67,6 +67,4 @@ KEY_STORE_PASSPHRASE=
 
 To be compliant with the [GDPR](https://en.wikipedia.org/wiki/General_Data_Protection_Regulation) we added a new document - privacy policy. It is stored on the server and can be edited via your admin panel. It is short and contains only necessary information, so please take a look at it and **update the link to your website**, as it defaults to [tf2pickup.pl](https://tf2pickup.pl/).
 
-![privacy policy 1](/img/content/final-touches/migration-privacy-policy-1.png)
-
-![privacy policy 2](/img/content/final-touches/migration-privacy-policy-2.png)
+![edit-privacy-policy](/img/content/final-touches/edit-privacy-policy.png)

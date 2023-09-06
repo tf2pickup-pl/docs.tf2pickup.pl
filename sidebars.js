@@ -12,9 +12,9 @@ module.exports = {
     },
     {
       type: 'category',
-      label: 'For pickup admins',
+      label: 'For pickup admins and players',
       items: [
-        'responsibilities-and-powers',
+        'admin-responsibilities-and-powers',
         'the-most-common-tasks',
         'website-settings',
       ],

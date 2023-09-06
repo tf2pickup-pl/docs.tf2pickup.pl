@@ -108,7 +108,7 @@ Here is how it looks like for Highlander site:
 
 If you want to review skill values for all users on the website, go to the admin panel and choose `Player skill table`.
 
-![define-default-player-skill-values](/img/content/common-tasks/define-default-player-skill-values.png)
+![open-player-skill-table](/img/content/common-tasks/open-player-skill-table.png)
 
 You can sort all columns (containing nicknames and skill values) ascending/descending, just by clicking on the column names.
 

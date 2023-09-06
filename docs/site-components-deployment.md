@@ -13,13 +13,14 @@ In order to allow for a quick site setup, we make use of Docker containers. That
   - [Arch Linux](https://wiki.archlinux.org/title/docker#Installation),
 - prepare the following files in a separate folder, name it `tf2pickup-eu`, then place inside:
   - `.env` - stores variables needed for setting client, server, database and mumble containers up
+  - `docker-compose.yml` - contains all container settings
+  - `redis.conf` - contains Redis configuration
   - `gameserver_1.env` - stores settings for the first game server _(optional)_
   - `gameserver_2.env` - stores settings for the second game server _(optional)_
   - `gameserver_3.env` - stores settings for the second game server _(optional)_
-  - `docker-compose.yml` - contains all container settings
-  - `redis.conf` - contains Redis configuration
-  - `maps/` folder - it should contain all maps available for the game servers, `.bsp` extension,
-  - `sourcetv1`, `sourcetv2`, `sourcetv3` folders - they will contain SourceTV demos from the pickup game servers.
+  - `maps/` folder - it should contain all maps available for the game servers, `.bsp` extension _(optional)_,
+  - `sourcetv1`, `sourcetv2`, `sourcetv3` folders - they will contain SourceTV demos from the pickup game servers _(optional)_,
+  - `welcome_text.txt` - stores Message of the Day shown after joining Pickup Mumble server.
 
 Files `gameserver_{1,2,3}.env` are useful if you want to host game servers on the same host as the website. There is no `gameserver_3.env` example, but in fact the file syntax is the same, so you can basically edit values and just uncomment the part of the configuration in the `docker-compose.yml` file. In the same way, if you want to host 1 game server, just comment parts of the second game server and if you want to run game servers separately, just comment all parts of it in the aforementioned file.
 
@@ -136,9 +137,9 @@ LOG_RELAY_PORT=9871
 # You will find a bot token at https://discord.com/developers/applications
 DISCORD_BOT_TOKEN=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDX
 DISCORD_GUILD=Suomi TF2
-DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=tf2pickupfi-yleinen
-DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=Mixaajat
-DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=admin-ilmoitukset
+DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=come-play-with-us
+DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=ringer
+DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=pickup-notifications
 
 # twitch.tv integration (optional)
 # https://dev.twitch.tv/console, while setting up a new app,
@@ -171,8 +172,6 @@ MUMBLE_CONFIG_REGISTER_HOSTNAME=tf2pickup.eu
 # Specifies the "name" of your server in the public server list and specifies the name of the root channel.
 MUMBLE_CONFIG_REGISTER_NAME=tf2pickup.eu
 # Welcome message sent to clients when they connect.
-#MUMBLE_CONFIG_WELCOMETEXT=Tervetuloa <A href=\"https://tf2pickup.eu/\">tf2pickup.eu</A> mumbleen.<br>Suomi TF2 discord: <A href=\"https://discord.gg/T6PfVC3bqQ\">linkki</A><br>
-# Instead, you can put the welcome message in a file and format it properly and this variable defines it's location.
 MUMBLE_CONFIG_WELCOMETEXTFILE=/welcome_text.txt
 # Location for custom SSL certificate/key. If your certificate and key is in one file, specify MUMBLE_CONFIG_SSL_KEY only.
 # If you use certbot for getting certificates, you might need to give your service user permissions to the folder with certificates:
@@ -180,8 +179,8 @@ MUMBLE_CONFIG_WELCOMETEXTFILE=/welcome_text.txt
 # setfacl -R -m u:tf2pickup:rx,d:tf2pickup:rx /etc/letsencrypt/archive
 # IMPORTANT: this will give your service user access to ALL folders containing certificates, so if you have other certificates there you do not want to be access by the tf2pickup user
 # consider using acme.sh for obtaining SSL certificates instead
-MUMBLE_CONFIG_SSL_CERT=/etc/letsencrypt/live/tf2pickup.eu/fullchain.pem
-MUMBLE_CONFIG_SSL_KEY=/etc/letsencrypt/live/tf2pickup.eu/privkey.pem
+MUMBLE_CONFIG_SSL_CERT=/certs/fullchain.pem
+MUMBLE_CONFIG_SSL_KEY=/certs/privkey.pem
 # allows you to specify a PEM-encoded file with Diffie-Hellman parameters, 
 # which will be used as the default Diffie-Hellman parameters for all virtual servers.
 # If a file is not specified, each Murmur virtual server will auto-generate its own unique set of 2048-bit Diffie-Hellman parameters on first launch.
@@ -243,17 +242,13 @@ After that set the avatar for the application:
 
 ![discord-bot-add-flag](/img/content/discord-server-setup/discord-bot-add-flag.png)
 
-Then go to the bot section, click **Add Bot** and then **Yes, do it!** button on the notification.
-
-![discord-add-new-bot](/img/content/discord-server-setup/discord-add-new-bot.png)
-
-In the menu you can find a token, which you have to pass in the `DISCORD_BOT_TOKEN` variable. Click **Copy** and note the token in your `.env` file.
+Then go to the bot section. In the menu you can find a token, which you have to pass in the `DISCORD_BOT_TOKEN` variable. Click **Reset Token**, enter your 2FA token and click **Yes, do it!** and note the token in your `.env` file.
 
 You _should_ untick the Public Bot option, since you don't really want to let anybody invite this bot anywhere else than your Discord server(s) (even though it would be useless, as the bot sends connects to the specified discord server only).
 
 ![discord-disable-public-invite](/img/content/discord-server-setup/discord-disable-public-invite.png)
 
-Now you should head over to the OAuth2 section and create a URL allowing you to invite the bot on a server. In the **OAuth2 URL Generator** section under _Scopes_ tick `bot` option. That should create a link below. Copy and open it.
+Now you should head over to the OAuth2 section and create a URL allowing you to invite the bot on a server. In the **OAuth2 URL Generator** section under _Scopes_ tick `bot` option, then tick _Manage Expressions_ under `bot permissions` options. That should create a link below. Copy and open it.
 
 ![discord-bot-generate-invite-link](/img/content/discord-server-setup/discord-bot-generate-invite-link.png)
 
@@ -273,7 +268,7 @@ The bot should have the same permissions on a channel supposed to be a place for
 
 The Discord server name is `tf2pickup.eu` and the pickup public notifications channel is `#pickup-notifications`.
 
-![tf2pickupfi-yleinen](/img/content/site-components-deployment/tf2pickupfi-yleinen.png)
+![come-play-with-us](/img/content/site-components-deployment/come-play-with-us.png)
 
 You should also create a role for pinging players when the substitute is needed. In this example this role is called `ringer`.
 
@@ -302,11 +297,11 @@ This step is optional. Follow these steps only if you want to let people show up
 
 Setting it enables site users to integrate their tf2pickup accounts with Twitch, letting access their Twitch profiles through a Twitch link in an icon.
 
-![player-profile](/img/content/overview/player-profile.png)
+![player-profile](/img/content/common-tasks/find-profile-to-ban.png)
 
 Moreover, it will show up all Twitch streams on a left site of the main page.
 
-![tf2pickup.eu](/img/content/showcase/tf2pickup.eu.png)
+![tf2pickup-eu-with-stream](/img/content/site-components-deployment/tf2pickup.eu-with-stream.png)
 
 Go to the [Twitch Developers console](https://dev.twitch.tv/console) and register your new application by clicking **Register Your Application**:
 
@@ -316,7 +311,7 @@ Define application name as `tf2pickup.eu` with OAuth Redirect URLs as `https://a
 
 Then, you will see the application list. Find `tf2pickup.eu` and select **Manage**. You will be able to see the **Client ID**, the value used in `TWITCH_CLIENT_ID` variable. The Client Secret will be hidden, press New Secret and confirm it in the popup. The Client Secret will show up like on the screenshot below:
 
-![twitch-dev-console-tf2pickup.fi-api-settings](/img/content/site-components-deployment/twitch-dev-console-tf2pickup.fi-api-settings.png)
+![twitch-dev-console-api-settings](/img/content/site-components-deployment/twitch-dev-console-api-settings.png)
 
 Pass this secret value to the `TWITCH_CLIENT_SECRET` variable.
 
@@ -498,8 +493,8 @@ services:
     volumes:
       - mumble-data:/data
       - /etc/localtime:/etc/localtime:ro
-      - /etc/letsencrypt/live/tf2pickup.eu:/cert/live/tf2pickup.eu:ro
-      - /etc/letsencrypt/archive/tf2pickup.eu:/cert/archive/tf2pickup.eu:ro
+      - /etc/letsencrypt/live/tf2pickup.eu/fullchain.pem:/certs/fullchain.pem:ro
+      - /etc/letsencrypt/live/tf2pickup.eu/privkey.pem:/certs/privkey.pem:ro
       - ./welcome_text.txt:/welcome_text.txt:ro
     environment:
       - MUMBLE_SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
@@ -507,7 +502,6 @@ services:
       - MUMBLE_CONFIG_CHANNELNAME=${MUMBLE_CONFIG_CHANNELNAME}
       - MUMBLE_CONFIG_REGISTER_HOSTNAME=${MUMBLE_CONFIG_REGISTER_HOSTNAME}
       - MUMBLE_CONFIG_REGISTER_NAME=${MUMBLE_CONFIG_REGISTER_NAME}
-#      - MUMBLE_CONFIG_WELCOMETEXT=${MUMBLE_CONFIG_WELCOMETEXT}
       - MUMBLE_CONFIG_WELCOMETEXTFILE=${MUMBLE_CONFIG_WELCOMETEXTFILE}
       - MUMBLE_CONFIG_SSL_CERT=${MUMBLE_CONFIG_SSL_CERT}
       - MUMBLE_CONFIG_SSL_KEY=${MUMBLE_CONFIG_SSL_KEY}
@@ -590,6 +584,16 @@ volumes:
   database-data:
   redis-data:
   mumble-data:
+```
+
+### `welcome_text.txt`
+
+```html
+<html>
+<h2>Welcome on <b><a href="https://tf2pickup.eu">tf2pickup.eu</a></b> Mumble server.</h2>
+In order to be able to join and speak public channels, you must be verified by the tf2pickup.eu Staff.</br>
+You can contact them on the <b><a href="https://discord.tf2pickup.eu">tf2pickup.eu Discord</a></b> in case you need any help.
+</html>
 ```
 
 ## `docker-compose.yml` for the website only
@@ -770,6 +774,14 @@ This one is simple, all you have to do is to add `tf2pickup` user to the group c
 
 ```sh
 # gpasswd -a tf2pickup docker
+```
+
+## Refreshing Mumble SSL certificates
+
+Since Mumble is utilizing certificates being renewed by Certbot, it must refresh certificates after renewal. In that case a SIGUSR1 signal can be sent to the server, so it will not shut down completely, by adding this line to your root's crontab file:
+
+```crontab
+0 1   20 * *    docker kill --signal="SIGUSR1" tf2pickup-eu-mumble-server-1
 ```
 
 ## First site start

@@ -28,43 +28,50 @@ We encourage you to purchase domains in [OVH](https://www.ovh.com/world/domains/
 
 In order to move a domain zone from the current site to Cloudflare, you are supposed to create an account on Cloudflare and add the domain you own. After that, you will be asked to change the nameserver (NS) entries for servers given by the Cloudflare. There are always two entries given and they should replace current entries in the domain zone.
 
-In this specific case there were 4 NS entries and the domain owner had to change them to 2 NS entries, which are `annabel.ns.cloudflare.com` and `bradley.ns.cloudflare.com`:
-![DNS nameservers list in OVH settings](/img/content/setup-prerequisites/change-dns-nameservers.png).
-Those changes are applied immediately **only on current NS servers** meaning the change is going to be propagated in a time between a few minutes to even 48 hours. After propagation site owner should get an email about it and the change should look like that:
-![DNS nameservers list in OVH settings with change applied](/img/content/setup-prerequisites/change-dns-nameservers-with-change-applied.png)
 In that way all zone settings should be applicable from Cloudflare like on an image below:
 ![DNS nameservers list in OVH settings with change applied](/img/content/setup-prerequisites/dns-zone-cloudflare.png)
 
 A pickup domain should contain at least two `A` entries, but this configuration is the most recommended:
 
-| Entry type |        Name        |            Content            | Priority |
-|:----------:|:------------------:|:-----------------------------:|:--------:|
-|     `A`    |   `tf2pickup.eu`   |       host IPv4 address       |    n/d   |
-|   `AAAA`   |   `tf2pickup.eu`   |       host IPv6 address       |    n/d   |
-|     `A`    | `api.tf2pickup.eu` |       host IPv4 address       |    n/d   |
-|   `AAAA`   | `api.tf2pickup.eu` |       host IPv6 address       |    n/d   |
-|    `CAA`   | `api.tf2pickup.eu` | `0 issuewild letsencrypt.org` |    n/d   |
+| Entry type |        Name        |            Content            | Priority |        Mandatory           |
+|:----------:|:------------------:|:-----------------------------:|:--------:|:--------------------------:|
+|     `A`    |   `tf2pickup.eu`   |       host IPv4 address       |    n/d   |            YES             |
+|   `AAAA`   |   `tf2pickup.eu`   |       host IPv6 address       |    n/d   |            NO              |
+|     `A`    | `api.tf2pickup.eu` |       host IPv4 address       |    n/d   |            YES             |
+|   `AAAA`   | `api.tf2pickup.eu` |       host IPv6 address       |    n/d   |            NO              |
+|    `CAA`   | `api.tf2pickup.eu` | `0 issuewild letsencrypt.org` |    n/d   |            YES             |
 
 Usage of AAAA entries is optional. If you do not want to handle IPv6 on Docker, feel free to actually not use these. We encourage to use [CAA entry](https://support.dnsimple.com/articles/caa-record/) alongside Let's Encrypt certificates. Since most of the sites host the tf2pickup.org client, server with Mumble and the TF2 game server, we suggest not to use DNS proxying since at some point it is meaningless - it is used to hide the IP address of the host, whereas we cannot do it for the game servers, for it would add too much overhead and create latency issues.
 
+### Recommended Cloudflare settings
+
 We suggest to change the following settings in Cloudflare:
 
-### SSL/TLS -> Edge Certificates
+:::tip
+We recommend to apply HSTS settings changes **after** the site deployment in order to avoid accessibility issues when certificates are not used on the website yet
+:::
 
-![always use https](/img/content/setup-prerequisites/cloudflare-always-use-https.png)
-
-Note, we recommend to apply HSTS settings changes **after** the site deployment in order to avoid accessibility issues when certificates are not used on the website yet.
-
-![hsts settings](/img/content/setup-prerequisites/cloudflare-hsts-settings.png)
-![hsts settings details](/img/content/setup-prerequisites/cloudflare-hsts-settings-details.png)
-![tls and https](/img/content/setup-prerequisites/cloudflare-tls-and-https.png)
-![certificate transparency](/img/content/setup-prerequisites/cloudflare-certificate-transparency.png)
-
-### Network
-
-![cloudflare https settings](/img/content/setup-prerequisites/cloudflare-https-settings.png)
-![cloudflare network misc 1](/img/content/setup-prerequisites/cloudflare-network-misc-1.png)
-![cloudflare network misc 2](/img/content/setup-prerequisites/cloudflare-network-misc-2.png)
+- SSL/TLS
+  - Edge Certificates
+    - Always use HTTPS: YES
+    - HTTP Strict Transport Security (HSTS)
+      - Status: On
+      - Max-Age: 12 months
+      - Include subdomains: On
+      - Preload: On
+    - Minimum TLS Version: TLS 1.2
+    - Opportunistic Encryption: YES
+    - TLS 1.3: YES
+    - Certificate Transparency Monitoring: YES
+- Network
+  - IPv6 Compatibility: YES
+  - gRPC: NO
+  - WebSockets: YES
+  - Onion Routing: YES
+  - Pseudo IPv4: Off
+  - IP Geolocation: YES
+  - Maxmimum Upload Size: 100 MB
+  - Network Error Logging: YES
 
 ## SSL setup with Certbot
 

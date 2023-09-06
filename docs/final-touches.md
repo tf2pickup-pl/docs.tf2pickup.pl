@@ -22,9 +22,7 @@ After setting up the rules, they will show up in a popup for every user joining 
 
 Please take a look at the privacy policy document; it is accessible for the users using a link at the bottom of the webpage and can be edited via the admin panel. The only thing you need to change is the link to your website, as by default it is set to [tf2pickup.pl](https://tf2pickup.pl):
 
-![privacy policy 1](/img/content/final-touches/migration-privacy-policy-1.png)
-
-![privacy policy 2](/img/content/final-touches/migration-privacy-policy-2.png)
+![edit-privacy-policy](/img/content/final-touches/edit-privacy-policy.png)
 
 ## Player action log
 
@@ -60,6 +58,8 @@ There you can see the diagnostics status. In this case everything went smooth an
 
 ![game-server-diagnostics](/img/content/final-touches/game-server-diagnostics.png)
 
+### serveme.tf integration settings
+
 :::info
 serveme.tf servers are being used in pickup games **only** if no static game servers are assigned to the site.
 :::
@@ -71,6 +71,8 @@ Provided you have a valid serveme.tf API key set in your `.env` file, _serveme.t
 Currently the only setting you can define at this point is the preferred region of the reserved servers.
 
 ![change-serveme-preference](/img/content/final-touches/change-serveme-preference.png)
+
+You can also exclude servers from being reserved by providing keywords you want to avoid. For that, check [here](/docs/website-settings#excluding-specific-servemetf-gameservers).
 
 ## Add admins to the site, set up whitelist, maps and skills
 
