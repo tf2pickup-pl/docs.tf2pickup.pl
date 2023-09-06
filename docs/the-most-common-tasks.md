@@ -124,9 +124,13 @@ In some cases you have to ban someone from playing pickups, mostly due to breaki
 
 ![find-profile-to-ban](/img/content/common-tasks/find-profile-to-ban.png)
 
-Then, define a ban reason and the ban length. Click `add ban` after that.
+Then, define a ban reason and the ban length. You can define a ban length by the duration, end date or without due date, meaning someone is getting banned forever. Click `add ban` after that.
 
-![add-player-ban](/img/content/common-tasks/add-player-ban.png)
+![ban-player-duration](/img/content/common-tasks/ban-player-duration.png)
+
+![ban-player-enddate](/img/content/common-tasks/ban-player-enddate.png)
+
+![ban-player-forever](/img/content/common-tasks/ban-player-forever.png)
 
 In that way the player is banned. You can see the ban history of a certain user in that menu.
 
