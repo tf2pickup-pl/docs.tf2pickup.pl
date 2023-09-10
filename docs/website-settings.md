@@ -50,7 +50,7 @@ You can set up a whitelist by defining a whitelist name or its ID from [whitelis
 
 ### Join gameserver timeout
 
-That option defines after time in seconds after which the site will check if player is connected to the gameserver. If not, the player will be subbed automatically and banned with a cooldown. Default levels set are:
+This option defines time (in seconds) after which the site will check if player is connected to the gameserver. If not, the player will be subbed automatically and banned with a cooldown. Default levels set are:
 
 - Level 0: 1800000 ms (30 minutes)
 - Level 1: 21600000 ms (6 hours)
@@ -66,7 +66,7 @@ When the value is set for 0, no join gameserver timeout time is being checked.
 
 ### Rejoin gameserver timeout
 
-That option defines after time in seconds after which the site will request a substitute after player left the server during the game. When it passes and a substitute joins, the missing player gets a cooldown ban.
+This option defines time (in seconds) after which the site will request a substitute after player left the server during the game. When it passes and a substitute joins, the missing player gets a cooldown ban.
 
 When the value is set for 0, no rejoin gameserver timeout time is being checked.
 
@@ -178,9 +178,17 @@ By default, after map is being picked to a next pickup game, it is excluded for 
 
 ### Setting up ready state timeout
 
+:::warning
+Changing this variable is unsupported. Restart your backend in order to apply the change.
+:::
+
 Defines time in miliseconds (default: `60000``) default value: given for all players to click the button as an indication to be ready to play a game. Should be provided as an integer.
 
 ### Setting up ready up timeout
+
+:::warning
+Changing this variable is unsupported. Restart your backend in order to apply the change.
+:::
 
 Defines time in miliseconds (default: `40000`). After the ready up mode is canceled due to insufficient amount of people in the queue, this value defines a time during which all players who have been in the queue during last ready-up mode will be readied up automatically. Should be provided as an integer.
 
