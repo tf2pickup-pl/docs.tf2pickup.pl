@@ -44,10 +44,6 @@ title: Site showcase
 
 ![tf2pickup.ru](/img/content/showcase/tf2pickup.ru.png)
 
-### [br.tf2pickup.org](https://br.tf2pickup.org)
-
-![br.tf2pickup.org](/img/content/showcase/br.tf2pickup.org.png)
-
 ### [hl.br.tf2pickup.org](https://hl.br.tf2pickup.org)
 
 ![hl.br.tf2pickup.org](/img/content/showcase/hl.br.tf2pickup.org.png)
@@ -123,3 +119,7 @@ title: Site showcase
 ### [hl.tf2pickup.pl](https://hl.tf2pickup.pl)
 
 ![hl.tf2pickup.pl](/img/content/showcase/hl.tf2pickup.pl.png)
+
+### [br.tf2pickup.org](https://br.tf2pickup.org)
+
+![br.tf2pickup.org](/img/content/showcase/br.tf2pickup.org.png)
