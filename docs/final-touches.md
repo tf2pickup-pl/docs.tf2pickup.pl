@@ -10,21 +10,19 @@ You definitely want to define what things are allowed and what not, and because 
 We discourage you from using inline HTML formatting, since it's buggy.
 :::
 
-![edit-rules](/img/content/edit-rules.png)
+![edit-rules](/img/content/final-touches/edit-rules.png)
 
 After setting up the rules, they will show up in a popup for every user joining the site for the very first time (right with Mumble requirement notification):
 
-![edit-rules](/img/content/i-have-mumble.png)
+![edit-rules](/img/content/final-touches/i-have-mumble.png)
 
-![edit-rules](/img/content/accept-site-rules.png)
+![edit-rules](/img/content/final-touches/accept-site-rules.png)
 
 ## Reviewing the privacy policy
 
 Please take a look at the privacy policy document; it is accessible for the users using a link at the bottom of the webpage and can be edited via the admin panel. The only thing you need to change is the link to your website, as by default it is set to [tf2pickup.pl](https://tf2pickup.pl):
 
-![privacy policy 1](/img/content/migration-privacy-policy-1.png)
-
-![privacy policy 2](/img/content/migration-privacy-policy-2.png)
+![edit-privacy-policy](/img/content/final-touches/edit-privacy-policy.png)
 
 ## Player action log
 
@@ -42,7 +40,7 @@ Version 10.x comes up with player action log feature. It lets you see who access
 
 All connections to the website and gameservers are logged.
 
-![player-action-log](/img/content/player-action-log.png)
+![player-action-log](/img/content/overview/player-action-log.png)
 
 ## Adding game servers to the website
 
@@ -50,15 +48,17 @@ Pickup games require game servers on which it can be set up. In order to do that
 
 This mechanism is used since server version 8.x and the game server setup is being done automatically. After discovering newly setup game servers, they will show up on the server list, which can be accessed through Admin Panel -> Game servers:
 
-![game-servers-configuration](/img/content/game-servers-configuration.png)
+![game-servers-configuration](/img/content/final-touches/game-servers-configuration.png)
 
 If you have any static servers, they will show up on the list. You can click on any of them in order to see their address and to perform diagnostics. In order to do that, click the **Run diagnostics** button. The site will perform tests to ensure the game server works correctly.
 
-![game-server-details](/img/content/game-server-details.png)
+![game-server-details](/img/content/final-touches/game-server-details.png)
 
 There you can see the diagnostics status. In this case everything went smooth and things seem to be fine.
 
-![game-server-diagnostics](/img/content/game-server-diagnostics.png)
+![game-server-diagnostics](/img/content/final-touches/game-server-diagnostics.png)
+
+### serveme.tf integration settings
 
 :::info
 serveme.tf servers are being used in pickup games **only** if no static game servers are assigned to the site.
@@ -66,23 +66,25 @@ serveme.tf servers are being used in pickup games **only** if no static game ser
 
 Provided you have a valid serveme.tf API key set in your `.env` file, _serveme.tf integration settings_ becomes available:
 
-![configure-serveme-integration](/img/content/configure-serveme-integration.png)
+![configure-serveme-integration](/img/content/final-touches/configure-serveme-integration.png)
 
 Currently the only setting you can define at this point is the preferred region of the reserved servers.
 
-![change-serveme-preference](/img/content/change-serveme-preference.png)
+![change-serveme-preference](/img/content/final-touches/change-serveme-preference.png)
+
+You can also exclude servers from being reserved by providing keywords you want to avoid. For that, check [here](/docs/website-settings#excluding-specific-servemetf-gameservers).
 
 ## Add admins to the site, set up whitelist, maps and skills
 
 After the site start, you may want to add admins in order to make site moderation easier and faster. To do that, you have to open up the player profile, choose **roles** button and choose a right role for them:
 
-![run-diagnostics](/img/content/player-profile.png)
+![run-diagnostics](/img/content/overview/player-profile.png)
 
 - no role - default player role, no administrative access,
 - admin - lets player set up everything on the website excluding managing game servers and player roles on the site,
 - super user - unlimited administrative privileges, the user defined in the `.env` configuration has this role always assigned in.
 
-![run-diagnostics](/img/content/player-roles.png)
+![run-diagnostics](/img/content/final-touches/player-roles.png)
 
 For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist), map pool settings can be seen [there](/docs/website-settings#map-pool-settings), and [there](/docs/the-most-common-tasks#setting-up-player-skills) you can look at for the skill setup.
 
@@ -90,7 +92,7 @@ For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist
 
 These settings can be set by superusers only. There are three options to set it up:
 
-![voice-chat-settings](/img/content/voice-chat-settings.png)
+![voice-chat-settings](/img/content/final-touches/voice-chat-settings.png)
 
 - **Disabled** - disables voice connect link entirely on the pickup page,
 - **Static link** - the voice chat button redirects to the address defined in the `Static link` field,
@@ -177,22 +179,22 @@ For example, here is our list of containers:
 tf2pickup@tf2pickup:~$ docker ps -a
 CONTAINER ID   IMAGE                                         COMMAND                  CREATED        STATUS        PORTS                                                                                  NAMES
 314aa034dbaa   portainer/portainer-ce:latest                 "/portainer"             33 hours ago   Up 15 hours   0.0.0.0:8000->8000/tcp, :::8000->8000/tcp, 0.0.0.0:9000->9000/tcp, :::9000->9000/tcp   portainer
-d8885d9c1660   mongo:4.0                                     "docker-entrypoint.s…"   33 hours ago   Up 15 hours   0.0.0.0:8001->27017/tcp, :::8001->27017/tcp                                            tf2pickup-fi_mongodb_1
-213e9ca18159   ghcr.io/tf2pickup-org/tf2-gameserver:latest   "./entrypoint.sh +sv…"   2 days ago     Up 15 hours                                                                                          tf2pickup-fi_gameserver2_1
-27b4baca2ed1   ghcr.io/tf2pickup-org/tf2-gameserver:latest   "./entrypoint.sh +sv…"   2 days ago     Up 15 hours                                                                                          tf2pickup-fi_gameserver1_1
+d8885d9c1660   mongo:4.0                                     "docker-entrypoint.s…"   33 hours ago   Up 15 hours   0.0.0.0:8001->27017/tcp, :::8001->27017/tcp                                            tf2pickup-eu_mongodb_1
+213e9ca18159   ghcr.io/tf2pickup-org/tf2-gameserver:latest   "./entrypoint.sh +sv…"   2 days ago     Up 15 hours                                                                                          tf2pickup-eu_gameserver2_1
+27b4baca2ed1   ghcr.io/tf2pickup-org/tf2-gameserver:latest   "./entrypoint.sh +sv…"   2 days ago     Up 15 hours                                                                                          tf2pickup-eu_gameserver1_1
 e5ffd4447a8d   containrrr/watchtower                         "/watchtower --clean…"   2 weeks ago    Up 15 hours   8080/tcp                                                                               watchtower
 02c53d082927   ghcr.io/tf2pickup-org/server                  "docker-entrypoint.s…"   2 weeks ago    Up 15 hours                                                                                          tf2pickup
-906a368fe18d   ghcr.io/tf2pickup-org/tf2pickup.fi            "/docker-entrypoint.…"   2 weeks ago    Up 15 hours   0.0.0.0:4000->80/tcp, :::4000->80/tcp                                                  tf2pickup-fi_client_1
+906a368fe18d   ghcr.io/tf2pickup-org/tf2pickup.eu            "/docker-entrypoint.…"   2 weeks ago    Up 15 hours   0.0.0.0:4000->80/tcp, :::4000->80/tcp                                                  tf2pickup-eu_client_1
 ```
 
-For instance, let's say you want to upgrade a `tf2pickup-fi_client_1` container. This one is exposing its port TCP 80 to a host port TCP 4000 (both on IPv4 and IPv6 stacks). That means, in order to upgrade that single container, you will have to execute:
+For instance, let's say you want to upgrade a `tf2pickup-eu_client_1` container. This one is exposing its port TCP 80 to a host port TCP 4000 (both on IPv4 and IPv6 stacks). That means, in order to upgrade that single container, you will have to execute:
 
 ```bash
-docker pull ghcr.io/tf2pickup-org/tf2pickup.fi
-docker rename tf2pickup-fi_client_1 tf2pickup-fi_client_1_old
-docker stop tf2pickup-fi_client_1_old
-docker run -d -p 4000:80 --name tf2pickup-fi_client_1 --restart always --volumes-from tf2pickup-fi_client_1_old ghcr.io/tf2pickup-org/tf2pickup.fi
-docker rm tf2pickup-fi_client_1_old
+docker pull ghcr.io/tf2pickup-org/tf2pickup.eu
+docker rename tf2pickup-eu_client_1 tf2pickup-eu_client_1_old
+docker stop tf2pickup-eu_client_1_old
+docker run -d -p 4000:80 --name tf2pickup-eu_client_1 --restart always --volumes-from tf2pickup-eu_client_1_old ghcr.io/tf2pickup-org/tf2pickup.eu
+docker rm tf2pickup-eu_client_1_old
 ```
 
 #### By one-time watchtower upgrade
@@ -219,11 +221,11 @@ docker run --rm \
     -v /var/run/docker.sock:/var/run/docker.sock \
     containrrr/watchtower \
     --run-once \
-    tf2pickup-fi_gameserver1_1 \
-    tf2pickup-fi_gameserver2_1 \
-    tf2pickup-fi_mongodb_1 \
-    tf2pickup-fi-server_1 \
-    tf2pickup-fi_client_1
+    tf2pickup-eu_gameserver1_1 \
+    tf2pickup-eu_gameserver2_1 \
+    tf2pickup-eu_mongodb_1 \
+    tf2pickup-eu-server_1 \
+    tf2pickup-eu_client_1
 ```
 
 :::
@@ -308,7 +310,7 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   frontend:
-    image: ghcr.io/tf2pickup-org/tf2pickup.fi:stable
+    image: ghcr.io/tf2pickup-org/tf2pickup.eu:stable
     restart: always
     ports:
      - '4000:80'
@@ -330,13 +332,13 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   frontend:
-    image: ghcr.io/tf2pickup-org/tf2pickup.fi:3.19.4
+    image: ghcr.io/tf2pickup-org/tf2pickup.eu:3.19.4
     restart: always
     ports:
      - '4000:80'
 ```
 
-After that, you must restart all containers. You can do this by executing the following commands while being in a `tf2pickup-fi` folder containing both the `.env` and `docker-compose.yml` file:
+After that, you must restart all containers. You can do this by executing the following commands while being in a `tf2pickup-eu` folder containing both the `.env` and `docker-compose.yml` file:
 
 ```bash
 docker compose up -d
@@ -371,8 +373,8 @@ TODAY=`date +"%d%b%Y"`
 ################## Update below values  ########################
 
 export LC_ALL=C
-DB_BACKUP_PATH='/home/tf2pickup/tf2pickup-fi/backup' ## Make sure you create this folder before script execution
-MONGODB_CONTAINER_NAME='tf2pickup-fi_mongodb_1' # MongoDB container name in the tf2pickup stack
+DB_BACKUP_PATH='/home/tf2pickup/tf2pickup-eu/backup' ## Make sure you create this folder before script execution
+MONGODB_CONTAINER_NAME='tf2pickup-eu_mongodb_1' # MongoDB container name in the tf2pickup stack
 MONGODB_DATABASE='tf2pickup' # MongoDB database name passed in the .env file
 MONGODB_USERNAME='tf2pickup' # MongoDB username passed in the .env file
 MONGODB_PASSWORD='yoursuperfunnypassword' # MongoDB password passed in the .env file
@@ -406,7 +408,7 @@ find ${DB_BACKUP_PATH} -daystart -mtime +${BACKUP_RETAIN_DAYS} -delete
 These backups are done by a `tf2pickup` user, the same on which the config files and the backup folder is owned by. Make sure the `tf2pickup` is in the `docker` group, so it could execute commands against docker. Don't forget to add execution permission for the script by using `chmod o+x pickup-backup.sh` assuming `pickup-backup.sh` is a script filename. Then, you can also add a cronjob for the `tf2pickup` user by executing `crontab -e` as this user and adding a line with absolute path to the script:
 
 ```cron
-0  3   * * *   bash /home/tf2pickup/tf2pickup.fi/pickup-backup.sh
+0  3   * * *   bash /home/tf2pickup/tf2pickup.eu/pickup-backup.sh
 ```
 
 This will let the script execute everyday at 3:00 AM as the user `tf2pickup`.
@@ -416,7 +418,7 @@ Lastly, you have to replicate those backups on external storage. You can do it m
 If you have a local Linux host and you are able to set up a cronjob, you can use this command as the command syncing files from remote folder to your local one (assuming location `/home/mylocaluser/tf2pickup-backups` exist):
 
 ```bash
-rsync -a -e "ssh -p 22" "tf2pickup@tf2pickup.fi:/home/tf2pickup/tf2pickup-fi/backup/" "/home/mylocaluser/tf2pickup-backups" --info=progress2
+rsync -a -e "ssh -p 22" "tf2pickup@tf2pickup.eu:/home/tf2pickup/tf2pickup-eu/backup/" "/home/mylocaluser/tf2pickup-backups" --info=progress2
 ```
 
 This is probably the easiest way to replicate backups and it's called rsync over SSH.
@@ -426,7 +428,7 @@ This is probably the easiest way to replicate backups and it's called rsync over
 In order to restore backups, you have to choose the dump you would like to restore. Let's assume the filename of the backup archive is `tf2pickup-2023-05-01.dump.gz`. In that case you need to execute:
 
 ```bash
-docker exec tf2pickup-fi_mongodb_1 '/bin/bash' -c \
+docker exec tf2pickup-eu_mongodb_1 '/bin/bash' -c \
     "mongorestore \
     -u tf2pickup \
     -p yoursuperfunnypassword \
@@ -594,4 +596,4 @@ Since most of the setups are based on Linux installations, their hosts can be co
 ## HSTS Preload
 
 In order to get the highest score in the site configuration tests, HSTS Preload should be configured for the domain. The Nginx configuration files meet the requirements for it and most of the browsers add the domains to their preload list automatically, but this is not the case for Chromium-based browsers, such as Google Chrome. For them, you are supposed to [register the site](https://hstspreload.org). The process is straightforward - you just have to enter the domain name, check boxes approving your domain ownership and accepting the service terms. After doing so, the website will check if your domain is eligible for the submission on the list and if yes, your domain will be added in a matter of a few days.
-![hsts preload example](/img/content/hsts-preload.png)
+![hsts preload example](/img/content/final-touches/hsts-preload.png)

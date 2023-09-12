@@ -2,31 +2,32 @@
 title: Site components deployment
 ---
 
-In order to allow for a quick site setup, we make use of Docker containers. That lets us set up the website (client and server with its database), gameservers and optionally a Mumble server. In order to start looking into deploying your own tf2pickup.org instance, you have to have all files specified below. Examples are based on [tf2pickup.fi](https://tf2pickup.fi) website, domain and their Discord server.
+In order to allow for a quick site setup, we make use of Docker containers. That lets us set up the website (client and server with its database), gameservers and optionally a Mumble server. In order to start looking into deploying your own tf2pickup.org instance, you have to have all files specified below. Examples are based on [tf2pickup.eu](https://tf2pickup.eu) website, domain and their Discord server.
 
 ## Prerequisites
 
 - have everything mentioned in the [reverse proxy deployment](/docs/setup-prerequisites) set up,
 - have modern Docker and docker-compose version installed in your system, for docker-compose [use this guide](https://docs.docker.com/compose/install/) and for Docker feel free to use guides for:
   - [Ubuntu 22.04](https://docs.docker.com/engine/install/ubuntu/),
-  - [Debian 11](https://docs.docker.com/engine/install/debian/),
+  - [Debian 12](https://docs.docker.com/engine/install/debian/),
   - [Arch Linux](https://wiki.archlinux.org/title/docker#Installation),
-- prepare the following files in a separate folder, name it `tf2pickup-fi`, then place inside:
+- prepare the following files in a separate folder, name it `tf2pickup-eu`, then place inside:
   - `.env` - stores variables needed for setting client, server, database and mumble containers up
+  - `docker-compose.yml` - contains all container settings
+  - `redis.conf` - contains Redis configuration
   - `gameserver_1.env` - stores settings for the first game server _(optional)_
   - `gameserver_2.env` - stores settings for the second game server _(optional)_
   - `gameserver_3.env` - stores settings for the second game server _(optional)_
-  - `docker-compose.yml` - contains all container settings
-  - `redis.conf` - contains Redis configuration
-  - `maps/` folder - it should contain all maps available for the game servers, `.bsp` extension,
-  - `sourcetv1`, `sourcetv2`, `sourcetv3` folders - they will contain SourceTV demos from the pickup game servers.
+  - `maps/` folder - it should contain all maps available for the game servers, `.bsp` extension _(optional)_,
+  - `sourcetv1`, `sourcetv2`, `sourcetv3` folders - they will contain SourceTV demos from the pickup game servers _(optional)_,
+  - `welcome_text.txt` - stores Message of the Day shown after joining Pickup Mumble server.
 
 Files `gameserver_{1,2,3}.env` are useful if you want to host game servers on the same host as the website. There is no `gameserver_3.env` example, but in fact the file syntax is the same, so you can basically edit values and just uncomment the part of the configuration in the `docker-compose.yml` file. In the same way, if you want to host 1 game server, just comment parts of the second game server and if you want to run game servers separately, just comment all parts of it in the aforementioned file.
 
 The same rule goes for the Mumble server - if you want to run it outside Docker, aka use a local system installation, just don't provide needed configs for it and comment the part of the `docker-compose.yml` file for it.
 
 ```sh
-root@tf2pickup:~# ls /home/tf2pickup/tf2pickup-fi/maps/ -al
+root@tf2pickup:~# ls /home/tf2pickup/tf2pickup-eu/maps/ -al
 total 1259216
 drwxr-xr-x 2 tf2pickup tf2pickup      4096 Jun  8 22:35 .
 drwxrwxr-x 4 tf2pickup tf2pickup      4096 Jun  9 21:09 ..
@@ -72,16 +73,16 @@ Then, these are the templates for the aforementioned files:
 
 # Timezone of the server
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-TZ=Europe/Helsinki
+TZ=Europe/Warsaw
 
 # The name of the website
-WEBSITE_NAME=tf2pickup.fi
+WEBSITE_NAME=tf2pickup.eu
 
 # An URL to where this server instance will be accessed
-API_URL=https://api.tf2pickup.fi
+API_URL=https://api.tf2pickup.eu
 
 # An URL to where the client is hosted
-CLIENT_URL=https://tf2pickup.fi
+CLIENT_URL=https://tf2pickup.eu
 
 # The bot name
 BOT_NAME=${WEBSITE_NAME}
@@ -95,11 +96,11 @@ MONGODB_DATABASE=tf2pickup
 MONGODB_PASSWORD=yoursuperfunnypassword
 # MONGODB_URI syntax:
 # mongodb://username:password@hostname/database-name
-MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-fi-mongo/tf2pickup
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-eu-mongo/tf2pickup
 
 # Redis URL
 REDIS_PASSWORD=yoursuperfunnyredispassword
-REDIS_URL=redis://:yoursuperfunnyredispassword@tf2pickup-fi-redis:6379
+REDIS_URL=redis://:yoursuperfunnyredispassword@tf2pickup-eu-redis:6379
 
 # logs.tf API key
 # Obtain yours here: https://logs.tf/uploader
@@ -129,20 +130,20 @@ QUEUE_CONFIG=6v6
 # The log relay uses one UDP port to receive logs from the TF2 game servers. These are used
 # to determine when the match starts, ends, when users connect, etc.
 # It should be the same address as API_URL, but without the https schema.
-LOG_RELAY_ADDRESS=api.tf2pickup.fi
+LOG_RELAY_ADDRESS=api.tf2pickup.eu
 LOG_RELAY_PORT=9871
 
 # Discord (optional)
 # You will find a bot token at https://discord.com/developers/applications
 DISCORD_BOT_TOKEN=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDX
 DISCORD_GUILD=Suomi TF2
-DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=tf2pickupfi-yleinen
-DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=Mixaajat
-DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=admin-ilmoitukset
+DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=come-play-with-us
+DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=ringer
+DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=pickup-notifications
 
 # twitch.tv integration (optional)
 # https://dev.twitch.tv/console, while setting up a new app,
-# use OAuth Redirect URL: https://api.tf2pickup.fi/twitch/auth/return
+# use OAuth Redirect URL: https://api.tf2pickup.eu/twitch/auth/return
 TWITCH_CLIENT_ID=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 TWITCH_CLIENT_SECRET=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
 
@@ -167,12 +168,10 @@ MUMBLE_CONFIG_CHANNELNAME=[ \\-=\\w\\#\\[\\]\\{\\}\\(\\)\\@\\|]+
 # This setting is the DNS hostname where your server can be reached.
 # It only needs to be set if you want your server to be addressed in the server list by its hostname instead of by IP,
 # but if it's set it must resolve on the internet or registration will fail.
-MUMBLE_CONFIG_REGISTER_HOSTNAME=tf2pickup.fi
+MUMBLE_CONFIG_REGISTER_HOSTNAME=tf2pickup.eu
 # Specifies the "name" of your server in the public server list and specifies the name of the root channel.
-MUMBLE_CONFIG_REGISTER_NAME=tf2pickup.fi
+MUMBLE_CONFIG_REGISTER_NAME=tf2pickup.eu
 # Welcome message sent to clients when they connect.
-#MUMBLE_CONFIG_WELCOMETEXT=Tervetuloa <A href=\"https://tf2pickup.fi/\">tf2pickup.fi</A> mumbleen.<br>Suomi TF2 discord: <A href=\"https://discord.gg/T6PfVC3bqQ\">linkki</A><br>
-# Instead, you can put the welcome message in a file and format it properly and this variable defines it's location.
 MUMBLE_CONFIG_WELCOMETEXTFILE=/welcome_text.txt
 # Location for custom SSL certificate/key. If your certificate and key is in one file, specify MUMBLE_CONFIG_SSL_KEY only.
 # If you use certbot for getting certificates, you might need to give your service user permissions to the folder with certificates:
@@ -180,8 +179,8 @@ MUMBLE_CONFIG_WELCOMETEXTFILE=/welcome_text.txt
 # setfacl -R -m u:tf2pickup:rx,d:tf2pickup:rx /etc/letsencrypt/archive
 # IMPORTANT: this will give your service user access to ALL folders containing certificates, so if you have other certificates there you do not want to be access by the tf2pickup user
 # consider using acme.sh for obtaining SSL certificates instead
-MUMBLE_CONFIG_SSL_CERT=/etc/letsencrypt/live/tf2pickup.fi/fullchain.pem
-MUMBLE_CONFIG_SSL_KEY=/etc/letsencrypt/live/tf2pickup.fi/privkey.pem
+MUMBLE_CONFIG_SSL_CERT=/certs/fullchain.pem
+MUMBLE_CONFIG_SSL_KEY=/certs/privkey.pem
 # allows you to specify a PEM-encoded file with Diffie-Hellman parameters, 
 # which will be used as the default Diffie-Hellman parameters for all virtual servers.
 # If a file is not specified, each Murmur virtual server will auto-generate its own unique set of 2048-bit Diffie-Hellman parameters on first launch.
@@ -202,13 +201,13 @@ MUMBLE_CONFIG_IMAGEMESSAGELENGTH=0
 
 ### Setting up Steam API key
 
-This is probably the easiest API key to get from all tasks here - open [Steam Web API Key site](https://steamcommunity.com/dev/apikey), enter `tf2pickup.fi` in the **Domain Name** field, agree for _Steam Web API Terms of Use_ and click **Register**.
+This is probably the easiest API key to get from all tasks here - open [Steam Web API Key site](https://steamcommunity.com/dev/apikey), enter `tf2pickup.eu` in the **Domain Name** field, agree for _Steam Web API Terms of Use_ and click **Register**.
 
-![steam-api-key-register](/img/content/steam-api-key-register.png)
+![steam-api-key-register](/img/content/site-components-deployment/steam-api-key-register.png)
 
 Then, copy and pass **Key** value to a `STEAM_API_KEY` variable.
 
-![steam-api-key-registered](/img/content/steam-api-key-registered.png)
+![steam-api-key-registered](/img/content/site-components-deployment/steam-api-key-registered.png)
 
 ### Setting up Discord bot with channels
 
@@ -233,33 +232,29 @@ Discord integration enables:
   - tf2pickup server starts.
 
 In order to create a bot, you have to enter the [Discord Developer Portal](https://discord.com/developers/applications) in the Applications section. Then, click **New Application**.
-![discord-create-new-application](/img/content/discord-create-new-application.png)
+![discord-create-new-application](/img/content/discord-server-setup/discord-create-new-application.png)
 
 Add a name for the bot and click **Create**.
 
-![discord-name-new-application](/img/content/discord-name-new-application.png)
+![discord-name-new-application](/img/content/discord-server-setup/discord-name-new-application.png)
 
 After that set the avatar for the application:
 
-![discord-bot-add-flag](/img/content/discord-bot-add-flag.png)
+![discord-bot-add-flag](/img/content/discord-server-setup/discord-bot-add-flag.png)
 
-Then go to the bot section, click **Add Bot** and then **Yes, do it!** button on the notification.
-
-![discord-add-new-bot](/img/content/discord-add-new-bot.png)
-
-In the menu you can find a token, which you have to pass in the `DISCORD_BOT_TOKEN` variable. Click **Copy** and note the token in your `.env` file.
+Then go to the bot section. In the menu you can find a token, which you have to pass in the `DISCORD_BOT_TOKEN` variable. Click **Reset Token**, enter your 2FA token and click **Yes, do it!** and note the token in your `.env` file.
 
 You _should_ untick the Public Bot option, since you don't really want to let anybody invite this bot anywhere else than your Discord server(s) (even though it would be useless, as the bot sends connects to the specified discord server only).
 
-![discord-disable-public-invite](/img/content/discord-disable-public-invite.png)
+![discord-disable-public-invite](/img/content/discord-server-setup/discord-disable-public-invite.png)
 
-Now you should head over to the OAuth2 section and create a URL allowing you to invite the bot on a server. In the **OAuth2 URL Generator** section under _Scopes_ tick `bot` option. That should create a link below. Copy and open it.
+Now you should head over to the OAuth2 section and create a URL allowing you to invite the bot on a server. In the **OAuth2 URL Generator** section under _Scopes_ tick `bot` option, then tick _Manage Expressions_ under `bot permissions` options. That should create a link below. Copy and open it.
 
-![discord-bot-generate-invite-link](/img/content/discord-bot-generate-invite-link.png)
+![discord-bot-generate-invite-link](/img/content/discord-server-setup/discord-bot-generate-invite-link.png)
 
 There you should choose the server on which your community is. You have to have `Manage Server` permissions in order to add the bot on it. Choose the server you want from the dropdown list and click **Authorize**.
 
-![discord-invite-bot](/img/content/discord-invite-bot.png)
+![discord-invite-bot](/img/content/discord-server-setup/discord-invite-bot.png)
 
 After adding the bot you should configure the channels for it. Administration notifications should be sent on a channel available only for the site staff. We suggest to set permissions in a way where the staff have `View Channel` and `Read Message History` permissions and the bot has the following ones:
 
@@ -271,25 +266,25 @@ After adding the bot you should configure the channels for it. Administration no
 
 The bot should have the same permissions on a channel supposed to be a place for the pickup gather up and substitute notifications. After that, you should define the rest of the Discord Bot related variables. You should look at the following things:
 
-The Discord server name is `Suomi TF2` and the pickup public notifications channel is `tf2pickupfi-yleinen`.
+The Discord server name is `tf2pickup.eu` and the pickup public notifications channel is `#pickup-notifications`.
 
-![tf2pickupfi-yleinen](/img/content/tf2pickupfi-yleinen.png)
+![come-play-with-us](/img/content/site-components-deployment/come-play-with-us.png)
 
-You should also create a role for pinging players when the substitute is needed. In this example this role is called `Mixaajat`.
+You should also create a role for pinging players when the substitute is needed. In this example this role is called `ringer`.
 
-![sub-needed](/img/content/sub-needed.png)
+![sub-needed](/img/content/overview/sub-needed.png)
 
-The admin notifications channel is called `admin-ilmoitukset`.
+The admin notifications channel is called `#pickup-notifications`.
 
-![discord-admin-notifications-1](/img/content/discord-admin-notifications-1.png)
+![discord-admin-notifications-1](/img/content/overview/discord-admin-notifications.png)
 
 Therefore, you should define the rest of Discord Bot variables just like shown below:
 
 ```env
-DISCORD_GUILD=Suomi TF2
-DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=tf2pickupfi-yleinen
-DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=Mixaajat
-DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=admin-ilmoitukset
+DISCORD_GUILD=tf2pickup.eu
+DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=come-play-with-us
+DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=ringer
+DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=pickup-notifications
 ```
 
 ### Setting up Twitch stream integration
@@ -302,21 +297,21 @@ This step is optional. Follow these steps only if you want to let people show up
 
 Setting it enables site users to integrate their tf2pickup accounts with Twitch, letting access their Twitch profiles through a Twitch link in an icon.
 
-![player-profile](/img/content/player-profile.png)
+![player-profile](/img/content/common-tasks/find-profile-to-ban.png)
 
 Moreover, it will show up all Twitch streams on a left site of the main page.
 
-![tf2pickup.fi](/img/content/tf2pickup.fi.png)
+![tf2pickup-eu-with-stream](/img/content/site-components-deployment/tf2pickup.eu-with-stream.png)
 
 Go to the [Twitch Developers console](https://dev.twitch.tv/console) and register your new application by clicking **Register Your Application**:
 
-![twitch-dev-console-register-your-application](/img/content/twitch-dev-console-register-your-application.png)
+![twitch-dev-console-register-your-application](/img/content/site-components-deployment/twitch-dev-console-register-your-application.png)
 
-Define application name as `tf2pickup.fi` with OAuth Redirect URLs as `https://api.tf2pickup.fi/twitch/auth/return`. Choose any category - the best one for that purpose would be `Website Integration`. After defining that verify that you are not a bot and save.
+Define application name as `tf2pickup.eu` with OAuth Redirect URLs as `https://api.tf2pickup.eu/twitch/auth/return`. Choose any category - the best one for that purpose would be `Website Integration`. After defining that verify that you are not a bot and save.
 
-Then, you will see the application list. Find `tf2pickup.fi` and select **Manage**. You will be able to see the **Client ID**, the value used in `TWITCH_CLIENT_ID` variable. The Client Secret will be hidden, press New Secret and confirm it in the popup. The Client Secret will show up like on the screenshot below:
+Then, you will see the application list. Find `tf2pickup.eu` and select **Manage**. You will be able to see the **Client ID**, the value used in `TWITCH_CLIENT_ID` variable. The Client Secret will be hidden, press New Secret and confirm it in the popup. The Client Secret will show up like on the screenshot below:
 
-![twitch-dev-console-tf2pickup.fi-api-settings](/img/content/twitch-dev-console-tf2pickup.fi-api-settings.png)
+![twitch-dev-console-api-settings](/img/content/site-components-deployment/twitch-dev-console-api-settings.png)
 
 Pass this secret value to the `TWITCH_CLIENT_SECRET` variable.
 
@@ -329,13 +324,13 @@ In order for the bot to work, you need to give him proper rights to do create, e
 First, set up your Mumble server connection details [using the admin panel](final-touches#set-up-voice-chat-settings).
 After you save the settings, the bot will login and join the selected channel.
 
-![mumble-bot-joins-server](/img/content/mumble-bot-joins-server.png)
+![mumble-bot-joins-server](/img/content/site-components-deployment/mumble-bot-joins-server.png)
 
 To grant him proper privileges, first you need to register the bot. Having done that, edit channel, then select tab named _ACL_, click _Add_ and type bot's username in the lower field.
 Next make sure both _Applies to sub-channels_ and _Applies to this channel_ checkboxes are selected and on the right-hand side of the window click _Allow_ checkbox next to the _Write ACL_ label.
 The channel edit window should look like this:
 
-![mumble-edit-channel-window](/img/content/mumble-channel-edit-window.png)
+![mumble-edit-channel-window](/img/content/site-components-deployment/mumble-channel-edit-window.png)
 
 Press _OK_ to save the changes. The bot is supposed to create channels automatically when a game starts on the website. It will create BLU/RED subchannels in it as well. At the end of the game it will link BLU and RED channels, so both teams can communicate. The bot removes leftover channels after a game ends, provided they are empty of users.
 
@@ -350,14 +345,14 @@ STEAM_PORT=27018
 STV_PORT=27020
 
 RCON_PASSWORD=funny_rcon_password
-SERVER_HOSTNAME="tf2pickup.fi #1"
+SERVER_HOSTNAME="tf2pickup.eu #1"
 SERVER_PASSWORD=some_random_password
-STV_NAME=tf2pickup.fi TV
-STV_TITLE=tf2pickup.fi Source TV
+STV_NAME=tf2pickup.eu TV
+STV_TITLE=tf2pickup.eu Source TV
 
 # Website API address, must match API_URL from .env file
 # Can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
-TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.eu
 
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
 # Can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
@@ -393,14 +388,14 @@ STEAM_PORT=27028
 STV_PORT=27030
 
 RCON_PASSWORD=funny_rcon_password
-SERVER_HOSTNAME="tf2pickup.fi #2"
+SERVER_HOSTNAME="tf2pickup.eu #2"
 SERVER_PASSWORD=some_random_password
-STV_NAME=tf2pickup.fi TV
-STV_TITLE=tf2pickup.fi Source TV
+STV_NAME=tf2pickup.eu TV
+STV_TITLE=tf2pickup.eu Source TV
 
 # Website API address, must match API_URL from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
-TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.eu
 
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
@@ -431,14 +426,14 @@ STEAM_PORT=27038
 STV_PORT=27040
 
 RCON_PASSWORD=funny_rcon_password
-SERVER_HOSTNAME="tf2pickup.fi #3"
+SERVER_HOSTNAME="tf2pickup.eu #3"
 SERVER_PASSWORD=some_random_password
-STV_NAME=tf2pickup.fi TV
-STV_TITLE=tf2pickup.fi Source TV
+STV_NAME=tf2pickup.eu TV
+STV_TITLE=tf2pickup.eu Source TV
 
 # Website API address, must match API_URL from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_api_address
-TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.fi
+TF2PICKUPORG_API_ADDRESS=https://api.tf2pickup.eu
 
 # Secret value used in order to connect to the API, must match GAME_SERVER_SECRET from .env file
 # can be set in a server.cfg manually by a variable sm_tf2pickuporg_secret
@@ -484,7 +479,7 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   frontend:
-    image: ghcr.io/tf2pickup-org/tf2pickup.fi:stable
+    image: ghcr.io/tf2pickup-org/tf2pickup.eu:stable
     restart: always
     ports:
      - '4000:80'
@@ -498,8 +493,8 @@ services:
     volumes:
       - mumble-data:/data
       - /etc/localtime:/etc/localtime:ro
-      - /etc/letsencrypt/live/tf2pickup.fi:/cert/live/tf2pickup.fi:ro
-      - /etc/letsencrypt/archive/tf2pickup.fi:/cert/archive/tf2pickup.fi:ro
+      - /etc/letsencrypt/live/tf2pickup.eu/fullchain.pem:/certs/fullchain.pem:ro
+      - /etc/letsencrypt/live/tf2pickup.eu/privkey.pem:/certs/privkey.pem:ro
       - ./welcome_text.txt:/welcome_text.txt:ro
     environment:
       - MUMBLE_SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
@@ -507,7 +502,6 @@ services:
       - MUMBLE_CONFIG_CHANNELNAME=${MUMBLE_CONFIG_CHANNELNAME}
       - MUMBLE_CONFIG_REGISTER_HOSTNAME=${MUMBLE_CONFIG_REGISTER_HOSTNAME}
       - MUMBLE_CONFIG_REGISTER_NAME=${MUMBLE_CONFIG_REGISTER_NAME}
-#      - MUMBLE_CONFIG_WELCOMETEXT=${MUMBLE_CONFIG_WELCOMETEXT}
       - MUMBLE_CONFIG_WELCOMETEXTFILE=${MUMBLE_CONFIG_WELCOMETEXTFILE}
       - MUMBLE_CONFIG_SSL_CERT=${MUMBLE_CONFIG_SSL_CERT}
       - MUMBLE_CONFIG_SSL_KEY=${MUMBLE_CONFIG_SSL_KEY}
@@ -536,7 +530,7 @@ services:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-mongo
+    hostname: tf2pickup-eu-mongo
 
   redis:
     image: rapidfort/redis:7.0
@@ -548,7 +542,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-redis
+    hostname: tf2pickup-eu-redis
 
   gameserver1:
     image: ghcr.io/tf2pickup-org/tf2-gameserver:latest
@@ -592,6 +586,16 @@ volumes:
   mumble-data:
 ```
 
+### `welcome_text.txt`
+
+```html
+<html>
+<h2>Welcome to <b><a href="https://tf2pickup.eu">tf2pickup.eu</a></b> Mumble server.</h2>
+In order to be able to join and speak public channels, you must be verified by the tf2pickup.eu Staff.</br>
+You can contact them on the <b><a href="https://discord.tf2pickup.eu">tf2pickup.eu Discord</a></b> in case you need any help.
+</html>
+```
+
 ## `docker-compose.yml` for the website only
 
 ```docker
@@ -611,7 +615,7 @@ services:
     - './.env:/tf2pickup.pl/.env'
 
   frontend:
-    image: ghcr.io/tf2pickup-org/tf2pickup.fi:stable
+    image: ghcr.io/tf2pickup-org/tf2pickup.eu:stable
     restart: always
     ports:
      - '4000:80'
@@ -631,7 +635,7 @@ services:
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-mongo
+    hostname: tf2pickup-eu-mongo
 
   redis:
     image: rapidfort/redis:7.0
@@ -643,7 +647,7 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-redis
+    hostname: tf2pickup-eu-redis
 
 volumes:
   database-data:
@@ -772,6 +776,14 @@ This one is simple, all you have to do is to add `tf2pickup` user to the group c
 # gpasswd -a tf2pickup docker
 ```
 
+## Refreshing Mumble SSL certificates
+
+Since Mumble is utilizing certificates being renewed by Certbot, it must refresh certificates after renewal. In that case a SIGUSR1 signal can be sent to the server, so it will not shut down completely, by adding this line to your root's crontab file:
+
+```crontab
+0 1   20 * *    docker kill --signal="SIGUSR1" tf2pickup-eu-mumble-server-1
+```
+
 ## First site start
 
 Since [RapidFort](https://hub.docker.com/u/rapidfort) images are based on [Bitnami](https://hub.docker.com/u/bitnami) images, they do not use root user (UID 0) in order to control the service within the container. These services are supposed to run as a user with UID 1001 (you can overwrite the ID in `docker-compose.yml`), so in order to let service work you must set a right permissions for their respective data folders and `redis.conf` configuration file.
@@ -793,7 +805,7 @@ When you have all the configuration files mentioned above ready to go, change `d
       - MONGODB_PASSWORD=${MONGODB_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-mongo
+    hostname: tf2pickup-eu-mongo
 
   redis:
     command: sleep infinity
@@ -806,14 +818,14 @@ When you have all the configuration files mentioned above ready to go, change `d
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-fi-redis
+    hostname: tf2pickup-eu-redis
 ```
 
 The difference is within a parameter `command`. After that, start them two with `docker compose up -d mongodb redis`. Then change the permissions:
 
 ```sh
-docker exec -i -u 0 tf2pickup-fi_mongo_1 chown -R 1001:1001 /bitnami/mongodb
-docker exec -i -u 0 tf2pickup-fi_client_1 chown -R 1001:1001 /bitnami/redis/data
+docker exec -i -u 0 tf2pickup-eu_mongo_1 chown -R 1001:1001 /bitnami/mongodb
+docker exec -i -u 0 tf2pickup-eu_client_1 chown -R 1001:1001 /bitnami/redis/data
 ```
 
 Then, set 1001:1001 permissions for `redis.conf` file:

@@ -66,7 +66,7 @@ The second options is more likely a problem. Since v10 the backend is supposed t
 Add lines the following lines to your `.env` file with proper values:
 
 ```env
-WEBSITE_NAME=tf2pickup.fi
+WEBSITE_NAME=tf2pickup.eu
 LOGS_TF_API_KEY=your_logs_tf_api_key
 ```
 
@@ -88,8 +88,8 @@ To fix this, update `STEAM_API_KEY` property in `.env` file and restart your bac
 This problem can be seen in the logs as:
 
 ```logs
-[Nest] 1  - 10/14/2021, 8:45:36 AM   ERROR [ExceptionHandler] No scheme found in URI tf2pickup:yourepicmongodbpassword@tf2pickup-fi-mongo:27017/admin
-Error: No scheme found in URI tf2pickup:yourepicmongodbpassword@tf2pickup-fi-mongo:27017/admin
+[Nest] 1  - 10/14/2021, 8:45:36 AM   ERROR [ExceptionHandler] No scheme found in URI tf2pickup:yourepicmongodbpassword@tf2pickup-eu-mongo:27017/admin
+Error: No scheme found in URI tf2pickup:yourepicmongodbpassword@tf2pickup-eu-mongo:27017/admin
     at MongodbUriParser.parse (/tf2pickup.pl/node_modules/mongodb-uri/mongodb-uri.js:46:15)
     at MongodbUriParser.formatMongoose (/tf2pickup.pl/node_modules/mongodb-uri/mongodb-uri.js:199:22)
     at InstanceWrapper.useFactory [as metatype] (/tf2pickup.pl/dist/src/app.module.js:52:40)
@@ -111,13 +111,13 @@ Error: No scheme found in URI tf2pickup:yourepicmongodbpassword@tf2pickup-fi-mon
 This one is quite simple - your `MONGODB_URI` entry does not have a protocol prefix (a.k.a `mongodb://`). Add it in `.env`, so it does not look like this:
 
 ```.env
-MONGODB_URI=tf2pickup:yourepicmongodbpassword@tf2pickup-fi-mongo:27017/admin
+MONGODB_URI=tf2pickup:yourepicmongodbpassword@tf2pickup-eu-mongo:27017/admin
 ```
 
 but this:
 
 ```env
-MONGODB_URI=mongodb://tf2pickup:yourepicmongodbpassword@tf2pickup-fi-mongo:27017/admin
+MONGODB_URI=mongodb://tf2pickup:yourepicmongodbpassword@tf2pickup-eu-mongo:27017/admin
 ```
 
 ## User cannot register
@@ -173,7 +173,7 @@ Not supported, if you mess up your database and you do not backup your databases
 At the moment of writing, there is no player removal feature within the website. You cannot remove users having any games played.
 :::
 
-You can refer to players through `ObjectId` or `steamId` (SteamID64). You can find `ObjectId` easily in the player's profile address, where in `https://tf2pickup.fi/player/60a43acac650d80014216283` `60a43acac650d80014216283` is the value you are looking for. For this profile `76561198011558250` is the right `steamId`.
+You can refer to players through `ObjectId` or `steamId` (SteamID64). You can find `ObjectId` easily in the player's profile address, where in `https://tf2pickup.eu/player/64f12b3274b096bba070acb8` `64f12b3274b096bba070acb8` is the value you are looking for. For this profile `76561198011558250` is the right `steamId`.
 
 ```query
 db.players.deleteOne({ _id: ObjectId("6139fc04d086910013755593") })
@@ -217,17 +217,17 @@ Initially we were suggesting to connect to the `admin` database in MongoDB in or
 
 ```env
 MONGODB_DATABASE=tf2pickup
-MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-fi-mongo/tf2pickup
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-eu-mongo/tf2pickup
 ```
 
 - ensure you have a database backup with current data,
 - shut down the website by running `docker compose down`,
-- remove your data volume if it was not done in the previous step by running `docker volume rm tf2pickup-fi_mongodb_1_database-data` (you can find your volume name by running `docker volume ls`),
+- remove your data volume if it was not done in the previous step by running `docker volume rm tf2pickup-eu_mongodb_1_database-data` (you can find your volume name by running `docker volume ls`),
 - start your stack only with `mongodb` service in order to restore the data from backup by running `docker compose up -d mongodb`,
 - assuming your backup name is called `tf2pickup-2023-05-01.dump.gz` and it's in your compose folder, run the following command:
 
 ```sh
-docker exec -i tf2pickup-fi_mongodb_1 bash -c "mongorestore --drop -vvvvv --nsFrom "admin.*" --nsTo "tf2pickup.*" --archive -u tf2pickup -p yoursuperfunnypassword --authenticationDatabase tf2pickup --nsExclude admin.system.version --nsExclude admin.system.users --gzip" < tf2pickup-2023-05-01.dump.gz
+docker exec -i tf2pickup-eu_mongodb_1 bash -c "mongorestore --drop -vvvvv --nsFrom "admin.*" --nsTo "tf2pickup.*" --archive -u tf2pickup -p yoursuperfunnypassword --authenticationDatabase tf2pickup --nsExclude admin.system.version --nsExclude admin.system.users --gzip" < tf2pickup-2023-05-01.dump.gz
 ```
 
 After that, you can start the remaining applications by running `docker compose up -d`.

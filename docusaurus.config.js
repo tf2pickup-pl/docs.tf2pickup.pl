@@ -41,7 +41,7 @@ module.exports = {
               to: 'docs/about',
             },
             {
-              label: 'For pickup admins',
+              label: 'For pickup admins and players',
               to: 'docs/responsibilities-and-powers'
             },
             {

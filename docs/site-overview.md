@@ -6,62 +6,64 @@ title: Site overview
 
 ### Pickup queue
 
-![pickup-queue](/img/content/pickup-queue.png)
+![pickup-queue](/img/content/overview/pickup-queue.png)
 
 ### Pickup game overview as a player
 
-![pickup-game-overview-as-a-player](/img/content/pickup-game-overview-as-a-player.png)
+![pickup-game-overview-as-a-player](/img/content/overview/pickup-game-overview-as-a-player.png)
 
 ### Pickup game overview as a spectator
 
-![pickup-game-overview-as-a-spectator](/img/content/pickup-game-overview-as-a-spectator.png)
+![pickup-game-overview-as-a-spectator](/img/content/overview/pickup-game-overview-as-a-spectator.png)
 
 ### Pickup game overview after a game
 
-![pickup-game-overview-after-a-game](/img/content/pickup-game-overview-after-a-game.png)
+![pickup-game-overview-after-a-game](/img/content/overview/pickup-game-overview-after-a-game.png)
 
 ### Player list
 
-![player-list](/img/content/player-list.png)
+![player-list](/img/content/overview/player-list.png)
 
 ### User settings
 
-![integrate-twitch-account](/img/content/integrate-twitch-account.png)
+![integrate-twitch-account](/img/content/overview/integrate-twitch-account.png)
 
 ### Player profile overview
 
-![player-profile](/img/content/player-profile.png)
+![player-profile](/img/content/overview/player-profile.png)
 
 ### Stats
 
-![stats](/img/content/stats.png)
+![stats](/img/content/overview/stats.png)
 
 ### Hall of fame
 
-![hall-of-fame](/img/content/hall-of-fame.png)
+![hall-of-fame](/img/content/overview/hall-of-fame.png)
 
 ### Player action log
 
-![player-action-log](/img/content/player-action-log.png)
+![player-action-log](/img/content/overview/player-action-log.png)
 
 ### Rules page
 
-![rules-page](/img/content/rules-page.png)
+![rules-page](/img/content/overview/rules-page.png)
+
+### Admin panel
+
+![admin-panel](/img/content/overview/admin-panel.png)
 
 ## Discord notifications
 
 ### Pickup gather notification
 
-![pickup-gather-notification](/img/content/pickup-gather-notification.png)
+![pickup-gather-notification](/img/content/overview/pickup-gather-notification.png)
 
-![pickup-gather-notification](/img/content/pickup-gather-notification-highlander.png)
+![pickup-gather-notification](/img/content/overview/pickup-gather-notification-highlander.png)
 
 ### Substitute needed notification
 
-![sub-needed](/img/content/sub-needed.png)
+![sub-needed](/img/content/overview/sub-needed.png)
 
 ### Admin discord notifications
 
-![discord-admin-notifications-1](/img/content/discord-admin-notifications-1.png)
-
-![discord-admin-notifications-2](/img/content/discord-admin-notifications-2.png)
+![discord-admin-notifications](/img/content/overview/discord-admin-notifications.png)
