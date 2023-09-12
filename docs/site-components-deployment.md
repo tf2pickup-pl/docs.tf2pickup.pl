@@ -590,7 +590,7 @@ volumes:
 
 ```html
 <html>
-<h2>Welcome on <b><a href="https://tf2pickup.eu">tf2pickup.eu</a></b> Mumble server.</h2>
+<h2>Welcome to <b><a href="https://tf2pickup.eu">tf2pickup.eu</a></b> Mumble server.</h2>
 In order to be able to join and speak public channels, you must be verified by the tf2pickup.eu Staff.</br>
 You can contact them on the <b><a href="https://discord.tf2pickup.eu">tf2pickup.eu Discord</a></b> in case you need any help.
 </html>

@@ -2,7 +2,7 @@
 title: Player registration issues
 ---
 
-Here you can explanations and solutions for problems which may happen during the player registration the site. In all cases, site admins can skip verifications by [disabling player restrictions](/docs/website-settings#configuring-player-restrictions) or by [force creating a profile](/docs/website-settings#force-create-a-player-account).
+Below you can find more details for problems that may occur upon player registration. In all cases, site admins can skip verifications by [disabling player restrictions](/docs/website-settings#configuring-player-restrictions) or by [force creating a profile](/docs/website-settings#force-create-a-player-account).
 
 ## ETF2L account is banned or blacklisted
 
@@ -18,7 +18,7 @@ If tf2pickup.org site enforces in-game hours spent requirement, player's Steam p
 
 ![public-game-details](/img/content/website-settings/public-game-details.png)
 
-After settings change, player should wait a short while in order to be able to join, so the site can get updated data from Steam API.
+After changing these settings, player should wait a short while in order to be able to join, so the site can get updated data from Steam API.
 
 ## Insufficient TF2 in-game hours
 
