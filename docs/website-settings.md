@@ -178,9 +178,17 @@ By default, after map is being picked to a next pickup game, it is excluded for 
 
 ### Setting up ready state timeout
 
+:::warning
+Changing this variable is unsupported. Restart your backend in order to apply the change.
+:::
+
 Defines time in miliseconds (default: `60000``) default value: given for all players to click the button as an indication to be ready to play a game. Should be provided as an integer.
 
 ### Setting up ready up timeout
+
+:::warning
+Changing this variable is unsupported. Restart your backend in order to apply the change.
+:::
 
 Defines time in miliseconds (default: `40000`). After the ready up mode is canceled due to insufficient amount of people in the queue, this value defines a time during which all players who have been in the queue during last ready-up mode will be readied up automatically. Should be provided as an integer.
 
