@@ -42,7 +42,7 @@ module.exports = {
             },
             {
               label: 'For pickup admins and players',
-              to: 'docs/responsibilities-and-powers'
+              to: 'docs/admin-responsibilities-and-powers'
             },
             {
               label: 'For server admins',
