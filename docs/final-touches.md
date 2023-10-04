@@ -277,13 +277,37 @@ dc4d44148848   portainer/portainer-ce:latest       "/portainer"             18 m
 
 Alternatively, you can use a Watchtower container which can update all/specific containers automatically with a schedule. All you need to do is to deploy it with proper parameters ([the one in example will execute upgrades everyday at 5:00 AM](https://pkg.go.dev/github.com/robfig/cron@v1.2.0#hdr-CRON_Expression_Format)):
 
-```bash
-docker run -d \
-    --name watchtower \
-    --restart always \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    containrrr/watchtower \
-    --cleanup --include-stopped --schedule "0 0 5 * * *"
+#### `docker-compose.yml`
+
+```docker
+version: '3.8'
+services:
+  watchtower:
+    image: containrrr/watchtower:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/supra/.docker/config.json:/config.json
+    restart: always
+    env_file: .env
+```
+
+#### `.env`
+
+```docker
+WATCHTOWER_CLEANUP=true
+WATCHTOWER_INCLUDE_STOPPED=true
+WATCHTOWER_INCLUDE_RESTARTING=true
+WATCHTOWER_SCHEDULE="0 0 5 * * *"
+WATCHTOWER_ROLLING_RESTART=true
+TZ="Europe/Warsaw"
+# optional arguments when you want to set notifications to a Discord webhook
+WATCHTOWER_NOTIFICATIONS_LEVEL="info"
+WATCHTOWER_NOTIFICATIONS_HOSTNAME="tf2pickup.eu"
+WATCHTOWER_NOTIFICATION_TITLE_TAGE="[tf2pickup.eu] "
+# format: discord://token@channel
+# https://discord.com/api/webhooks/1234567890123456789/XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
+# where the channel is 1234567890123456789 and the token is XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD
+WATCHTOWER_NOTIFICATION_URL="discord://XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXD@1234567890123456789"
 ```
 
 Watchtower will pull images and replace container images automatically. It also deletes old images after being replaced by the new ones, so it will not waste your disk space.
