@@ -56,10 +56,6 @@ title: Site showcase
 
 ![ultiduo.tf2pickup.eu](/img/content/showcase/ultiduo.tf2pickup.eu.png)
 
-### [sib.tf2pickup.ru](https://sib.tf2pickup.ru)
-
-![sib.tf2pickup.ru](/img/content/showcase/sib.tf2pickup.ru.png)
-
 ### [tf2pickup.eu](https://tf2pickup.eu)
 
 ![tf2pickup.eu](/img/content/showcase/tf2pickup.eu.png)
@@ -123,3 +119,7 @@ title: Site showcase
 ### [hl.tf2pickup.pl](https://hl.tf2pickup.pl)
 
 ![hl.tf2pickup.pl](/img/content/showcase/hl.tf2pickup.pl.png)
+
+### [sib.tf2pickup.ru](https://sib.tf2pickup.ru)
+
+![sib.tf2pickup.ru](/img/content/showcase/sib.tf2pickup.ru.png)
