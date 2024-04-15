@@ -32,10 +32,6 @@ title: Site showcase
 
 ![tf2pickup.pt](/img/content/showcase/tf2pickup.pt.png)
 
-### [bball.tf2pickup.eu](https://bball.tf2pickup.eu)
-
-![bball.tf2pickup.eu](/img/content/showcase/bball.tf2pickup.eu.png)
-
 ### [tf2pickup.co.il](https://tf2pickup.co.il)
 
 ![tf2pickup.co.il](/img/content/showcase/tf2pickup.co.il.png)
@@ -52,17 +48,9 @@ title: Site showcase
 
 ![hl.tf2pickup.eu](/img/content/showcase/hl.tf2pickup.eu.png)
 
-### [ultiduo.tf2pickup.eu](https://ultiduo.tf2pickup.eu)
-
-![ultiduo.tf2pickup.eu](/img/content/showcase/ultiduo.tf2pickup.eu.png)
-
 ### [tf2pickup.eu](https://tf2pickup.eu)
 
 ![tf2pickup.eu](/img/content/showcase/tf2pickup.eu.png)
-
-### [hl.tf2pickup.us](https://hl.tf2pickup.us)
-
-![hl.tf2pickup.us](/img/content/showcase/hl.tf2pickup.us.png)
 
 ### [br.tf2pickup.org](https://br.tf2pickup.org)
 
@@ -123,3 +111,15 @@ title: Site showcase
 ### [sib.tf2pickup.ru](https://sib.tf2pickup.ru)
 
 ![sib.tf2pickup.ru](/img/content/showcase/sib.tf2pickup.ru.png)
+
+### [bball.tf2pickup.eu](https://bball.tf2pickup.eu)
+
+![bball.tf2pickup.eu](/img/content/showcase/bball.tf2pickup.eu.png)
+
+### [ultiduo.tf2pickup.eu](https://ultiduo.tf2pickup.eu)
+
+![ultiduo.tf2pickup.eu](/img/content/showcase/ultiduo.tf2pickup.eu.png)
+
+### [hl.tf2pickup.us](https://hl.tf2pickup.us)
+
+![hl.tf2pickup.us](/img/content/showcase/hl.tf2pickup.us.png)
