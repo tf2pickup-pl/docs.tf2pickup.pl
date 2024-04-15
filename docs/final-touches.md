@@ -86,7 +86,7 @@ After the site start, you may want to add admins in order to make site moderatio
 
 ![run-diagnostics](/img/content/final-touches/player-roles.png)
 
-For setting a whitelist [look there](/docs/website-settings#defining-a-whitelist), map pool settings can be seen [there](/docs/website-settings#map-pool-settings), and [there](/docs/the-most-common-tasks#setting-up-player-skills) you can look at for the skill setup.
+For setting a whitelist [look there](/docs/website-settings#server-whitelist), map pool settings can be seen [there](/docs/website-settings#map-pool-settings), and [there](/docs/the-most-common-tasks#setting-up-player-skills) you can look at for the skill setup.
 
 ## Set up voice chat settings
 
