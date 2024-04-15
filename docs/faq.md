@@ -43,7 +43,7 @@ Our team is small, but we will try our best to help you with everything, includi
 
 #### Do I need to rent a server for hosting pickups?
 
-There are a few [components](docs/components-introduction) that need to run somewhere, so yes, you need a server for that. You can utilize [serveme.tf](https://serveme.tf) service in order to rent server for your pickup games automatically in case you do not require custom plugins for your gamemode.
+There are a few [components](/docs/components-introduction) that need to run somewhere, so yes, you need a server for that. You can utilize [serveme.tf](https://serveme.tf) service in order to rent server for your pickup games automatically in case you do not require custom plugins for your gamemode.
 
 ---
 
