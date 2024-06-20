@@ -458,7 +458,7 @@ DEMOS_TF_APIKEY=XDXDXDXDXDXDXDXDXDXDXD..XD.XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDX
 If you don't want to use Mumble, feel free to remove the 'mumble-server' part of the file.
 
 :::caution
-Examples below use **[rapidfort/mongodb](https://hub.docker.com/r/rapidfort/mongodb)** and **[rapidfort/redis](https://hub.docker.com/r/rapidfort/redis)** images, which are hardened non-root images.  
+Examples below use **[bitnami/mongodb](https://hub.docker.com/r/bitnami/mongodb)** and **[bitnami/redis](https://hub.docker.com/r/bitnami/redis)** images, which are hardened non-root images.  
 Using them is optional - you are also fine with the official images for these containers, however environment variables are named differently.
 :::
 
@@ -516,7 +516,7 @@ services:
       - ./.env
 
   mongodb:
-    image: rapidfort/mongodb:4.4
+    image: bitnami/mongodb:4.4
     # you can set the tag to the 'latest', '5.0' or '6.0', however it requires your host CPU to have AVX instructions available
     # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS not
     restart: always
@@ -533,11 +533,10 @@ services:
     hostname: tf2pickup-eu-mongo
 
   redis:
-    image: rapidfort/redis:7.0
+    image: bitnami/redis:7.2
     restart: always
     volumes:
       - redis-data:/bitnami/redis/data
-      - ./redis.conf:/opt/bitnami/redis/etc/redis.conf
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
@@ -621,7 +620,7 @@ services:
      - '4000:80'
 
   mongodb:
-    image: rapidfort/mongodb:4.4
+    image: bitnami/mongodb:4.4
     # you can set the tag to the 'latest', '5.0' or '6.0', however it requires your host CPU to have AVX instructions available
     # which is not a case for all hostings, for example Hetzner's VPS support it but Netcup.de's VPS not
     restart: always
@@ -638,11 +637,10 @@ services:
     hostname: tf2pickup-eu-mongo
 
   redis:
-    image: rapidfort/redis:7.0
+    image: bitnami/redis:7.2
     restart: always
     volumes:
       - redis-data:/bitnami/redis/data
-      - ./redis.conf:/opt/bitnami/redis/etc/redis.conf
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
@@ -699,72 +697,6 @@ services:
     - ./gameserver_3.env
 ```
 
-## Redis configuration file `redis.conf`
-
-```conf
-bind 0.0.0.0 ::
-port 6379
-tcp-backlog 511
-timeout 0
-tcp-keepalive 300
-daemonize yes
-pidfile /opt/bitnami/redis/tmp/redis.pid
-loglevel notice
-logfile ""
-databases 16
-always-show-logo no
-set-proc-title yes
-proc-title-template "{title} {listen-addr} {server-mode}"
-save 1 60
-stop-writes-on-bgsave-error yes
-rdbcompression yes
-rdbchecksum yes
-dbfilename dump.rdb
-rdb-del-sync-files no
-dir /bitnami/redis/data
-replica-serve-stale-data yes
-replica-read-only yes
-repl-diskless-sync yes
-repl-diskless-sync-delay 5
-repl-diskless-sync-max-replicas 0
-repl-diskless-load disabled
-replica-priority 100
-acllog-max-len 128
-requirepass yoursuperfunnyredispassword
-oom-score-adj no
-oom-score-adj-values 0 200 800
-disable-thp yes
-appendonly yes
-appendfilename "appendonly.aof"
-appenddirname "appendonlydir"
-appendfsync everysec
-no-appendfsync-on-rewrite no
-auto-aof-rewrite-percentage 100
-auto-aof-rewrite-min-size 64mb
-aof-load-truncated yes
-aof-use-rdb-preamble yes
-aof-timestamp-enabled no
-latency-monitor-threshold 0
-hash-max-listpack-entries 512
-hash-max-listpack-value 64
-list-max-listpack-size -2
-list-compress-depth 0
-set-max-intset-entries 512
-zset-max-listpack-entries 128
-zset-max-listpack-value 64
-hll-sparse-max-bytes 3000
-stream-node-max-bytes 4096
-stream-node-max-entries 100
-activerehashing yes
-client-output-buffer-limit normal 0 0 0
-client-output-buffer-limit replica 256mb 64mb 60
-client-output-buffer-limit pubsub 32mb 8mb 60
-hz 10
-dynamic-hz yes
-aof-rewrite-incremental-fsync yes
-rdb-save-incremental-fsync yes
-```
-
 ## Giving `tf2pickup` user access to Docker commands
 
 :::caution
@@ -786,14 +718,14 @@ Since Mumble is utilizing certificates being renewed by Certbot, it must refresh
 
 ## First site start
 
-Since [RapidFort](https://hub.docker.com/u/rapidfort) images are based on [Bitnami](https://hub.docker.com/u/bitnami) images, they do not use root user (UID 0) in order to control the service within the container. These services are supposed to run as a user with UID 1001 (you can overwrite the ID in `docker-compose.yml`), so in order to let service work you must set a right permissions for their respective data folders and `redis.conf` configuration file.
+Since [bitnami](https://hub.docker.com/u/bitnami) images are based on [Bitnami](https://hub.docker.com/u/bitnami) images, they do not use root user (UID 0) in order to control the service within the container. These services are supposed to run as a user with UID 1001 (you can overwrite the ID in `docker-compose.yml`), so in order to let service work you must set a right permissions for their respective data folders and `redis.conf` configuration file.
 
 When you have all the configuration files mentioned above ready to go, change `docker-compose.yml` in the following way:
 
 ```docker
   mongodb:
     command: sleep infinity
-    image: rapidfort/mongodb:4.4
+    image: bitnami/mongodb:4.4
     restart: always
     volumes:
     - database-data:/bitnami/mongodb
@@ -809,11 +741,10 @@ When you have all the configuration files mentioned above ready to go, change `d
 
   redis:
     command: sleep infinity
-    image: rapidfort/redis:7.0
+    image: bitnami/redis:7.2
     restart: always
     volumes:
       - redis-data:/bitnami/redis/data
-      - ./redis.conf:/opt/bitnami/redis/etc/redis.conf
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
@@ -828,10 +759,4 @@ docker exec -i -u 0 tf2pickup-eu_mongo_1 chown -R 1001:1001 /bitnami/mongodb
 docker exec -i -u 0 tf2pickup-eu_client_1 chown -R 1001:1001 /bitnami/redis/data
 ```
 
-Then, set 1001:1001 permissions for `redis.conf` file:
-
-```sh
-sudo chown 1001:1001 redis.conf
-```
-
-When permissions are set, remove the `command` parameter lines from `docker-compose.yml` and and run `docker compose up -d` in order to start the entire stack. Each time you would like to stop the application stack, you are supposed to execute command `docker compose stop` and `docker compose start -d` when you start the stack. Containers have a `restart always` policy meaning the containers will always restart on fail, so it will also always start on a system boot as long as `docker.service` service is also starting on system boot.
+When it's done, remove the `command` parameter lines from `docker-compose.yml` and and run `docker compose up -d` in order to start the entire stack. Each time you would like to stop the application stack, you are supposed to execute command `docker compose stop` and `docker compose start -d` when you start the stack. Containers have a `restart always` policy meaning the containers will always restart on fail, so it will also always start on a system boot as long as `docker.service` service is also starting on system boot.
