@@ -56,6 +56,10 @@ title: Site showcase
 
 ![br.tf2pickup.org](/img/content/showcase/br.tf2pickup.org.png)
 
+### [ar.tf2pickup.org](https://ar.tf2pickup.org)
+
+![ar.tf2pickup.org](/img/content/showcase/ar.tf2pickup.org.png)
+
 ## Event only websites
 
 ### [6v6.poland.tf](https://6v6.poland.tf)
@@ -123,3 +127,7 @@ title: Site showcase
 ### [hl.tf2pickup.us](https://hl.tf2pickup.us)
 
 ![hl.tf2pickup.us](/img/content/showcase/hl.tf2pickup.us.png)
+
+### [tf2pickup.it](https://tf2pickup.it)
+
+![tf2pickup.it](/img/content/showcase/tf2pickup.it.png)
