@@ -8,7 +8,7 @@ In order to allow for a quick site setup, we make use of Docker containers. That
 
 - have everything mentioned in the [reverse proxy deployment](/docs/setup-prerequisites) set up,
 - have modern Docker and docker-compose version installed in your system, for docker-compose [use this guide](https://docs.docker.com/compose/install/) and for Docker feel free to use guides for:
-  - [Ubuntu 22.04](https://docs.docker.com/engine/install/ubuntu/),
+  - [Ubuntu 24.04](https://docs.docker.com/engine/install/ubuntu/),
   - [Debian 12](https://docs.docker.com/engine/install/debian/),
   - [Arch Linux](https://wiki.archlinux.org/title/docker#Installation),
 - prepare the following files in a separate folder, name it `tf2pickup-eu`, then place inside:
@@ -96,11 +96,11 @@ MONGODB_DATABASE=tf2pickup
 MONGODB_PASSWORD=yoursuperfunnypassword
 # MONGODB_URI syntax:
 # mongodb://username:password@hostname/database-name
-MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@tf2pickup-eu-mongo/tf2pickup
+MONGODB_URI=mongodb://tf2pickup:yoursuperfunnypassword@mongo/tf2pickup
 
 # Redis URL
 REDIS_PASSWORD=yoursuperfunnyredispassword
-REDIS_URL=redis://:yoursuperfunnyredispassword@tf2pickup-eu-redis:6379
+REDIS_URL=redis://:yoursuperfunnyredispassword@redis:6379
 
 # logs.tf API key
 # Obtain yours here: https://logs.tf/uploader
@@ -136,10 +136,6 @@ LOG_RELAY_PORT=9871
 # Discord (optional)
 # You will find a bot token at https://discord.com/developers/applications
 DISCORD_BOT_TOKEN=XDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDXDX
-DISCORD_GUILD=Suomi TF2
-DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=come-play-with-us
-DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=ringer
-DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=pickup-notifications
 
 # twitch.tv integration (optional)
 # https://dev.twitch.tv/console, while setting up a new app,
@@ -278,14 +274,9 @@ The admin notifications channel is called `#pickup-notifications`.
 
 ![discord-admin-notifications-1](/img/content/overview/discord-admin-notifications.png)
 
-Therefore, you should define the rest of Discord Bot variables just like shown below:
+Therefore, you should define the rest of Discord Bot settings in the panel just like shown below:
 
-```env
-DISCORD_GUILD=tf2pickup.eu
-DISCORD_QUEUE_NOTIFICATIONS_CHANNEL=come-play-with-us
-DISCORD_QUEUE_NOTIFICATIONS_MENTION_ROLE=ringer
-DISCORD_ADMIN_NOTIFICATIONS_CHANNEL=pickup-notifications
-```
+![discord-admin-notifications-1](/img/content/site-components-deployment/discord-settings.png)
 
 ### Setting up Twitch stream integration
 
@@ -463,8 +454,6 @@ Using them is optional - you are also fine with the official images for these co
 :::
 
 ```docker
-version: '3.8'
-
 services:
   backend:
     depends_on:
@@ -475,8 +464,8 @@ services:
     ports:
     - '3000:3000'
     - '9871:9871/udp'
-    volumes:
-    - './.env:/tf2pickup.pl/.env'
+    env_file:
+    - ./.env
 
   frontend:
     image: ghcr.io/tf2pickup-org/tf2pickup.eu:stable
@@ -496,22 +485,6 @@ services:
       - /etc/letsencrypt/live/tf2pickup.eu/fullchain.pem:/certs/fullchain.pem:ro
       - /etc/letsencrypt/live/tf2pickup.eu/privkey.pem:/certs/privkey.pem:ro
       - ./welcome_text.txt:/welcome_text.txt:ro
-    environment:
-      - MUMBLE_SUPERUSER_PASSWORD=${MUMBLE_SUPERUSER_PASSWORD}
-      - MUMBLE_CONFIG_USERNAME=${MUMBLE_CONFIG_USERNAME}
-      - MUMBLE_CONFIG_CHANNELNAME=${MUMBLE_CONFIG_CHANNELNAME}
-      - MUMBLE_CONFIG_REGISTER_HOSTNAME=${MUMBLE_CONFIG_REGISTER_HOSTNAME}
-      - MUMBLE_CONFIG_REGISTER_NAME=${MUMBLE_CONFIG_REGISTER_NAME}
-      - MUMBLE_CONFIG_WELCOMETEXTFILE=${MUMBLE_CONFIG_WELCOMETEXTFILE}
-      - MUMBLE_CONFIG_SSL_CERT=${MUMBLE_CONFIG_SSL_CERT}
-      - MUMBLE_CONFIG_SSL_KEY=${MUMBLE_CONFIG_SSL_KEY}
-      - MUMBLE_CONFIG_SSLDHPARAMS=${MUMBLE_CONFIG_SSLDHPARAMS}
-      - MUMBLE_CONFIG_OPUSTHRESHOLD=${MUMBLE_CONFIG_OPUSTHRESHOLD}
-      - MUMBLE_CONFIG_BANDWIDTH=${MUMBLE_CONFIG_BANDWIDTH}
-      - MUMBLE_CONFIG_USERS=${MUMBLE_CONFIG_USERS}
-      - MUMBLE_CONFIG_PORT=${MUMBLE_CONFIG_PORT}
-      - MUMBLE_CONFIG_TEXTMESSAGELENGTH=${MUMBLE_CONFIG_TEXTMESSAGELENGTH}
-      - MUMBLE_CONFIG_IMAGEMESSAGELENGTH=${MUMBLE_CONFIG_IMAGEMESSAGELENGTH}
     env_file:
       - ./.env
 
@@ -522,15 +495,8 @@ services:
     restart: always
     volumes:
     - database-data:/bitnami/mongodb
-    environment:
-      - MONGODB_ROOT_USER=${MONGODB_ROOT_USER}
-      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
-      - MONGODB_DATABASE=${MONGODB_DATABASE}
-      - MONGODB_USERNAME=${MONGODB_USERNAME}
-      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-eu-mongo
 
   redis:
     image: bitnami/redis:7.2
@@ -541,7 +507,6 @@ services:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-eu-redis
 
   gameserver1:
     image: ghcr.io/tf2pickup-org/tf2-gameserver:latest
@@ -598,8 +563,6 @@ You can contact them on the <b><a href="https://discord.tf2pickup.eu">tf2pickup.
 ## `docker-compose.yml` for the website only
 
 ```docker
-version: '3.8'
-
 services:
   backend:
     depends_on:
@@ -610,8 +573,8 @@ services:
     ports:
     - '3000:3000'
     - '9871:9871/udp'
-    volumes:
-    - './.env:/tf2pickup.pl/.env'
+    env_file:
+    - ./.env
 
   frontend:
     image: ghcr.io/tf2pickup-org/tf2pickup.eu:stable
@@ -626,26 +589,16 @@ services:
     restart: always
     volumes:
     - database-data:/bitnami/mongodb
-    environment:
-      - MONGODB_ROOT_USER=${MONGODB_ROOT_USER}
-      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
-      - MONGODB_DATABASE=${MONGODB_DATABASE}
-      - MONGODB_USERNAME=${MONGODB_USERNAME}
-      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-eu-mongo
 
   redis:
     image: bitnami/redis:7.2
     restart: always
     volumes:
       - redis-data:/bitnami/redis/data
-    environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
       - ./.env
-    hostname: tf2pickup-eu-redis
 
 volumes:
   database-data:
@@ -657,8 +610,6 @@ volumes:
 Feel free to remove reduntant gameservers from the file if there are more than you actually need.
 
 ```docker
-version: '3.8'
-
 services:
   gameserver1:
     image: ghcr.io/tf2pickup-org/tf2-gameserver:latest
@@ -729,12 +680,6 @@ When you have all the configuration files mentioned above ready to go, change `d
     restart: always
     volumes:
     - database-data:/bitnami/mongodb
-    environment:
-      - MONGODB_ROOT_USER=${MONGODB_ROOT_USER}
-      - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD}
-      - MONGODB_DATABASE=${MONGODB_DATABASE}
-      - MONGODB_USERNAME=${MONGODB_USERNAME}
-      - MONGODB_PASSWORD=${MONGODB_PASSWORD}
     env_file:
       - ./.env
     hostname: tf2pickup-eu-mongo
@@ -745,8 +690,6 @@ When you have all the configuration files mentioned above ready to go, change `d
     restart: always
     volumes:
       - redis-data:/bitnami/redis/data
-    environment:
-      - REDIS_PASSWORD=${REDIS_PASSWORD}
     env_file:
       - ./.env
     hostname: tf2pickup-eu-redis
