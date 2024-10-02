@@ -7,7 +7,7 @@ RUN npm run build
 
 # Deployment step
 
-FROM busybox:1.36 as deploy
+FROM busybox:1.37 as deploy
 
 RUN adduser -D static
 USER static
